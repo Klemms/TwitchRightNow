@@ -20,6 +20,7 @@
             function messageExtention() {
                 chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: twitchToken},
                 function(response) {
+                    console.log(response);
                     if (!response.success) {
                         document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />Are you sure it is properly installed ?";
                     } else {
