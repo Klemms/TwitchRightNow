@@ -29,7 +29,7 @@
                 })
             }
 
-            function getHashParameters() {
+            function getHashParameters(hashname) {
                 var hashParams = new Map();
 
                 window.location.hash.substr(1).split('&').forEach(function(element) {
@@ -37,13 +37,12 @@
                     hashParams.set(newElem[0], newElem[1]);
                 })
 
-                console.log(hashParams);
-                console.log(hashParams["access_token"]);
+                return (hashParams.get(hashname));
             }
 
             window.addEventListener("load", function() {
                 console.log("Loaded");
-                getHashParameters();
+                console.log(getHashParameters("access_token"));
             });
         </script>
     </head>
