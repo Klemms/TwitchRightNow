@@ -22,9 +22,6 @@
                 function(response) {
                     if (response.status == "success") {
                         document.getElementById("mainMessage").innerHTML = "Successfully logged in !";
-                        setTimeout(function() {
-                            window.close;
-                        }, 500);
                     } else {
                         document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />(" + response.status + ")";
                     }
