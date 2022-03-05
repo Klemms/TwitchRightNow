@@ -18,7 +18,7 @@
             var twitchToken = "none";
 
             function messageExtention() {
-                chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: twitchToken},
+                chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
                 function(response) {
                     console.log(response);
                     if (!response.success) {
@@ -42,7 +42,6 @@
 
             window.addEventListener("load", function() {
                 console.log("Loaded");
-                console.log(getHashParameters("access_token"));
             });
         </script>
     </head>
