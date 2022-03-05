@@ -20,9 +20,8 @@
             function messageExtention() {
                 chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
                 function(response) {
-                    console.log(response);
                     if (response.status == "success") {
-                        document.getElementById("mainMessage").innerHTML = "Successdfully logged in !";
+                        document.getElementById("mainMessage").innerHTML = "Successfully logged in !";
                     } else {
                         document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />(" + response.status + ")";
                     }
@@ -41,7 +40,7 @@
             }
 
             window.addEventListener("load", function() {
-                console.log("Loaded");
+                messageExtention();
             });
         </script>
     </head>
