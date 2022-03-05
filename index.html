@@ -29,8 +29,13 @@
                 })
             }
 
+            function getHashParameters() {
+                console.log(window.location.hash.substr(1).split('&')["access_token"]);
+            }
+
             window.addEventListener("load", function() {
                 console.log("Loaded");
+                getHashParameters();
             });
         </script>
     </head>
