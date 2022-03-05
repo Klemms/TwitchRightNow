@@ -30,7 +30,15 @@
             }
 
             function getHashParameters() {
-                console.log(window.location.hash.substr(1).split('&')["access_token"]);
+                var hashParams = [];
+
+                window.location.hash.substr(1).split('&').forEach(function(element) {
+                    let newElem = element.split('=');
+                    hashParams.push(newElem[0], newElem[1]);
+                })
+
+                console.log(hashParams);
+                console.log(hashParams["access_token"]);
             }
 
             window.addEventListener("load", function() {
