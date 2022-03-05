@@ -21,10 +21,10 @@
                 chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
                 function(response) {
                     console.log(response);
-                    if (!response.success) {
-                        document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />Are you sure it is properly installed ?";
-                    } else {
+                    if (response.status == "success") {
                         document.getElementById("mainMessage").innerHTML = "Successdfully logged in !";
+                    } else {
+                        document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />(" + response.status + ")";
                     }
                 })
             }
