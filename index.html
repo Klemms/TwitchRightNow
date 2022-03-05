@@ -13,8 +13,26 @@
                 font-size: 30px;
             }
         </style>
+        <script>
+            var ttvRightNowID = "jaebeaoffbboingfjbdkgbnnfdkjilld";
+
+            window.addEventListener("load", function() {
+                console.log("Loaded");
+            });
+
+            function messageExtention() {
+                chrome.runtime.sendMessage(ttvRightNowID, {openUrlInEditor: url},
+                function(response) {
+                    if (!response.success) {
+                        document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />Are you sure it is properly installed ?";
+                    } else {
+                        document.getElementById("mainMessage").innerHTML = "Successdfully logged in !";
+                    }
+                })
+            }
+        </script>
     </head>
     <body>
-        Please wait a few seconds...
+        <div id="mainMessage">Please wait a few seconds...</div>
     </body>
 </html>
