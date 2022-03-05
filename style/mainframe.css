@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    src: url("chrome-extension://__MSG_@@extension_id__/fonts/Inter-Regular.ttf");
+}
+@font-face {
+    font-family: "Inter";
+    font-style: bold;
+    font-weight: 700;
+    src: url("chrome-extension://__MSG_@@extension_id__/fonts/Inter-SemiBold.ttf");
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    width: 350px;
+    height: 500px;
+    background-color: #3b323f;
+    margin: 0;
+    padding: 0;
+}
+
+.icon {
+    background-image: url("chrome-extension://__MSG_@@extension_id__/images/icon.png");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+#top-bar {
+    height: 35px;
+    width: 100%;
+    position: fixed;
+    background-color: #262029;
+}
+
+#top-bar input {
+    font-family: 'Inter', sans-serif;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #544e57;
+    border: 1px solid #666666;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 9px;
+    height: 21px;
+    padding-left: 5px;
+    caret-color: white;
+    color: white;
+}
+#top-bar input:focus {
+    outline: none;
+}
+
+#login-twitch {
+    font-family: 'Inter', sans-serif;
+    display: inline-block;
+    position: absolute;
+    right: 7px;
+    margin-top: 5px;
+    height: 25px;
+}
+#login-twitch button {
+    font-family: 'Inter', sans-serif;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(104,50,185,1) 9%, rgba(145,71,255,1) 100%);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    padding-left: 9px;
+    padding-right: 9px;
+    cursor: pointer;
+}
+#login-twitch button:active {
+    background: linear-gradient(0deg, rgba(104,50,185,1) 50%, rgba(145,71,255,1) 100%);
+}
