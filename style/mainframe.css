@@ -11,9 +11,30 @@
     src: url("chrome-extension://__MSG_@@extension_id__/fonts/Inter-SemiBold.ttf");
 }
 
+/* Firefox */
+* {
+    scrollbar-width: 7px;
+    scrollbar-color: #1e1a20 #3b323f;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 7px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #3b323f;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #1e1a20;
+    border-radius: 10px;
+    border: 0px none #ffffff;
+}
+
 body {
     font-family: 'Inter', sans-serif;
-    width: 350px;
+    width: 360px;
     height: 500px;
     background-color: #3b323f;
     margin: 0;
@@ -42,7 +63,7 @@ body {
     border: 1px solid #666666;
     position: absolute;
     margin-top: 5px;
-    margin-left: 9px;
+    margin-left: 5px;
     height: 21px;
     padding-left: 5px;
     caret-color: white;
@@ -74,4 +95,180 @@ body {
 }
 #login-twitch button:active {
     background: linear-gradient(0deg, rgba(104,50,185,1) 50%, rgba(145,71,255,1) 100%);
+}
+
+#disconnected-tip {
+    color: white;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-left: 7px;
+}
+#disconnected-stream-tip {
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    text-align: center;
+    color: #878787;
+    font-size: 15px;
+}
+
+#user-infos-top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    height: 33px;
+    padding-left: 5px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+#user-infos-top:hover {
+    background-color: #332a36;
+    transition: 0.5s;
+}
+#username-top {
+    position: relative;
+    margin-top: 8px;
+    margin-right: 6px;
+    color: white;
+    font-size: 14px;
+    display: inline-block;
+    float: right;
+}
+#user-pic-top {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    margin-top: 3px;
+    margin-right: 4px;
+    border-radius: 50%;
+    border: 2px solid #934485;
+    display: inline-block;
+    float: right;
+}
+
+#streams {
+    position: absolute;
+    width: 100%;
+    height: 465px;
+    top: 35px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+#streams .stream {
+    position: relative;
+    height: 65px;
+    overflow: hidden;
+    background-color: #281f2c;
+    box-shadow: 0px 0px 5px 1px #262029;
+    margin-bottom: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+#streams .stream:hover {
+    background-color: #403146;
+    transition: 0.5s;
+}
+.stream .stream-pic {
+    width: 115px;
+}
+.stream .streamer-name {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    background-color: rgb(0 0 0 / 80%);
+    padding: 2px 7px 3px 3px;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    box-sizing: border-box;
+    max-width: 115px;
+}
+.stream .right-part {
+    position: absolute;
+    width: 225px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    padding: 2px 2px 2px 3px;
+    box-sizing: border-box;
+}
+.stream .right-part .stream-title {
+    color: #dbdbdb;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.stream .right-part .stream-game {
+    color: #dbdbdb;
+    font-size: 13px;
+}
+.stream .right-part .viewer-count {
+    position: absolute;
+    color: #dbdbdb;
+    padding: 2px 8px 2px 5px;
+    background-color: #121212;
+    border: 1px solid #464646;
+    border-radius: 15px;
+    right: 3px;
+    bottom: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.stream .right-part .stream-tags {
+    position: absolute;
+    bottom: 0;
+}
+.stream .right-part .stream-time {
+    position: relative;
+    display: inline-block;
+    color: #dbdbdb;
+    padding: 1px 7px 1px 6px;
+    background-color: #121212;
+    border: 1px solid #464646;
+    border-radius: 15px;
+    right: 3px;
+    bottom: 4px;
+    left: 1px;
+    font-size: 12px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.stream .right-part .stream-language {
+    position: relative;
+    display: inline-block;
+    color: #dbdbdb;
+    padding: 1px 7px 1px 6px;
+    background-color: #121212;
+    border: 1px solid #464646;
+    border-radius: 15px;
+    right: 3px;
+    bottom: 4px;
+    left: 1px;
+    font-size: 12px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.stream .right-part .stream-mature {
+    position: relative;
+    display: inline-block;
+    color: #dbdbdb;
+    padding: 1px 5px 1px 5px;
+    background-color: #121212;
+    border: 1px solid #464646;
+    border-radius: 15px;
+    right: 3px;
+    bottom: 4px;
+    left: 1px;
+    font-size: 12px;
+    font-weight: bold;
+    box-sizing: border-box;
 }

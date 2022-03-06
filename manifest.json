@@ -13,5 +13,8 @@
     },
     "icons": {
         "256": "images/icon.png"
+    },
+    "externally_connectable": {
+        "matches": ["https://klemms.github.io/TwitchRightNow/*"]
     }
 }

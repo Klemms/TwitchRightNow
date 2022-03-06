@@ -2,15 +2,42 @@
 <html>
     <head>
         <link rel="stylesheet" href="style/mainframe.css" />
+        <script src="scripts/popup.js"></script>
     </head>
     <body>
         <div id="top-bar">
-            <div class="icon" style="width: 25px; height: 25px; margin-top: 5px; margin-left: 7px;"></div>
-            <input type="text" placeholder="Search Followed Streams" autofocus />
+            <div class="icon" style="display: none; width: 25px; height: 25px; margin-top: 5px; margin-left: 4px;"></div>
+            <input id="searchbox" type="text" placeholder="Search Followed Streams" autofocus style="display: none;" />
+            <div id="disconnected-tip" style="display: inline-block;">TTV Right Now</div>
             <div id="login-twitch">
-                <button>Twitch Login</button>
+                <a href="https://id.twitch.tv/oauth2/authorize?client_id=9ds9194jefzxja6up90v9jrdgxnlac&redirect_uri=https://klemms.github.io/TwitchRightNow/&response_type=token&scope=user:read:follows" target="_blank"><button>Login with Twitch</button></a>
+            </div>
+            <div id="user-infos-top" style="display: none;" title="Click to disconnect">
+                <img id="user-pic-top" src="https://static-cdn.jtvnw.net/jtv_user_pictures/599b546a-c27f-4684-93ff-5eeecd01fb2b-profile_image-300x300.png" />
+                <span id="username-top">Twitch User</span>
             </div>
         </div>
-        <button id="changeColor"></button>
+        <div id="disconnected-stream-tip" style="display: block;">
+            <h3>Login with your Twitch account</h3><br />
+            Live streams from people you follow<br />
+            will be showed here once you're logged in.<br /><br />
+            Use the button located in the<br />upper right corner.
+        </div>
+        <div id="streams">
+            <!--div class="stream">
+                <img class="stream-pic" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_sodapoppin-160x90.jpg" />
+                <div class="streamer-name" title="sodapoppin">sodapoppin</div>
+                <div class="right-part">
+                    <div class="stream-title" title="Daily Dose of POSITIVITY| www.sodapoppin.shop/plushies">Daily Dose of POSITIVITY| www.sodapoppin.shop/plushies</div>
+                    <div class="stream-game" title="Elden Ring">Elden Ring</div>
+                    <div class="viewer-count">&#x1F534;15935</div>
+                    <div class="stream-tags">
+                        <div class="stream-time">2:15</div>
+                        <div class="stream-language">en</div>
+                        <div class="stream-mature">18+</div>
+                    </div>
+                </div>
+            </div-->
+        </div>
     </body>
 </html>

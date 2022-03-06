@@ -21,7 +21,7 @@
                 chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
                 function(response) {
                     if (response.status == "success") {
-                        document.getElementById("mainMessage").innerHTML = "Successfully logged in !";
+                        document.getElementById("mainMessage").innerHTML = "Successfully logged in !<br />You can close this tab.";
                     } else {
                         document.getElementById("mainMessage").innerHTML = "An issue occured while communicating with the extension.<br />(" + response.status + ")";
                     }
