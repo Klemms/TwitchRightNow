@@ -43,14 +43,14 @@ function populatePage() {
             this.document.getElementById("searchbox").style["display"] = "inline-block";
             this.document.getElementById("informations").style["display"] = "block";
             chrome.storage.local.get("lastStreamsRefresh", lastStreamsRefresh_result => {
-                this.document.getElementById("last-streams-update").innerHTML = "Last Update " + new Date(lastStreamsRefresh_result.lastStreamsRefresh).toLocaleTimeString('fr-FR') + " - Updates every 5mins";
+                this.document.getElementById("last-streams-update").innerText = "Last Update " + new Date(lastStreamsRefresh_result.lastStreamsRefresh).toLocaleTimeString('fr-FR') + " - Updates every 5mins";
             });
 
             chrome.storage.local.get("ttvUser_data", ttvUser_data_result => {
                 let ttvUser_data = ttvUser_data_result.ttvUser_data;
 
                 // Populating username + user picture
-                this.document.getElementById("username-top").innerHTML = ttvUser_data.display_name;
+                this.document.getElementById("username-top").innerText = ttvUser_data.display_name;
                 this.document.getElementById("user-pic-top").src = ttvUser_data.profile_image_url;
             });
 
@@ -65,7 +65,7 @@ function populatePage() {
             this.document.getElementById("disconnected-tip").style["display"] = "inline-block";
             this.document.getElementById("disconnected-stream-tip").style["display"] = "block";
             this.document.getElementById("searchbox").style["display"] = "none";
-            this.document.getElementById("streams").innerHTML = "";
+            this.document.getElementById("streams").innerText = "";
             this.document.getElementById("informations").style["display"] = "none";
         }
     })
@@ -100,10 +100,10 @@ function newDiv(stream_info){
     var newStream = 
         '<a href="https://www.twitch.tv/' + stream_info.user_login + '" target="_blank"><div class="stream">' +
         '<img class="stream-pic" src="' + stream_info.thumbnail_url.replace("{width}", "128").replace("{height}", "72") + '" />' +
-        '<div class="streamer-name" title="' + stream_info.user_name + '">' + stream_info.user_name + '</div>' +
+        '<div class="streamer-name" title="' + sanitizeString(stream_info.user_name) + '">' + sanitizeString(stream_info.user_name) + '</div>' +
         '<div class="right-part">' +
-        '    <div class="stream-title" title="' + stream_info.title + '">' + stream_info.title + '</div>' +
-        '    <div class="stream-game" title="' + stream_info.game_name + '">' + stream_info.game_name + '</div>' +
+        '    <div class="stream-title" title="' + sanitizeString(stream_info.title) + '">' + sanitizeString(stream_info.title) + '</div>' +
+        '    <div class="stream-game" title="' + sanitizeString(stream_info.game_name) + '">' + sanitizeString(stream_info.game_name) + '</div>' +
         '    <div class="viewer-count">&#x1F534;' + new Intl.NumberFormat('fr-FR').format(stream_info.viewer_count) + '</div>' +
         '    <div class="stream-tags">' +
         '        <div class="stream-time">' + getStreamUptime(stream_info.started_at) + '</div>' +
@@ -114,6 +114,11 @@ function newDiv(stream_info){
         '</div></a>';
     
     return newStream;
+}
+
+function sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
 }
 
 function getStreamUptime(startTime) {
