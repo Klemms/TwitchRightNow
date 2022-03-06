@@ -1,5 +1,3 @@
-var callUserInfos = true;
-
 chrome.alarms.create("refresh", {
     "delayInMinutes": 5,
     "periodInMinutes": 5
@@ -19,6 +17,7 @@ chrome.runtime.onStartup.addListener(() => {
 function onStart() {
     chrome.storage.local.set({"lastTTVTokenRefresh": 1});
     chrome.storage.local.set({"lastStreamsRefresh": 0});
+    chrome.storage.local.set({"callUserInfos": true});
     chrome.action.setBadgeBackgroundColor({
         "color": [96, 58, 140, 255]
     });
@@ -62,14 +61,16 @@ function refreshToken(refreshAll) {
 }
 
 function refresh(ttvToken, ttvUser) {
-    if (callUserInfos) {
-        callUserInfos = false;
-        getUserInfos(ttvToken, ttvUser.client_id, data => {
-            chrome.storage.local.set({"ttvUser_data": data.data[0]});
-        });
-    } else {
-        callUserInfos = true;
-    }
+    chrome.storage.local.get("callUserInfos", callUserInfos_result => {
+        if (callUserInfos_result.callUserInfos) {
+            chrome.storage.local.set({"callUserInfos": false});
+            getUserInfos(ttvToken, ttvUser.client_id, data => {
+                chrome.storage.local.set({"ttvUser_data": data.data[0]});
+            });
+        } else {
+            chrome.storage.local.set({"callUserInfos": true});
+        }
+    });
 
     getLiveFollowedStreams(ttvToken, ttvUser.user_id, ttvUser.client_id, data => {
         chrome.storage.local.set({"lastStreamsRefresh": Date.now()});
@@ -82,8 +83,9 @@ function refresh(ttvToken, ttvUser) {
 
 function forceRefresh() {
     chrome.storage.local.set({"lastTTVTokenRefresh": 0}, () => {
-        callUserInfos = true;
-        refreshToken(true);
+        chrome.storage.local.set({"callUserInfos": true}, () => {
+            refreshToken(true);
+        });
     });
 }
 
