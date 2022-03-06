@@ -1,31 +1,27 @@
-var refreshID;
-var callUserInfos;
+var callUserInfos = true;
+
+chrome.alarms.create("refresh", {
+    "delayInMinutes": 5,
+    "periodInMinutes": 5
+});
+chrome.alarms.onAlarm.addListener(alarm => {
+    refreshToken(true);
+})
 
 chrome.runtime.onInstalled.addListener(() => {
-    console.log("Extention installed");
     onStart();
 });
 
-chrome.runtime.onStartup.addListener(
-    function() {
-        console.log("Browser started");
-        onStart();
-    }
-);
+chrome.runtime.onStartup.addListener(() => {
+    onStart();
+});
 
 function onStart() {
+    chrome.storage.local.set({"lastTTVTokenRefresh": 1});
+    chrome.storage.local.set({"lastStreamsRefresh": 0});
     chrome.action.setBadgeBackgroundColor({
         "color": [96, 58, 140, 255]
     });
-    chrome.storage.local.set({"lastTTVTokenRefresh": 1});
-    chrome.storage.local.set({"lastStreamsRefresh": 0});
-    chrome.alarms.create("refresh", {
-        "delayInMinutes": 5,
-        "periodInMinutes": 5
-    });
-    chrome.alarms.onAlarm.addListener(alarm => {
-        refreshToken(true);
-    })
     forceRefresh();
 }
 
