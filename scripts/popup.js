@@ -41,6 +41,10 @@ function populatePage() {
             this.document.getElementById("disconnected-tip").style["display"] = "none";
             this.document.getElementById("disconnected-stream-tip").style["display"] = "none";
             this.document.getElementById("searchbox").style["display"] = "inline-block";
+            this.document.getElementById("informations").style["display"] = "block";
+            chrome.storage.local.get("lastStreamsRefresh", lastStreamsRefresh_result => {
+                this.document.getElementById("last-streams-update").innerHTML = "Last Update " + new Date(lastStreamsRefresh_result.lastStreamsRefresh).toLocaleTimeString('fr-FR') + " - Updates every 5mins";
+            });
 
             chrome.storage.local.get("ttvUser_data", ttvUser_data_result => {
                 let ttvUser_data = ttvUser_data_result.ttvUser_data;
@@ -62,6 +66,7 @@ function populatePage() {
             this.document.getElementById("disconnected-stream-tip").style["display"] = "block";
             this.document.getElementById("searchbox").style["display"] = "none";
             this.document.getElementById("streams").innerHTML = "";
+            this.document.getElementById("informations").style["display"] = "none";
         }
     })
 

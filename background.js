@@ -18,10 +18,18 @@ function onStart() {
         "color": [96, 58, 140, 255]
     });
     chrome.storage.local.set({"lastTTVTokenRefresh": 1});
+    chrome.storage.local.set({"lastStreamsRefresh": 0});
+    chrome.alarms.create("refresh", {
+        "delayInMinutes": 5,
+        "periodInMinutes": 5
+    });
+    chrome.alarms.onAlarm.addListener(alarm => {
+        refreshToken(true);
+    })
     forceRefresh();
 }
 
-function refreshToken(startLoop) {
+function refreshToken(refreshAll) {
     /**
      * We validate the ttv token every 1h
      * This also allows to get some values from Twitch
@@ -43,10 +51,11 @@ function refreshToken(startLoop) {
                                 "user_id": data.user_id
                             };
                             chrome.storage.local.set({"ttvUser": ttvUser});
-                            refresh(ttvToken, ttvUser);
+                            if (refreshAll)
+                                refresh(ttvToken, ttvUser);
                         }
                     });
-                } else {
+                } else if (refreshAll) {
                     chrome.storage.local.get("ttvUser", ttvUser_result => {
                         refresh(ttvToken, ttvUser_result.ttvUser);
                     });
@@ -54,23 +63,20 @@ function refreshToken(startLoop) {
             });
         }
     });
-
-    if (startLoop) {
-        // Refreshing every 5 mins
-        refreshID = setTimeout(function() {
-            refreshToken(true);
-        }, 300000);
-    }
 }
 
 function refresh(ttvToken, ttvUser) {
     if (callUserInfos) {
+        callUserInfos = false;
         getUserInfos(ttvToken, ttvUser.client_id, data => {
             chrome.storage.local.set({"ttvUser_data": data.data[0]});
         });
+    } else {
+        callUserInfos = true;
     }
 
     getLiveFollowedStreams(ttvToken, ttvUser.user_id, ttvUser.client_id, data => {
+        chrome.storage.local.set({"lastStreamsRefresh": Date.now()});
         chrome.storage.local.set({"ttvStreams_data": data.data});
         chrome.action.setBadgeText({
             "text": data.data.length.toString()
@@ -81,7 +87,6 @@ function refresh(ttvToken, ttvUser) {
 function forceRefresh() {
     chrome.storage.local.set({"lastTTVTokenRefresh": 0}, () => {
         callUserInfos = true;
-        clearTimeout(refreshID);
         refreshToken(true);
     });
 }
@@ -102,7 +107,7 @@ chrome.runtime.onMessageExternal.addListener(
             if (request.requestType == "setTtvToken") {
                 if (request.ttvToken != "none") {
                     chrome.storage.sync.set({"ttvToken": request.ttvToken}, () => {
-                        console.log("successfully set token to : " + request.ttvToken);
+                        console.log("Successfully set token to : " + request.ttvToken);
                         forceRefresh();
                     });
                     sendResponse({status: "success"});
