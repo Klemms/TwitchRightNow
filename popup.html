@@ -2,11 +2,12 @@
 <html>
     <head>
         <link rel="stylesheet" href="style/mainframe.css" />
+        <link rel="stylesheet" href="style/bottombar.css" />
         <script src="scripts/popup.js"></script>
+        <script src="scripts/tabs.js"></script>
     </head>
     <body>
         <div id="top-bar">
-            <div class="icon" style="display: none; width: 25px; height: 25px; margin-top: 5px; margin-left: 4px;"></div>
             <input id="searchbox" type="text" placeholder="Search Followed Streams" autofocus style="display: none;" />
             <div id="disconnected-tip" style="display: inline-block;">TTV Right Now</div>
             <div id="login-twitch">
@@ -23,7 +24,7 @@
             will be showed here once you're logged in.<br /><br />
             Use the button located in the<br />upper right corner.
         </div>
-        <div id="streams-page" style="display: block;">
+        <div class="tab" id="streams-page" style="display: none;">
             <div id="streams">
 
             </div>
@@ -43,6 +44,33 @@
             </div-->
             <div id="informations" style="display: block;">
                 <span id="last-streams-update"></span>
+            </div>
+        </div>
+        <div class="tab" id="notifications-page" style="display: none;">
+            <div id="notifications">
+                lul
+            </div>
+            <div id="informations" style="display: block;">
+                <span id="last-streams-update">lul</span>
+            </div>
+        </div>
+        <div id="bottom-bar">
+            <div class="icon" style="display: none; width: 25px; height: 25px; margin-top: 5px; margin-left: 4px;"></div>
+            <div class="tab-button" id="followed-streams-button">
+                <div class="triangle"></div>
+                <div class="infobox">
+                    <div class="triangle"></div>
+                    Followed Streams
+                </div>
+                <svg type="color-fill-current" width="23px" height="23px" version="1.1" viewBox="0 0 20 20" x="0px" y="0px" class="svg-icon"><g><path fill-rule="evenodd" d="M9.171 4.171A4 4 0 006.343 3H6a4 4 0 00-4 4v.343a4 4 0 001.172 2.829L10 17l6.828-6.828A4 4 0 0018 7.343V7a4 4 0 00-4-4h-.343a4 4 0 00-2.829 1.172L10 5l-.829-.829zm.829 10l5.414-5.414A2 2 0 0016 7.343V7a2 2 0 00-2-2h-.343a2 2 0 00-1.414.586L10 7.828 7.757 5.586A2 2 0 006.343 5H6a2 2 0 00-2 2v.343a2 2 0 00.586 1.414L10 14.172z" clip-rule="evenodd"></path></g></svg>
+            </div>
+            <div class="tab-button" id="streams-notifications-button">
+                <div class="triangle"></div>
+                <div class="infobox">
+                    <div class="triangle"></div>
+                    Stream Notifications
+                </div>
+                <svg width="23px" height="23px" version="1.1" viewBox="0 0 20 20" x="0px" y="0px" class="svg-icon"><g><path fill-rule="evenodd" d="M4 3h12l2 4v10H2V7l2-4zm.236 4H8v1a1 1 0 001 1h2a1 1 0 001-1V7h3.764l-1-2H5.236l-1 2zM16 9h-2.17A3.001 3.001 0 0111 11H9a3.001 3.001 0 01-2.83-2H4v6h12V9z" clip-rule="evenodd"></path></g></svg>
             </div>
         </div>
     </body>

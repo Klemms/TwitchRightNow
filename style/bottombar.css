@@ -1,0 +1,68 @@
+#bottom-bar {
+    height: 35px;
+    width: 100%;
+    position: fixed;
+    background-color: #262029;
+    bottom: 0;
+    border-top: 1px solid #3c3440;
+    box-sizing: border-box;
+}
+
+.tab-button {
+    width: 35px;
+    height: 35px;
+    background-color: rgb(255 255 255 / 2%);
+    text-align: center;
+    padding-top: 5px;
+    padding-right: 1px;
+    box-sizing: border-box;
+    margin-left: 10px;
+    display: inline-block;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.tab-button:hover {
+    background-color: rgb(255 255 255 / 20%);
+    transition: 0.3s;
+}
+.tab-button:hover>.infobox {
+    display: block;
+}
+.tab-button.selected {
+    background-color: rgb(255 255 255 / 10%);
+}
+.tab-button .svg-icon {
+    fill: rgb(185, 185, 185);
+}
+.tab-button.selected>.triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 6px 0 6px;
+    border-color: #ffffff54 transparent transparent transparent;
+    position: absolute;
+    top: 0;
+    transform: translateX(11px);
+}
+
+.tab-button .infobox {
+    position: absolute;
+    background-color: #000000e0;
+    color: white;
+    padding: 6px 12px 6px 12px;
+    font-size: 14px;
+    top: 0;
+    transform: translateY(-35px);
+    display: none;
+}
+.infobox .triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 6px 0 6px;
+    border-color: #000000e0 transparent transparent transparent;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(11px, 5px);
+}
