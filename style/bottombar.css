@@ -2,9 +2,9 @@
     height: 35px;
     width: 100%;
     position: fixed;
-    background-color: #262029;
+    background-color: var(--main-dark-color);
     bottom: 0;
-    border-top: 1px solid #3c3440;
+    border-top: 1px solid var(--main-border-color);
     box-sizing: border-box;
 }
 
