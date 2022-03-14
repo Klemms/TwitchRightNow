@@ -14,7 +14,7 @@
 /* Firefox */
 * {
     scrollbar-width: 7px;
-    scrollbar-color: #1e1a20 --main-light-color;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--main-light-color);
 }
 
 /* Chrome, Edge, and Safari */
@@ -27,19 +27,23 @@
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #1e1a20;
+    background-color: var(--scrollbar-thumb-color);
     border-radius: 10px;
     border: 0px none #ffffff;
 }
 
 body {
-    --main-dark-color: #262029;
-    --main-light-color: #3b323f;
-    --main-border-color: #3c3440;
+    --main-dark-color: #0f0f0f;
+    --main-light-color: #222222;
+    --main-border-color: #00000000;
+
+    --scrollbar-thumb-color: #585858;
 
     --stream-element-text: #dbdbdb;
-    --stream-tags-background: #121212;
-    --stream-tags-border: #464646;
+    --stream-tags-background: #363636;
+    --stream-tags-border: #ffffff00;
+
+    --color-white: #dfdfdf;
 
     font-family: 'Inter', sans-serif;
     width: 360px;
@@ -69,15 +73,18 @@ body {
     font-family: 'Inter', sans-serif;
     display: inline-block;
     border-radius: 4px;
-    background-color: #544e57;
-    border: 1px solid #666666;
+    background-color: var(--main-light-color);
+    border: 1px solid var(--main-border-color);
+    box-sizing: border-box;
     position: absolute;
     margin-top: 5px;
     margin-left: 5px;
-    height: 21px;
+    height: 25px;
+    width: 190px;
     padding-left: 5px;
-    caret-color: white;
-    color: white;
+    caret-color: var(--color-white);
+    color: var(--color-white);
+    font-weight: bold;
 }
 #top-bar input:focus {
     outline: none;
@@ -97,7 +104,7 @@ body {
     background: linear-gradient(0deg, rgba(104,50,185,1) 9%, rgba(145,71,255,1) 100%);
     border: none;
     border-radius: 4px;
-    color: white;
+    color: var(--color-white);
     font-weight: bold;
     padding-left: 9px;
     padding-right: 9px;
@@ -108,7 +115,7 @@ body {
 }
 
 #disconnected-tip {
-    color: white;
+    color: var(--color-white);
     font-size: 15px;
     margin-top: 8px;
     margin-left: 7px;
@@ -127,33 +134,31 @@ body {
     top: 0;
     right: 0;
     cursor: pointer;
-    height: 33px;
-    padding-left: 5px;
-    border-radius: 10px;
-    transition: 0.5s;
+    height: 35px;
+    padding-left: 9px;
+    transition: 0.2s;
 }
 #user-infos-top:hover {
-    background-color: #332a36;
-    transition: 0.5s;
+    background-color: #363636;
+    transition: 0.2s;
 }
 #username-top {
     position: relative;
-    margin-top: 8px;
+    margin-top: 9px;
     margin-right: 6px;
-    color: white;
+    color: var(--color-white);
     font-size: 14px;
-    display: inline-block;
+    font-weight: bold;
     float: right;
 }
 #user-pic-top {
     position: relative;
-    width: 25px;
-    height: 25px;
-    margin-top: 3px;
-    margin-right: 4px;
+    width: 27px;
+    height: 27px;
+    margin-top: 4px;
+    margin-right: 5px;
     border-radius: 50%;
-    border: 2px solid #934485;
-    display: inline-block;
+    box-sizing: border-box;
     float: right;
 }
 
@@ -176,14 +181,14 @@ body {
     position: relative;
     height: 65px;
     overflow: hidden;
-    background-color: #281f2c;
-    box-shadow: 0px 0px 5px 1px var(--main-dark-color);
+    background: linear-gradient(270deg, var(--main-light-color) 50%, var(--main-dark-color) 100%);
+    box-shadow: 0px 0px 5px 1px #00000000;
     margin-bottom: 10px;
     transition: 0.5s;
     cursor: pointer;
 }
 #streams .stream:hover {
-    background-color: #403146;
+    background: linear-gradient(270deg, var(--main-light-color) 10%, var(--main-dark-color) 100%);
     transition: 0.5s;
 }
 
@@ -203,7 +208,7 @@ body {
 .stream .streamer-name {
     position: absolute;
     bottom: 0;
-    color: white;
+    color: var(--color-white);
     background-color: rgb(0 0 0 / 80%);
     padding: 2px 7px 3px 3px;
     font-size: 14px;
