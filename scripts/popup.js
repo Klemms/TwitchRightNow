@@ -129,3 +129,21 @@ function getStreamUptime(startTime) {
 
     return parseInt(hours) + ":" + parseInt(minutes).toString().padStart(2, '0');
 }
+
+function getFollowedChannels(ttvToken, ttvUserId, clientId, callback) {
+    console.log("CALL getFollowedChannels");
+    fetch("https://api.twitch.tv/helix/users/follows?first=100&from_id=" + ttvUserId, {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + ttvToken,
+            "Client-Id": clientId
+        }
+    }).then(response => {
+        response.json().then(data => {
+            callback(data);
+        })
+    }, reason => {
+        // TODO: handle this case
+        console.log(reason);
+    });
+}
