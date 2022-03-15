@@ -8,13 +8,16 @@
     box-sizing: border-box;
 }
 
+#tabs {
+    display: inline-block;
+}
+
 .tab-button {
     width: 35px;
     height: 35px;
-    background-color: rgb(255 255 255 / 2%);
+    background-color: rgb(255 255 255 / 4%);
     text-align: center;
     padding-top: 5px;
-    padding-right: 1px;
     box-sizing: border-box;
     margin-left: 10px;
     display: inline-block;
@@ -65,4 +68,16 @@
     bottom: 0;
     left: 0;
     transform: translate(11px, 5px);
+}
+
+#random-buttons {
+    display: inline-block;
+    float: right;
+}
+.layout-button {
+    margin-right: 5px;
+    margin-left: 0;
+}
+.layout-button .svg-icon {
+    fill: rgb(185, 185, 185);
 }
