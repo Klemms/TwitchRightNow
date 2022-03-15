@@ -130,9 +130,9 @@ function getStreamUptime(startTime) {
     return parseInt(hours) + ":" + parseInt(minutes).toString().padStart(2, '0');
 }
 
-function getFollowedChannels(ttvToken, ttvUserId, clientId, callback) {
+function getFollowedChannels(ttvToken, ttvUserId, clientId, callback, page) {
     console.log("CALL getFollowedChannels");
-    fetch("https://api.twitch.tv/helix/users/follows?first=100&from_id=" + ttvUserId, {
+    fetch("https://api.twitch.tv/helix/users/follows?first=100&from_id=" + ttvUserId + (page != null ? "&after=" + page : ""), {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + ttvToken,
@@ -140,10 +140,42 @@ function getFollowedChannels(ttvToken, ttvUserId, clientId, callback) {
         }
     }).then(response => {
         response.json().then(data => {
-            callback(data);
+            if (data.pagination != null && Object.keys(data.pagination).length !== 0 && data.total > 100) {
+                let totalData = [];
+                Array.prototype.push.apply(totalData, data.data);
+                getFollowedChannels(ttvToken, ttvUserId, clientId, data => {
+                    Array.prototype.push.apply(totalData, data);
+                    callback(totalData);
+                }, data.pagination.cursor);
+            } else {
+                callback(data.data);
+            }
         })
     }, reason => {
         // TODO: handle this case
         console.log(reason);
     });
+}
+
+/**
+ * 
+ * @param {*} data Data to normalize
+ * @returns Returns alphabetically sorted normalized data array
+ */
+function normalizeFollowedChannels(data) {
+    var newData = [];
+
+    data.forEach(element => {
+        newData.push({
+            "id": element.to_id,
+            "name": element.to_name,
+            "date": element.followed_at
+        });
+    });
+
+    newData.sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+    });
+
+    return newData;
 }
