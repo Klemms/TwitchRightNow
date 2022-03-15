@@ -15,6 +15,7 @@ chrome.runtime.onStartup.addListener(() => {
 });
 
 function onStart() {
+    initValues();
     chrome.storage.local.set({"lastTTVTokenRefresh": 1});
     chrome.storage.local.set({"lastStreamsRefresh": 0});
     chrome.storage.local.set({"callUserInfos": true});
@@ -22,6 +23,17 @@ function onStart() {
         "color": [96, 58, 140, 255]
     });
     forceRefresh();
+}
+
+function initValues() {
+    chrome.storage.sync.get("viewercount-order", value => {
+        if (value == null)
+            chrome.storage.sync.set({"viewercount-order": "descendant"});
+    });
+    chrome.storage.sync.get("streams-layout", value => {
+        if (value == null)
+            chrome.storage.sync.set({"streams-layout": "regular"});
+    });
 }
 
 function refreshToken(refreshAll) {
