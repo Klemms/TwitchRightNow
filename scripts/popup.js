@@ -104,7 +104,7 @@ function newDiv(stream_info){
         '<div class="right-part">' +
         '    <div class="stream-title" title="' + sanitizeString(stream_info.title) + '">' + sanitizeString(stream_info.title) + '</div>' +
         '    <div class="stream-game" title="' + sanitizeString(stream_info.game_name) + '">' + sanitizeString(stream_info.game_name) + '</div>' +
-        '    <div class="viewer-count">&#x1F534;' + new Intl.NumberFormat('fr-FR').format(stream_info.viewer_count) + '</div>' +
+        '    <div class="viewer-count"><span class="live-circle"></span>' + new Intl.NumberFormat('fr-FR').format(stream_info.viewer_count) + '</div>' +
         '    <div class="stream-tags">' +
         '        <div class="stream-time">' + getStreamUptime(stream_info.started_at) + '</div>' +
         '        <div class="stream-language">' + stream_info.language + '</div>' + (stream_info.is_mature ?

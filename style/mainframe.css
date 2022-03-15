@@ -252,6 +252,16 @@ body {
     font-size: 14px;
     font-weight: bold;
     box-sizing: border-box;
+    transform: scale(0.85);
+}
+.viewer-count .live-circle {
+    background-color: #eb0400;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: 1px;
+    float: left;
 }
 .stream .right-part .stream-tags {
     position: absolute;
