@@ -43,7 +43,7 @@ function initValues() {
     });
     chrome.storage.sync.get("notified-streams", value => {
         if (value["notified-streams"] == null)
-            chrome.storage.sync.set({"notified-streams": {}});
+            chrome.storage.sync.set({"notified-streams": []});
     });
 }
 
