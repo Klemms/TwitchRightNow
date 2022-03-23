@@ -185,6 +185,7 @@ function normalizeFollowedChannels(data) {
         newData.push({
             "id": element.to_id,
             "name": element.to_name,
+            "login": element.to_login,
             "date": element.followed_at
         });
     });
