@@ -16,13 +16,20 @@ chrome.runtime.onStartup.addListener(() => {
 
 function onStart() {
     initValues();
-    chrome.storage.local.set({"lastTTVTokenRefresh": 1});
-    chrome.storage.local.set({"lastStreamsRefresh": 0});
-    chrome.storage.local.set({"callUserInfos": true});
+
     chrome.action.setBadgeBackgroundColor({
         "color": [96, 58, 140, 255]
     });
-    forceRefresh();
+
+    chrome.storage.local.set({"lastFollowedChannelsRefresh": 1});
+    chrome.storage.local.set({"lastTTVTokenRefresh": 1});
+    chrome.storage.local.set({"lastStreamsRefresh": 0});
+    chrome.storage.local.set({"callUserInfos": true});
+    chrome.storage.local.set({"totalRefreshCount": 0}, () => {
+        chrome.storage.sync.set({"alreadyNotifiedStreams": []}, () => {
+            forceRefresh();
+        });
+    });
 }
 
 function initValues() {
@@ -33,6 +40,10 @@ function initValues() {
     chrome.storage.sync.get("streams-layout", value => {
         if (value == null)
             chrome.storage.sync.set({"streams-layout": "regular"});
+    });
+    chrome.storage.sync.get("notified-streams", value => {
+        if (value == null)
+            chrome.storage.sync.set([]);
     });
 }
 
@@ -90,7 +101,52 @@ function refresh(ttvToken, ttvUser) {
         chrome.action.setBadgeText({
             "text": data.data.length.toString()
         });
+
+        var allStreams = [];
+        data.data.forEach(el => {
+            allStreams.push(el["user_login"]);
+        })
+        
+        chrome.storage.local.get("totalRefreshCount", (totalRefreshCount_result) => {
+            if (totalRefreshCount_result.totalRefreshCount != 0) {
+                chrome.storage.local.get("alreadyNotifiedStreams", (alreadyNotifiedStreams_result) => {
+                    let alreadyNotifiedStreams = alreadyNotifiedStreams_result.alreadyNotifiedStreams;
+                    let newStreams =  allStreams;
+                    if (alreadyNotifiedStreams != null) {
+                        newStreams = allStreams.filter(x => !alreadyNotifiedStreams.includes(x))
+                    }
+                    newNotification(newStreams);
+                    chrome.storage.sync.set({"alreadyNotifiedStreams": newStreams});
+                });
+            } else {
+                chrome.storage.sync.set({"alreadyNotifiedStreams": allStreams});
+            }
+        });
     });
+}
+
+function newNotification(streamers) {
+    var streamersFormatted = "";
+    streamers.forEach(el => {
+        streamersFormatted += el + ", ";
+    });
+    streamersFormatted = streamersFormatted.substring(0, streamersFormatted.length - 2);
+
+    chrome.notifications.create(
+        "ttvrightnow",
+        {
+            "buttons": [
+            ],
+            "title": "These streamers started streaming",
+            "message": streamersFormatted,
+            "type": "basic",
+            "contextMessage": "Twitch Right Now",
+            "iconUrl": "images/icon.png"
+        },
+        notifId => {
+            console.log("clicked");
+        }
+    )
 }
 
 function forceRefresh() {
