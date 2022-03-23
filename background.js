@@ -34,16 +34,16 @@ function onStart() {
 
 function initValues() {
     chrome.storage.sync.get("viewercount-order", value => {
-        if (value == null)
+        if (value["viewercount-order"] == null)
             chrome.storage.sync.set({"viewercount-order": "descendant"});
     });
     chrome.storage.sync.get("streams-layout", value => {
-        if (value == null)
+        if (value["streams-layout"] == null)
             chrome.storage.sync.set({"streams-layout": "regular"});
     });
     chrome.storage.sync.get("notified-streams", value => {
-        if (value == null)
-            chrome.storage.sync.set([]);
+        if (value["notified-streams"] == null)
+            chrome.storage.sync.set({"notified-streams": {}});
     });
 }
 
