@@ -5,14 +5,31 @@ window.addEventListener("load", function() {
         });
     };
     this.document.getElementById("searchbox").addEventListener("input", val => {
-        chrome.storage.local.get("ttvStreams_data", ttvStreams_data_result => {
-            let ttvStreams_data = ttvStreams_data_result.ttvStreams_data;
+        chrome.storage.local.get("currentTab", currentTab_result => {
+            switch(currentTab_result.currentTab) {
+                case "followed-streams-button":
+                    chrome.storage.local.get("ttvStreams_data", ttvStreams_data_result => {
+                        let ttvStreams_data = ttvStreams_data_result.ttvStreams_data;
+                        
+                        let newStreamData = ttvStreams_data.filter(element => {
+                            return element.user_name.toLowerCase().includes(this.document.getElementById("searchbox").value.toLowerCase());
+                        })
             
-            let newStreamData = ttvStreams_data.filter(element => {
-                return element.user_name.toLowerCase().includes(this.document.getElementById("searchbox").value.toLowerCase());
-            })
-
-            populateStreams(newStreamData);
+                        populateStreams(newStreamData);
+                    });
+                    break;
+                case "streams-notifications-button":
+                    chrome.storage.local.get("followedChannels", followedChannels_result => {
+                        let followedChannels = followedChannels_result.followedChannels;
+                        
+                        let newNotifsData = followedChannels.filter(element => {
+                            return element.name.toLowerCase().includes(this.document.getElementById("searchbox").value.toLowerCase());
+                        })
+            
+                        addNotifChannels(newNotifsData);
+                    });
+                    break;
+            }
         });
     });
 
@@ -30,7 +47,6 @@ function disconnect() {
     chrome.action.setBadgeText({
         "text": ""
     });
-
 }
 
 function populatePage() {
