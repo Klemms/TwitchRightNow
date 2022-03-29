@@ -109,18 +109,27 @@ function refresh(ttvToken, ttvUser) {
         
         chrome.storage.local.get("totalRefreshCount", (totalRefreshCount_result) => {
             if (totalRefreshCount_result.totalRefreshCount != 0) {
-                chrome.storage.local.get("alreadyNotifiedStreams", (alreadyNotifiedStreams_result) => {
+                chrome.storage.sync.get("alreadyNotifiedStreams", (alreadyNotifiedStreams_result) => {
                     let alreadyNotifiedStreams = alreadyNotifiedStreams_result.alreadyNotifiedStreams;
+
+                    let notifiedStreams =  [];
                     let newStreams =  allStreams;
+                    let stoppedStreams =  [];
                     if (alreadyNotifiedStreams != null) {
                         newStreams = allStreams.filter(x => !alreadyNotifiedStreams.includes(x))
+                        stoppedStreams = alreadyNotifiedStreams.filter(x => !allStreams.includes(x))
+                        notifiedStreams = allStreams.filter(x => !stoppedStreams.includes(x))
                     }
-                    newNotification(newStreams);
-                    chrome.storage.sync.set({"alreadyNotifiedStreams": newStreams});
+
+                    if (newStreams.length > 0) {
+                        newNotification(newStreams);
+                    }
+                    chrome.storage.sync.set({"alreadyNotifiedStreams": notifiedStreams});
                 });
             } else {
                 chrome.storage.sync.set({"alreadyNotifiedStreams": allStreams});
             }
+            chrome.storage.local.set({"totalRefreshCount": totalRefreshCount_result.totalRefreshCount + 1});
         });
     });
 }
@@ -144,7 +153,7 @@ function newNotification(streamers) {
             "iconUrl": "images/icon.png"
         },
         notifId => {
-            console.log("clicked");
+
         }
     )
 }
