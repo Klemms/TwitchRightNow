@@ -4,6 +4,14 @@ window.addEventListener("load", function() {
             disconnect();
         });
     };
+
+    chrome.storage.sync.get("notify-all-streams", notify_result => {
+        this.document.getElementById("notify-all-streams-checkbox").checked = notify_result["notify-all-streams"];
+    });
+    this.document.getElementById("notify-all-streams-checkbox").onchange = function(me) {
+        chrome.storage.sync.set({"notify-all-streams": me.target.checked});
+    };
+
     this.document.getElementById("searchbox").addEventListener("input", val => {
         chrome.storage.local.get("currentTab", currentTab_result => {
             switch(currentTab_result.currentTab) {

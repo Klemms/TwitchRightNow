@@ -324,7 +324,6 @@ body {
 }
 #notifications {
     width: 100%;
-    padding-top: 10px;
     box-sizing: border-box;
     text-align: center;
 }
@@ -367,5 +366,20 @@ body {
     font-size: 12px;
 }
 .notification .enable-notifications {
+    float: right;
+}
+
+#notifications-page #notify-all-streams {
+    padding: 5px 7px 5px 7px;
+    margin: 5px 5px 0px 5px;
+    margin-bottom: 7px;
+    background-color: #2c2c2c;
+    box-shadow: 0px 0px 3px 0px var(--main-dark-color);
+}
+#notifications-page #notify-all-streams span {
+    color: var(--color-white);
+    font-size: 15px;
+}
+#notifications-page #notify-all-streams label {
     float: right;
 }

@@ -45,6 +45,10 @@ function initValues() {
         if (value["notified-streams"] == null)
             chrome.storage.sync.set({"notified-streams": []});
     });
+    chrome.storage.sync.get("notify-all-streams", value => {
+        if (value["notify-all-streams"] == null)
+            chrome.storage.sync.set({"notify-all-streams": false});
+    });
 }
 
 function refreshToken(refreshAll) {
@@ -107,29 +111,41 @@ function refresh(ttvToken, ttvUser) {
             allStreams.push(el["user_login"]);
         })
         
-        chrome.storage.local.get("totalRefreshCount", (totalRefreshCount_result) => {
-            if (totalRefreshCount_result.totalRefreshCount != 0) {
-                chrome.storage.sync.get("alreadyNotifiedStreams", (alreadyNotifiedStreams_result) => {
-                    let alreadyNotifiedStreams = alreadyNotifiedStreams_result.alreadyNotifiedStreams;
-
-                    let notifiedStreams =  [];
-                    let newStreams =  allStreams;
-                    let stoppedStreams =  [];
-                    if (alreadyNotifiedStreams != null) {
-                        newStreams = allStreams.filter(x => !alreadyNotifiedStreams.includes(x))
-                        stoppedStreams = alreadyNotifiedStreams.filter(x => !allStreams.includes(x))
-                        notifiedStreams = allStreams.filter(x => !stoppedStreams.includes(x))
+        
+        chrome.storage.sync.get("notified-streams", notified_streams_result => {
+            var notified_streams = notified_streams_result["notified-streams"];
+            chrome.storage.sync.get("notify-all-streams", notify_result => {
+                var notify_streams = notify_result["notify-all-streams"];
+                chrome.storage.local.get("totalRefreshCount", (totalRefreshCount_result) => {
+                    if (totalRefreshCount_result.totalRefreshCount != 0) {
+                        chrome.storage.sync.get("alreadyNotifiedStreams", (alreadyNotifiedStreams_result) => {
+                            let alreadyNotifiedStreams = alreadyNotifiedStreams_result.alreadyNotifiedStreams;
+        
+                            let notifiedStreams =  [];
+                            let newStreams = allStreams;
+                            let stoppedStreams =  [];
+                            if (alreadyNotifiedStreams != null) {
+                                newStreams = allStreams.filter(x => !alreadyNotifiedStreams.includes(x))
+                                stoppedStreams = alreadyNotifiedStreams.filter(x => !allStreams.includes(x))
+                                notifiedStreams = allStreams.filter(x => !stoppedStreams.includes(x))
+                            }
+        
+                            // If "enable all notifications" checkbox isnt checked, we filter out streams
+                            if (!notify_streams) {
+                                newStreams = newStreams.filter(x => notified_streams.includes(x))
+                            }
+        
+                            if (newStreams.length > 0) {
+                                newNotification(newStreams);
+                            }
+                            chrome.storage.sync.set({"alreadyNotifiedStreams": notifiedStreams});
+                        });
+                    } else {
+                        chrome.storage.sync.set({"alreadyNotifiedStreams": allStreams});
                     }
-
-                    if (newStreams.length > 0) {
-                        newNotification(newStreams);
-                    }
-                    chrome.storage.sync.set({"alreadyNotifiedStreams": notifiedStreams});
+                    chrome.storage.local.set({"totalRefreshCount": totalRefreshCount_result.totalRefreshCount + 1});
                 });
-            } else {
-                chrome.storage.sync.set({"alreadyNotifiedStreams": allStreams});
-            }
-            chrome.storage.local.set({"totalRefreshCount": totalRefreshCount_result.totalRefreshCount + 1});
+            });
         });
     });
 }
