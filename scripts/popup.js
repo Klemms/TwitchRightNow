@@ -66,6 +66,7 @@ function populatePage() {
             this.document.getElementById("disconnected-stream-tip").style["display"] = "none";
             this.document.getElementById("searchbox").style["display"] = "inline-block";
             this.document.getElementById("informations").style["display"] = "block";
+            this.document.getElementById("bottom-bar").style["display"] = "block";
             chrome.storage.local.get("lastStreamsRefresh", lastStreamsRefresh_result => {
                 this.document.getElementById("last-streams-update").innerText = "Last Update " + new Date(lastStreamsRefresh_result.lastStreamsRefresh).toLocaleTimeString('fr-FR') + " - Updates every 5mins";
             });
@@ -91,10 +92,11 @@ function populatePage() {
             this.document.getElementById("searchbox").style["display"] = "none";
             this.document.getElementById("streams").innerText = "";
             this.document.getElementById("informations").style["display"] = "none";
+            this.document.getElementById("bottom-bar").style["display"] = "none";
         }
     })
 
-    setTimeout(populatePage, 30000);
+    setTimeout(populatePage, 10000);
 }
 
 function populateStreams(stream_data) {
