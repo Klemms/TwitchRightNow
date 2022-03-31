@@ -157,12 +157,22 @@ function newNotification(streamers) {
     });
     streamersFormatted = streamersFormatted.substring(0, streamersFormatted.length - 2);
 
+    let title = "These streamers started streaming";
+    switch(streamers.length) {
+        case 1:
+            title = streamers[0] + " started streaming !"
+            break;
+        case 2:
+            title = streamers[0] + " and " + streamers[1] + " started streaming !"
+            break;
+    }
+
     chrome.notifications.create(
         "ttvrightnow",
         {
             "buttons": [
             ],
-            "title": "These streamers started streaming",
+            "title": title,
             "message": streamersFormatted,
             "type": "basic",
             "contextMessage": "Twitch Right Now",
