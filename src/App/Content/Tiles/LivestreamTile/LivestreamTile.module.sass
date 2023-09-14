@@ -1,0 +1,94 @@
+@import '../../../../variables'
+
+.stream
+  position: relative
+  height: 65px
+  overflow: hidden
+  background: linear-gradient(270deg, $main-light-color 50%, $main-dark-color 100%)
+  box-shadow: 0 0 5px 1px #00000000
+  margin-bottom: 10px
+  transition: 0.5s
+  cursor: pointer
+
+  &:hover
+    background: linear-gradient(270deg, $main-light-color 10%, $main-dark-color 100%)
+    transition: 0.5s
+
+  .streamPic
+    width: 115px
+    height: 100%
+
+  .streamerName
+    position: absolute
+    bottom: 0
+    color: $color-white
+    background-color: rgb(0 0 0 / 80%)
+    padding: 2px 7px 3px 3px
+    font-size: 14px
+    white-space: nowrap
+    text-overflow: ellipsis
+    overflow: hidden
+    box-sizing: border-box
+    max-width: 115px
+
+  .rightPart
+    position: absolute
+    width: 225px
+    height: 100%
+    top: 0
+    right: 0
+    padding: 2px 2px 2px 3px
+    box-sizing: border-box
+
+    .streamTitle
+      color: $stream-element-text
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
+      font-weight: bold
+      font-size: 13px
+
+    .streamGame
+      color: $stream-element-text
+      font-size: 13px
+      font-style: italic
+
+    .streamTags
+      position: absolute
+      bottom: 0
+
+    .streamTime, .streamLanguage, .streamMature
+      display: inline-block
+      color: $stream-element-text
+      padding: 1px 7px 1px 6px
+      background-color: $stream-tags-background
+      border: 1px solid $stream-tags-border
+      border-radius: 15px
+      font-size: 12px
+      font-weight: bold
+      box-sizing: border-box
+      margin-bottom: 4px
+      margin-right: 5px
+
+    .viewerCount
+      position: absolute
+      color: $stream-element-text
+      padding: 2px 8px 2px 5px
+      background-color: $stream-tags-background
+      border: 1px solid $stream-tags-border
+      border-radius: 15px
+      right: 0px
+      bottom: 3px
+      font-size: 14px
+      font-weight: bold
+      box-sizing: border-box
+      transform: scale(0.85)
+
+      .liveCircle
+        background-color: #eb0400
+        width: 15px
+        height: 15px
+        border-radius: 50%
+        margin-right: 5px
+        margin-top: 1px
+        float: left

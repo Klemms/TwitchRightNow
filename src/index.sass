@@ -1,0 +1,37 @@
+@import "variables"
+
+@font-face
+  font-family: "Inter"
+  font-style: normal
+  font-weight: 400
+  src: url("chrome-extension://__MSG_@@extension_id__/fonts/Inter-Regular.ttf")
+
+@font-face
+  font-family: "Inter"
+  font-style: bold
+  font-weight: 700
+  src: url("chrome-extension://__MSG_@@extension_id__/fonts/Inter-SemiBold.ttf")
+
+/* Firefox */
+*
+  scrollbar-width: 7px
+  scrollbar-color: $scrollbar-thumb-color $main-light-color
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar
+  width: 7px
+
+*::-webkit-scrollbar-track
+  background: $main-light-color
+
+*::-webkit-scrollbar-thumb
+  background-color: $scrollbar-thumb-color
+  border-radius: 10px
+  border: 0 none #ffffff
+
+html, body, #root
+  width: 360px
+  height: 570px
+  margin: 0
+  padding: 0
+  font-family: 'Inter', sans-serif

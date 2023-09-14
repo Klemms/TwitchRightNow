@@ -1,0 +1,50 @@
+@import '../../../../variables'
+
+.notification
+  width: 170px
+  margin-left: 2px
+  margin-right: 2px
+  margin-bottom: 5px
+  padding-bottom: 5px
+  box-sizing: border-box
+  background-color: #2c2c2c
+  display: inline-block
+  color: $color-white
+  text-align: left
+  box-shadow: 0 0 3px 0 $main-dark-color
+
+  .followedDate
+    padding: 1px 7px 1px 7px
+    font-size: 11px
+
+  .notifText
+    border-top: 1px solid #545454
+    padding: 5px 7px 0 7px
+    margin-top: 3px
+    font-size: 12px
+
+  .streamerName
+    display: inline-block
+    font-size: 16px
+    text-align: left
+    background-color: $main-dark-color
+    padding: 3px 9px 4px 5px
+    box-sizing: border-box
+    max-width: 170px
+    max-height: 25px
+    text-overflow: ellipsis
+    overflow: hidden
+    color: $color-white
+    cursor: pointer
+    user-select: none
+    white-space: nowrap
+
+    .currentlyLive
+      width: 15px
+      height: 15px
+      background-color: #eb0400
+      border-radius: 50%
+      display: inline-block
+      float: left
+      margin-right: 5px
+      margin-top: 2px
