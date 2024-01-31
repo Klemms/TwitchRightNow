@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# Twitch Right Now
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Twitch Right Now browser extension repository
 
-## Available Scripts
+Everyone is free to contribute to the project via pull requests
 
-In the project directory, you can run:
+## Contributing
+You are free to contribute via pull requests, note however that there are some rules :
+* No copyrighted code or material should be used
+* Don't add any user-tracking or data-collecting code
+* Try to keep things simple
+* The backgroung.js is an important file, but also contains some old code, be careful when editing it
+* Try to limit calls to the Twitch API, as rate-limits apply
+* When saving data, remember to choose wisely if you need local or synced storage
 
-### `npm start`
+## Building & Testing
+1. Clone the repo
+2. Run `npm ci` to install all npm packages
+3. Make your changes
+4. Do `npm run build` (or `npm run watch`, but the /public folder isn't watched)
+5. Go to chrome or any Chromium browser (Chrome/Edge/Opera/Vivaldi/Brave...)
+6. Go to the extension page of that browser and enable developer mode
+7. Click on "Load unpacked extension"
+8. Go to the clone folder, select the `build` folder
+9. You did it !
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+When you make changes I recommend reloading the extension using the reload icon the extension page.
+You can also close and re-open the extension window but the background.js (service worker) file won't be reloaded
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Distributing
+I would prefer if you don't distribute the packed extension as it would make hard to maintain and support multiple versions.
+I'll make and upload a new version to the Chrome Webstore when needed, note however that Google takes a few days to review the extension everytime
