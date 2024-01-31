@@ -1,3 +1,5 @@
+@import "../../variables"
+
 .tabs
   width: 100%
   height: calc(100% - 70px)
@@ -5,3 +7,16 @@
   position: absolute
   overflow-x: hidden
   overflow-y: scroll
+
+  scrollbar-color: $scrollbar-thumb-color $main-light-color
+
+  &::-webkit-scrollbar
+    width: 7px
+
+  &::-webkit-scrollbar-track
+    background: $main-light-color
+
+  &::-webkit-scrollbar-thumb
+    background-color: $scrollbar-thumb-color
+    border-radius: 10px
+    border: 0 none #ffffff
