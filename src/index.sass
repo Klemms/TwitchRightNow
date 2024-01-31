@@ -12,27 +12,11 @@
   font-weight: 700
   src: url("chrome-extension://__MSG_@@extension_id__/fonts/Inter-SemiBold.ttf")
 
-/* Firefox */
-*
-  scrollbar-width: 7px
-  scrollbar-color: $scrollbar-thumb-color $main-light-color
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar
-  width: 7px
-
-*::-webkit-scrollbar-track
-  background: $main-light-color
-
-*::-webkit-scrollbar-thumb
-  background-color: $scrollbar-thumb-color
-  border-radius: 10px
-  border: 0 none #ffffff
-
 html, body, #root
-  background: $main-light-color
-  width: 360px
-  height: 570px
+  min-width: 400px
+  width: 100%
+  min-height: 600px
+  height: 100%
   margin: 0
   padding: 0
   font-family: 'Inter', sans-serif
