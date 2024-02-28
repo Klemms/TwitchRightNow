@@ -9,6 +9,16 @@ export default {
 			return value.ttvUserData;
 		});
 	},
+	getSorting: () => {
+		return chrome.storage.sync.get('viewerCountOrder').then(value => {
+			return value.viewerCountOrder || 'descendant';
+		});
+	},
+	setSorting: sorting => {
+		return chrome.storage.sync.set({
+			viewerCountOrder: sorting
+		});
+	},
 	notifyStream: (streamerLogin, notify) => {
 		return chrome.storage.sync.get(['notifiedStreams']).then(value => {
 			let notifiedStreams = value.notifiedStreams || [];

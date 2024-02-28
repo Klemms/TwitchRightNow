@@ -9,10 +9,30 @@
   border-top: 1px solid $main-border-color
   box-sizing: border-box
 
+  .rightButtons
+    position: absolute
+    display: inline-block
+    right: 0
+
+    .tabButton
+      margin-right: 10px
+      margin-left: 0
+      position: relative
+
+      .infobox
+        white-space: nowrap
+        right: 0
+
+        .triangle
+          transform: translate(-12px, 5px)
+          right: 0
+          left: initial
+
+
   .tabButton
     width: 35px
     height: 35px
-    background-color: rgb(255 255 255 / 4%)
+    background-color: rgba(255, 255, 255, 0.04)
     text-align: center
     padding-top: 5px
     box-sizing: border-box
@@ -20,9 +40,10 @@
     display: inline-block
     transition: 0.3s
     cursor: pointer
+    vertical-align: top
 
     &.selected
-      background-color: rgb(255 255 255 / 10%)
+      background-color: rgba(255, 255, 255, 0.1)
 
       .selectedTriangle
         width: 0
@@ -35,7 +56,7 @@
         transform: translateX(11px)
 
     &:hover
-      background-color: rgb(255 255 255 / 20%)
+      background-color: rgba(255, 255, 255, 0.2)
       transition: 0.3s
 
     &:hover .infobox
@@ -46,7 +67,7 @@
 
     .infobox
       position: absolute
-      background-color: #000000e0
+      background-color: rgba(0, 0, 0, 0.95)
       color: $color-white
       padding: 6px 12px 6px 12px
       font-size: 14px
@@ -59,8 +80,14 @@
         height: 0
         border-style: solid
         border-width: 5px 6px 0 6px
-        border-color: #000000e0 transparent transparent transparent
+        border-color: rgba(0, 0, 0, 0.95) transparent transparent transparent
         position: absolute
         bottom: 0
         left: 0
         transform: translate(11px, 5px)
+
+    &.sorting
+
+      img
+        width: 24px
+        height: 24px

@@ -78,7 +78,7 @@ export default class NotificationsTab extends React.Component {
 						</React.Fragment>
 					)
 				}
-				<div className={styles.informations}>Twitch Right Now</div>
+				<div className={styles.informations}>TTV Right Now</div>
 			</Tab>
 		);
 	}

@@ -10,7 +10,7 @@ export default class FollowedChannelsTile extends React.Component {
 
 	getFollowedTime(time) {
 		let date = new Date(time);
-		return date.toLocaleString("en-US", {month: "long", day: "numeric", year: "numeric"}) + " · " + date.toLocaleTimeString("fr-FR", {hour12: false}).substring(0, 5);
+		return date.toLocaleString("en-US", {month: "long", day: "numeric", year: "numeric"}) + " · " + date.toLocaleTimeString(navigator.language, {hour12: false}).substring(0, 5);
 	}
 
 	render() {

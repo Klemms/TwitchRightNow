@@ -10,7 +10,8 @@ export const defaultAppContextValue = () => {
 		livestreams: [],
 		followedChannels: [],
 		fetchedChannels: false,
-		currentSearch: ''
+		currentSearch: '',
+		sorting: 'descendant'
 	}
 };
 export const AppContext = React.createContext(defaultAppContextValue());
