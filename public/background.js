@@ -1,9 +1,9 @@
 chrome.alarms.create("refresh", {
-	"delayInMinutes": 2,
-	"periodInMinutes": 2
+	"delayInMinutes": 1,
+	"periodInMinutes": 1
 });
 chrome.alarms.onAlarm.addListener(alarm => {
-	refreshToken(true);
+	refreshToken(true).then(() => {}, () => {});
 })
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -17,10 +17,11 @@ chrome.runtime.onStartup.addListener(() => {
 chrome.notifications.onButtonClicked.addListener((notificationId) => {
 	if (notificationId === 'ttvrightnow') {
 		chrome.storage.local.get('lastStreamerNotification').then(value => {
+			chrome.notifications.clear('ttvrightnow');
 			chrome.tabs.create({
 				url: `https://www.twitch.tv/${value.lastStreamerNotification.user_login}`
 			});
-		})
+		});
 	}
 })
 
@@ -55,7 +56,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 	if (sender.id === chrome.runtime.id && message.reason) {
 		switch (message.reason) {
 			case 'disconnect':
-				disconnect(true);
+				disconnect(true, 'You can reconnect anytime using the "Log in with Twitch" button');
 				break;
 			case 'get-followed-channels':
 				chrome.storage.sync.get('ttvToken').then(value => {
@@ -127,16 +128,18 @@ function disconnect(hard, notificationMessage) {
 	return chrome.storage.local.clear().then(() => {
 		return chrome.storage.sync.clear().then(() => {
 			sendUIUpdate('logstate');
-			chrome.notifications.create(
-				"ttvrightnow",
-				{
-					title: "TTV Right Now has been disconnected from Twitch",
-					message: notificationMessage,
-					type: "basic",
-					contextMessage: "Twitch Right Now",
-					iconUrl: "images/icon.png"
-				}
-			);
+			if (notificationMessage) {
+				chrome.notifications.create(
+					"ttvrightnow",
+					{
+						title: "TTV Right Now has been disconnected from Twitch",
+						message: notificationMessage,
+						type: "basic",
+						contextMessage: "TTV Right Now",
+						iconUrl: "images/icon.png"
+					}
+				);
+			}
 		})
 	})
 }
@@ -258,6 +261,9 @@ function refresh(ttvToken, ttvUser) {
 			ttvStreamsData: data
 		}).then(() => {
 			if (data) {
+				chrome.action.setBadgeBackgroundColor({
+					"color": [96, 58, 140, 255]
+				});
 				chrome.action.setBadgeText({
 					'text': data.length.toString()
 				});
@@ -318,11 +324,11 @@ function newNotification(streamers) {
 	let title = "These streamers started streaming";
 	switch(streamers.length) {
 		case 1:
-			title = `${(streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)} started streaming ${streamers[0].game_name}`
-			streamersFormatted = streamers[0].title
+			title = `${(streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)} started streaming ${streamers[0].game_name}`;
+			streamersFormatted = streamers[0].title || streamers[0].game_name || "";
 			break;
 		case 2:
-			title = (streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name) + " and " + (streamers[1].user_name === '' ? streamers[1].user_login : streamers[1].user_name) + " started streaming !"
+			title = (streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name) + " and " + (streamers[1].user_name === '' ? streamers[1].user_login : streamers[1].user_name) + " started streaming !";
 			break;
 	}
 
@@ -333,6 +339,8 @@ function newNotification(streamers) {
 		});
 	}
 
+	console.log('notif?', notif);
+
 	chrome.storage.local.set({lastStreamerNotification: streamers[0]}).then(() => {
 		chrome.notifications.create(
 			"ttvrightnow",
@@ -341,7 +349,7 @@ function newNotification(streamers) {
 				title: title,
 				message: streamersFormatted,
 				type: "basic",
-				contextMessage: "Twitch Right Now",
+				contextMessage: "TTV Right Now",
 				iconUrl: streamers.length === 1 ? streamers[0].thumbnail_url.replace('{width}', '160').replace('{height}', '90') : "images/icon.png"
 			}
 		);
