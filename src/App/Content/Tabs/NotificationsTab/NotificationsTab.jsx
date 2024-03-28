@@ -49,7 +49,7 @@ export default class NotificationsTab extends React.Component {
 							{
 								this.context.followedChannels.map(value => {
 									let isNotified = this.state.notifiedStreams.includes(value.login);
-									let component = <FollowedChannelsTile isNotified={isNotified} channel={value} onCheckboxInteract={() => {
+									let component = <FollowedChannelsTile key={value.login} isNotified={isNotified} channel={value} onCheckboxInteract={() => {
 										ChromeData.notifyStream(value.login, !isNotified).then(() => {
 											ChromeData.getToNotifyStreams().then(val => {
 												this.setState(() => {

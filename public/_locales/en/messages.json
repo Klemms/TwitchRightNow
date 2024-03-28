@@ -65,5 +65,27 @@
   },
   "tab_notifications_followed_on": {
     "message": "Followed on :"
+  },
+
+  "notification_disconnected_generic_title": {
+    "message": "TTV Right Now has been disconnected from Twitch"
+  },
+  "notification_disconnected_generic_message": {
+    "message": "You can reconnect anytime using the \"Log in with Twitch\" button"
+  },
+  "notification_disconnected_expired_message": {
+    "message": "Your Twitch Auth is no longer valid, please log back in using your Twitch account"
+  },
+  "notification_stream_one_title": {
+    "message": "%streamer% started streaming %game_game%"
+  },
+  "notification_stream_two_title": {
+    "message": "%streamer_1% and %streamer_2% started streaming !"
+  },
+  "notification_stream_multiple_title": {
+    "message": "These streamers started streaming"
+  },
+  "notification_stream_cta_channel": {
+    "message": "Go to %streamer%'s channel"
   }
 }

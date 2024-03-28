@@ -56,7 +56,7 @@ chrome.runtime.onMessage.addListener((message, sender) => {
 	if (sender.id === chrome.runtime.id && message.reason) {
 		switch (message.reason) {
 			case 'disconnect':
-				disconnect(true, 'You can reconnect anytime using the "Log in with Twitch" button');
+				disconnect(true, chrome.i18n.getMessage('notification_disconnected'));
 				break;
 			case 'get-followed-channels':
 				chrome.storage.sync.get('ttvToken').then(value => {
@@ -134,7 +134,7 @@ function disconnect(hard, notificationMessage) {
 				chrome.notifications.create(
 					"ttvrightnow",
 					{
-						title: "TTV Right Now has been disconnected from Twitch",
+						title: chrome.i18n.getMessage('notification_disconnected_generic_title'),
 						message: notificationMessage,
 						type: "basic",
 						contextMessage: "TTV Right Now",
@@ -223,7 +223,7 @@ function refreshToken(refreshAll, tryCount = 0) {
 				}
 			})
 		} else {
-			disconnect(true, 'Your Twitch Auth is no longer valid, please log back in using your Twitch account');
+			disconnect(true, chrome.i18n.getMessage('notification_disconnected_expired_message'));
 			return Promise.reject('invalid-token');
 		}
 	});
@@ -332,25 +332,28 @@ function newNotification(streamers) {
 	});
 	streamersFormatted = streamersFormatted.substring(0, streamersFormatted.length - 2);
 
-	let title = "These streamers started streaming";
+	let title = chrome.i18n.getMessage('notification_stream_multiple_title');
 	switch(streamers.length) {
 		case 1:
-			title = `${(streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)} started streaming ${streamers[0].game_name}`;
+			title = chrome.i18n.getMessage('notification_stream_one_title')
+				.replaceAll('%streamer%', streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)
+				.replaceAll('%game_game%', streamers[0].game_name);
 			streamersFormatted = streamers[0].title || streamers[0].game_name || "";
 			break;
 		case 2:
-			title = (streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name) + " and " + (streamers[1].user_name === '' ? streamers[1].user_login : streamers[1].user_name) + " started streaming !";
+			title = chrome.i18n.getMessage('notification_stream_two_title')
+				.replaceAll('%streamer_1%', streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)
+				.replaceAll('%streamer_2%', streamers[1].user_name === '' ? streamers[1].user_login : streamers[1].user_name);
 			break;
 	}
 
 	let goToButtons = [];
 	if (streamers.length === 1) {
 		goToButtons.push({
-			title: `Go to ${(streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)}'s channel`
+			title: chrome.i18n.getMessage('notification_stream_cta_channel')
+				.replaceAll('%streamer%', streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)
 		});
 	}
-
-	console.log('notif?', notif);
 
 	chrome.storage.local.set({lastStreamerNotification: streamers[0]}).then(() => {
 		chrome.notifications.create(
@@ -421,7 +424,7 @@ function getTTVUserInfos(ttvToken, clientId) {
 				return value.data[0];
 			});
 		} else if (response.status === 401) {
-			disconnect(true, 'Your Twitch Auth is no longer valid, please log back in using your Twitch account');
+			disconnect(true, chrome.i18n.getMessage('notification_disconnected_expired_message'));
 			return Promise.reject(response);
 		}
 	}, error => {

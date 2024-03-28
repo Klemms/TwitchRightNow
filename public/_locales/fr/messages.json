@@ -65,5 +65,27 @@
   },
   "tab_notifications_followed_on": {
     "message": "Suivi le :"
+  },
+
+  "notification_disconnected_generic_title": {
+    "message": "TTV Right Now a été déconnecté de Twitch"
+  },
+  "notification_disconnected_generic_message": {
+    "message": "Vous pouvez vous reconnecter en utilisant le bouton \"Se connecter avec Twitch\""
+  },
+  "notification_disconnected_expired_message": {
+    "message": "Votre authentification Twitch a expirée, reconnectez-vous pour continuer d'utiliser TTV Right Now"
+  },
+  "notification_stream_one_title": {
+    "message": "%streamer% a commencé un stream sur %game_game%"
+  },
+  "notification_stream_two_title": {
+    "message": "%streamer_1% et %streamer_2% ont commencé un stream !"
+  },
+  "notification_stream_multiple_title": {
+    "message": "Ces streamers ont commencés à streamer !"
+  },
+  "notification_stream_cta_channel": {
+    "message": "Aller sur la chaine de %streamer%'"
   }
 }
