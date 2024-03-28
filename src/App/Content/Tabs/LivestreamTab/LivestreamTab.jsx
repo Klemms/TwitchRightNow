@@ -18,12 +18,12 @@ export default class LivestreamTab extends React.Component {
                         if (this.context.currentSearch !== '') {
                             if (value.user_name.toLowerCase().includes(this.context.currentSearch.toLowerCase()) ||
                                 value.game_name.toLowerCase().includes(this.context.currentSearch.toLowerCase())) {
-                                return <LivestreamTile livestream={value}/>;
+                                return <LivestreamTile key={value.user_login} livestream={value}/>;
                             }
                             return null;
                         }
 
-                        return <LivestreamTile livestream={value}/>;
+                        return <LivestreamTile key={value.user_login} livestream={value}/>;
                     })
                 }
                 <div
