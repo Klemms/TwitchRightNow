@@ -1,9 +1,9 @@
 import {Component} from "react";
-import styles from "./Content.module.sass";
+import styles from "./style.module.sass";
 import {AppContext} from "../../Contexts";
-import DisconnectedTab from "./Tabs/DisconnectedTab/DisconnectedTab";
-import LivestreamTab from "./Tabs/LivestreamTab/LivestreamTab";
-import NotificationsTab from "./Tabs/NotificationsTab/NotificationsTab";
+import DisconnectedTab from "../tabs/DisconnectedTab";
+import LivestreamTab from "../tabs/LivestreamTab";
+import NotificationsTab from "../tabs/NotificationsTab";
 
 export default class Content extends Component {
 	static contextType = AppContext;

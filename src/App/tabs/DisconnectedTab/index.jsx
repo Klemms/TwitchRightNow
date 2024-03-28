@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./DisconnectedTab.module.sass";
+import styles from "./style.module.sass";
 import Tab from "../Tab";
 
 export default React.memo(function DisconnectedTab() {

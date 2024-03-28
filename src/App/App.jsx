@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import styles from './App.module.sass';
-import TopBar from "./TopBar/TopBar";
-import BottomBar from "./BottomBar/BottomBar";
-import Content from "./Content/Content";
+import TopBar from "./components/TopBar";
+import BottomBar from "./components/BottomBar";
+import Content from "./Content";
 import ChromeData from "../ChromeData";
 import {AppContext, defaultAppContextValue} from "../Contexts";
 

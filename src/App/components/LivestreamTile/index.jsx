@@ -1,12 +1,12 @@
 import React, {useRef} from "react";
-import styles from './LivestreamTile.module.sass';
-import Button from "../../../Button/Button";
-import {getStreamUptime} from "../../../Util";
-import {useMouseOver} from "../../../hooks/useMouseOver";
+import styles from './style.module.sass';
+import Button from "../Button";
+import {getStreamUptime} from "../../Util";
+import {useMouseOver} from "../../hooks/useMouseOver";
 import classNames from "classnames";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar as emptyStar} from "@fortawesome/free-regular-svg-icons";
 import {faStar as solidStar} from "@fortawesome/free-solid-svg-icons";
+import Icon from '../Icon';
 
 export default React.memo(function LivestreamTile({livestream}) {
 	const ref = useRef();
@@ -22,7 +22,12 @@ export default React.memo(function LivestreamTile({livestream}) {
 				<img className={classNames(styles.streamPic, isHovered ? styles.hovered : false)} src={livestream.thumbnail_url.replace('{width}', '128').replace('{height}', '72')}/>
 				{
 					isHovered ? (
-						<FontAwesomeIcon className={classNames(styles.favoriteIcon, livestream.isFavorite ? styles.favorited : false)} icon={livestream.isFavorite ? solidStar : emptyStar}/>
+						<Icon
+							icon={livestream.isFavorite ? solidStar : emptyStar}
+							className={classNames(styles.favoriteIcon, livestream.isFavorite ? styles.favorited : false)}
+							hoverClassName={classNames(styles.hovered)}
+							title={!livestream.isFavorite ? chrome.i18n.getMessage('favorite_add') : chrome.i18n.getMessage('favorite_remove')}
+						/>
 					) : null
 				}
 			</div>

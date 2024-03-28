@@ -1,12 +1,11 @@
 import React from "react";
-import styles from "./NotificationsTab.module.sass";
+import styles from "./style.module.sass";
 import Tab from "../Tab";
-import {AppContext} from "../../../../Contexts";
-import loading from '../../../../assets/images/loading.svg';
-import ChromeData from "../../../../ChromeData";
-import FollowedChannelsTile from "../../Tiles/FollowedChannelsTile/FollowedChannelsTile";
-import Checkbox from "../../../Checkbox/Checkbox";
-import LivestreamTile from "../../Tiles/LivestreamTile/LivestreamTile";
+import {AppContext} from "../../../Contexts";
+import loading from '../../../assets/images/loading.svg';
+import ChromeData from "../../../ChromeData";
+import FollowedChannelsTile from "../../components/FollowedChannelsTile";
+import Checkbox from "../../components/Checkbox";
 
 export default class NotificationsTab extends React.Component {
 	static contextType = AppContext;

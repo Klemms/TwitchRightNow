@@ -1,6 +1,6 @@
-import styles from './SearchBox.module.sass';
+import styles from './style.module.sass';
 import {Component} from "react";
-import {AppContext} from "../../Contexts";
+import {AppContext} from "../../../Contexts";
 
 export default class SearchBox extends Component {
 	static contextType = AppContext;

@@ -1,10 +1,9 @@
 import React, {PureComponent} from "react";
-import styles from "./BottomBar.module.sass";
-import {AppContext} from "../../Contexts";
-import Button from "../Button/Button";
-import sorting_Descending from "../../assets/images/order-descendant.svg";
-import sorting_Ascending from "../../assets/images/order-ascendant.svg";
-import ChromeData from '../../ChromeData';
+import styles from "./style.module.sass";
+import {AppContext} from "../../../Contexts";
+import Button from "../Button";
+import sorting_Descending from "../../../assets/images/order-descendant.svg";
+import sorting_Ascending from "../../../assets/images/order-ascendant.svg";
 
 export default class BottomBar extends PureComponent {
     static contextType = AppContext;

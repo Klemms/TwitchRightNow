@@ -1,4 +1,4 @@
-@import '../../../../variables'
+@import '../../../variables'
 
 .stream
   position: relative
@@ -30,8 +30,11 @@
       left: 50%
       top: 50%
       transform: translate(-50%, -50%)
+      transition: transform 100ms ease-in-out
       &.favorited
         color: gold
+      &.hovered
+        transform: translate(-50%, -50%) scale(1.3)
 
   .streamerName
     position: absolute

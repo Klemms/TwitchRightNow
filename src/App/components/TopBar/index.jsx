@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import styles from "./TopBar.module.sass";
-import SearchBox from "../SearchBox/SearchBox";
-import Button from "../Button/Button";
-import ChromeData from "../../ChromeData";
-import {AppContext} from "../../Contexts";
+import styles from "./style.module.sass";
+import SearchBox from "../SearchBox";
+import Button from "../Button";
+import ChromeData from "../../../ChromeData";
+import {AppContext} from "../../../Contexts";
 
 export default class TopBar extends Component {
 	static contextType = AppContext;
