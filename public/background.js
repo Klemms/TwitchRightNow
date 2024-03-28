@@ -113,13 +113,15 @@ function initValues() {
 		'viewercount-order',
 		'streams-layout',
 		'notified-streams',
-		'notify-all-streams'
+		'notify-all-streams',
+		'favoriteStreams'
 	]).then((value) => {
 		return chrome.storage.sync.set({
 			viewerCountOrder: value.viewerCountOrder || value['viewercount-order'] || 'descendant',
 			streamsLayout: value.streamsLayout || value['streams-layout'] || 'regular',
 			notifiedStreams: value.notifiedStreams || value['notified-streams'] || [],
-			notifyAllStreams: value.notifyAllStreams || value['notify-all-streams'] || false
+			notifyAllStreams: value.notifyAllStreams || value['notify-all-streams'] || false,
+			favoriteStreams: value.favoriteStreams || []
 		});
 	})
 }
@@ -256,9 +258,18 @@ function refresh(ttvToken, ttvUser) {
 	getLiveFollowedStreams(ttvToken, ttvUser.user_id, ttvUser.client_id).then(value => {
 		let data = value.data;
 
-		return chrome.storage.local.set({
-			lastStreamsRefresh: Date.now(),
-			ttvStreamsData: data
+		return chrome.storage.sync.get('favoriteStreams').then(value => {
+			const favorites = value.favoriteStreams || [];
+
+			return chrome.storage.local.set({
+				lastStreamsRefresh: Date.now(),
+				ttvStreamsData: data.map(el => {
+					return {
+						...el,
+						isFavorite: favorites.includes(el.user_login)
+					}
+				})
+			});
 		}).then(() => {
 			if (data) {
 				chrome.action.setBadgeBackgroundColor({
