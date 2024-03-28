@@ -14,11 +14,24 @@
     background: linear-gradient(270deg, $main-light-color 10%, $main-dark-color 100%)
     transition: 0.5s
 
-  .streamPic
-    width: 115px
-    height: 100%
-    &.hovered
-      filter: blur(2px) brightness(50%)
+  .streamPicContainer
+    position: relative
+
+    .streamPic
+      width: 115px
+      height: 100%
+      &.hovered
+        filter: blur(3px) brightness(40%)
+
+    .favoriteIcon
+      position: absolute
+      font-size: 25px
+      color: white
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+      &.favorited
+        color: gold
 
   .streamerName
     position: absolute
