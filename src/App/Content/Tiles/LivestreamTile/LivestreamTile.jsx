@@ -1,16 +1,21 @@
-import React from "react";
+import React, {useRef} from "react";
 import styles from './LivestreamTile.module.sass';
 import Button from "../../../Button/Button";
 import {getStreamUptime} from "../../../Util";
+import {useMouseOver} from "../../../hooks/useMouseOver";
+import classNames from "classnames";
 
 export default React.memo(function LivestreamTile({livestream}) {
+	const ref = useRef();
+	const isHovered = useMouseOver(ref);
+
 	return (
-		<Button className={styles.stream} onClick={() => {
+		<Button ref={ref}  className={styles.stream} onClick={() => {
 			chrome.tabs.create({
 				url: `https://www.twitch.tv/${livestream.user_login}`
 			})
 		}}>
-			<img className={styles.streamPic} src={livestream.thumbnail_url.replace('{width}', '128').replace('{height}', '72')}/>
+			<img className={classNames(styles.streamPic, isHovered ? styles.hovered : false)} src={livestream.thumbnail_url.replace('{width}', '128').replace('{height}', '72')}/>
 			<div className={styles.streamerName} title={(livestream.user_name === '' ? livestream.user_login : livestream.user_name)}>{(livestream.user_name === '' ? livestream.user_login : livestream.user_name)}</div>
 			<div className={styles.rightPart}>
 				<div className={styles.streamTitle} title={livestream.title}>{livestream.title}</div>

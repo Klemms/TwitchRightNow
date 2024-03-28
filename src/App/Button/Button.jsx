@@ -1,11 +1,18 @@
-import {Component} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
-export default class Button extends Component {
-	render() {
-		return (
-			<div className={this.props.className} onClick={this.props.onClick} title={this.props.title}>
-				{this.props.children}
-			</div>
-		);
-	}
-}
+const Button = React.memo(React.forwardRef(function Button({children, className, onClick, title}, ref) {
+    return (
+        <div ref={ref} className={className} onClick={onClick} title={title}>
+            {children}
+        </div>
+    );
+}));
+
+Button.propTypes = {
+    className: PropTypes.string,
+    onClick: PropTypes.func,
+    title: PropTypes.string
+};
+
+export default Button;

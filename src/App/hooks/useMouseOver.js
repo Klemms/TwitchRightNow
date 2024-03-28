@@ -1,0 +1,28 @@
+import {useCallback, useEffect, useState} from "react";
+
+export function useMouseOver(ref) {
+    const [isHovered, setHovered] = useState(false);
+
+    const onMouseEnter = useCallback(() => {
+        setHovered(true);
+    }, [ref]);
+    const onMouseLeave = useCallback(() => {
+        setHovered(false);
+    }, [ref]);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.addEventListener("mouseenter", onMouseEnter);
+            ref.current.addEventListener("mouseleave", onMouseLeave);
+        }
+
+        return () => {
+            if (ref.current) {
+                ref.current.removeEventListener("mouseenter", onMouseEnter);
+                ref.current.removeEventListener("mouseleave", onMouseLeave);
+            }
+        };
+    }, [ref]);
+
+    return isHovered;
+}
