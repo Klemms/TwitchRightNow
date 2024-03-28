@@ -1,0 +1,69 @@
+{
+  "app_name": {
+    "message": "TTV Right Now : Stream Notifier",
+    "description": "Quickly see & get notified when your favorite Twitch streamers go live"
+  },
+
+  "login_line1": {
+    "message": "Log in with your Twitch account"
+  },
+  "login_line2": {
+    "message": "Live streams from people you follow"
+  },
+  "login_line3": {
+    "message": "will show here once you're logged in."
+  },
+  "login_line4": {
+    "message": "Use the button located in the"
+  },
+  "login_line5": {
+    "message": "upper right corner."
+  },
+  "login_button": {
+    "message": "Log In with Twitch"
+  },
+  "login_disconnect_hint": {
+    "message": "Click to disconnect"
+  },
+
+  "favorite_add": {
+    "message": "Click to add to your favorite streamers !"
+  },
+  "favorite_remove": {
+    "message": "Click to remove from your favorites"
+  },
+
+  "search_livestreams": {
+    "message": "Search live streams or games"
+  },
+  "search_followed": {
+    "message": "Search followed streams"
+  },
+
+  "bottombar_streams": {
+    "message": "Followed Streams"
+  },
+  "bottombar_notifications": {
+    "message": "Stream Notifications"
+  },
+  "bottombar_sort_desc": {
+    "message": "Sort by viewer count (descending)"
+  },
+  "bottombar_sort_asc": {
+    "message": "Sort by viewer count (ascending)"
+  },
+
+  "tab_streams_last_update": {
+    "message": "Last Update %time% - Updates every 2 minutes"
+  },
+
+  "tab_notifications_enable_all": {
+    "message": "Enable notifications for all streams"
+  },
+  "tab_notifications_enable": {
+    "message": "Enable Notifications"
+  },
+  "tab_notifications_followed_on": {
+    "message": "Followed on :"
+  }
+}

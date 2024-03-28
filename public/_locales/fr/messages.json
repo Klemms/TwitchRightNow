@@ -1,0 +1,69 @@
+{
+  "app_name": {
+    "message": "TTV Right Now : Notifications de Stream",
+    "description": "Sachez rapidement & obtenez des notifications quand vos streamers préférés sont en live !"
+  },
+
+  "login_line1": {
+    "message": "Connectez vous avec votre compte Twitch"
+  },
+  "login_line2": {
+    "message": "Les lives des gens que vous suivez"
+  },
+  "login_line3": {
+    "message": "seront affichés ici lorsque vous serez connecté."
+  },
+  "login_line4": {
+    "message": "Utilisez le bouton situé dans le"
+  },
+  "login_line5": {
+    "message": "coin en haut à droite."
+  },
+  "login_button": {
+    "message": "Se connecter avec Twitch"
+  },
+  "login_disconnect_hint": {
+    "message": "Cliquez pour vous déconnecter"
+  },
+
+  "favorite_add": {
+    "message": "Cliquez pour ajouter aux streamers favoris !"
+  },
+  "favorite_remove": {
+    "message": "Cliquez pour supprimer des favoris"
+  },
+
+  "search_livestreams": {
+    "message": "Rechercher un live ou un jeu"
+  },
+  "search_followed": {
+    "message": "Rechercher un streamer"
+  },
+
+  "bottombar_streams": {
+    "message": "Streams Suivis"
+  },
+  "bottombar_notifications": {
+    "message": "Notifications de streams"
+  },
+  "bottombar_sort_desc": {
+    "message": "Trier par ordre décroissant de spectateurs"
+  },
+  "bottombar_sort_asc": {
+    "message": "Trier par ordre croissant de spectateurs"
+  },
+
+  "tab_streams_last_update": {
+    "message": "Mis à jour à %time% - Mis à jour toutes les 2 minutes"
+  },
+
+  "tab_notifications_enable_all": {
+    "message": "Activer les notifications pour tous les streams"
+  },
+  "tab_notifications_enable": {
+    "message": "Activer les notifications"
+  },
+  "tab_notifications_followed_on": {
+    "message": "Suivi le :"
+  }
+}

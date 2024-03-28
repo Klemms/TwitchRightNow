@@ -10,7 +10,7 @@ export default class SearchBox extends Component {
 			<input
 				className={styles.searchBox}
 				type="text"
-				placeholder={`Search ${this.context.currentTab === 'livestream' ? 'live streams or games' : 'followed streams'}`}
+				placeholder={this.context.currentTab === 'livestream' ? chrome.i18n.getMessage('search_livestreams') : chrome.i18n.getMessage('search_followed')}
 				autoFocus
 				value={this.context.currentSearch}
 				onChange={(event) => {

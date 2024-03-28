@@ -27,7 +27,7 @@ export default class LivestreamTab extends React.Component {
                     })
                 }
                 <div
-                    className={styles.informations}>{`Last Update ${new Date(this.context.lastUpdate).toLocaleTimeString(navigator.language)} - Updates every 2 minutes`}</div>
+                    className={styles.informations}>{chrome.i18n.getMessage('tab_streams_last_update').replaceAll('%time%', new Date(this.context.lastUpdate).toLocaleTimeString(navigator.language))}</div>
             </Tab>
         );
     }

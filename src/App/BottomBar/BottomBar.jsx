@@ -23,7 +23,7 @@ export default class BottomBar extends PureComponent {
                                 <div className={styles.selectedTriangle}></div>
                                 <div className={styles.infobox}>
                                     <div className={styles.triangle}></div>
-                                    Followed Streams
+                                    {chrome.i18n.getMessage('bottombar_streams')}
                                 </div>
                                 <svg type="color-fill-current" width="23px" height="23px" version="1.1"
                                      viewBox="0 0 20 20" x="0px" y="0px" className={styles.svgIcon}>
@@ -43,7 +43,7 @@ export default class BottomBar extends PureComponent {
                                 <div className={styles.selectedTriangle}></div>
                                 <div className={styles.infobox}>
                                     <div className={styles.triangle}></div>
-                                    Stream Notifications
+                                    {chrome.i18n.getMessage('bottombar_notifications')}
                                 </div>
                                 <svg width="23px" height="23px" version="1.1" viewBox="0 0 20 20" x="0px" y="0px"
                                      className={styles.svgIcon}>
@@ -61,12 +61,12 @@ export default class BottomBar extends PureComponent {
                                     onClick={() => this.context.setViewerSorting('descendant')}>
                                     <div className={styles.infobox}>
                                         <div className={styles.triangle}></div>
-                                        Sort by viewer count (descending)
+                                        {chrome.i18n.getMessage('bottombar_sort_desc')}
                                     </div>
                                     <img
                                         className={styles.sorting}
                                         src={sorting_Descending}
-                                        alt="Sort by viewer count (descending)"
+                                        alt={chrome.i18n.getMessage('bottombar_sort_desc')}
                                     />
                                 </Button>
 
@@ -75,11 +75,11 @@ export default class BottomBar extends PureComponent {
                                     onClick={() => this.context.setViewerSorting('ascendant')}>
                                     <div className={styles.infobox}>
                                         <div className={styles.triangle}></div>
-                                        Sort by viewer count (ascending)
+                                        {chrome.i18n.getMessage('bottombar_sort_asc')}
                                     </div>
                                     <img
                                         src={sorting_Ascending}
-                                        alt="Sort by viewer count (ascending)"
+                                        alt={chrome.i18n.getMessage('bottombar_sort_asc')}
                                     />
                                 </Button>
                             </div>

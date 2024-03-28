@@ -10,7 +10,7 @@ export default class FollowedChannelsTile extends React.Component {
 
 	getFollowedTime(time) {
 		let date = new Date(time);
-		return date.toLocaleString("en-US", {month: "long", day: "numeric", year: "numeric"}) + " · " + date.toLocaleTimeString(navigator.language, {hour12: false}).substring(0, 5);
+		return date.toLocaleString(navigator.language, {month: "long", day: "numeric", year: "numeric"}) + " · " + date.toLocaleTimeString(navigator.language).substring(0, 5);
 	}
 
 	render() {
@@ -29,8 +29,8 @@ export default class FollowedChannelsTile extends React.Component {
 						<span className={styles.currentlyLive} title={'Currently live !'} ></span>
 					) : null
 				} {ch.name} &#8599;</Button>
-				<div className={styles.followedDate}>Followed on :<br />{this.getFollowedTime(ch.date)}</div>
-				<div className={styles.notifText}>Enable Notifications<Checkbox checked={this.props.isNotified} style={{float: 'right'}} onInteract={() => {
+				<div className={styles.followedDate}>{chrome.i18n.getMessage('tab_notifications_followed_on')}<br />{this.getFollowedTime(ch.date)}</div>
+				<div className={styles.notifText}>{chrome.i18n.getMessage('tab_notifications_enable')}<Checkbox checked={this.props.isNotified} style={{float: 'right'}} onInteract={() => {
 					if (this.props.onCheckboxInteract) {
 						this.props.onCheckboxInteract();
 					}

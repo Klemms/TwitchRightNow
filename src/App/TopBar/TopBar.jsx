@@ -19,7 +19,7 @@ export default class TopBar extends Component {
 
 								<Button
 									className={styles.userInfos}
-									title={'Click to disconnect'}
+									title={chrome.i18n.getMessage('login_disconnect_hint')}
 									onClick={(event) => {
 										ChromeData.disconnect();
 									}}>
@@ -36,7 +36,7 @@ export default class TopBar extends Component {
 								onClick={(event) => {
 									chrome.tabs.create({url: "https://id.twitch.tv/oauth2/authorize?client_id=9ds9194jefzxja6up90v9jrdgxnlac&redirect_uri=https://klemms.github.io/TwitchRightNow/&response_type=token&scope=user:read:follows"});
 								}}
-							>Log In with Twitch</Button>
+							>{chrome.i18n.getMessage('login_button')}</Button>
 						</React.Fragment>
 					}
 				</div>

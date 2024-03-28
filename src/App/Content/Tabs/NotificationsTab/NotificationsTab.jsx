@@ -32,7 +32,7 @@ export default class NotificationsTab extends React.Component {
 		return (
 			<Tab style={{textAlign: 'center'}} overrideClassName={styles.tab}>
 				<div className={styles.notifyAllStreams}>
-					<span>Enable notifications for all streams</span>
+					<span>{chrome.i18n.getMessage('tab_notifications_enable_all')}</span>
 					<Checkbox checked={this.state.notifyAllStreams} onInteract={(e) => {
 						ChromeData.notifyAllStreams((!this.state.notifyAllStreams)).then(() => {
 							this.setState(() => {
