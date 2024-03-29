@@ -14,13 +14,20 @@ chrome.runtime.onStartup.addListener(() => {
 	onStart();
 });
 
-chrome.notifications.onButtonClicked.addListener((notificationId) => {
+chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
 	if (notificationId === 'ttvrightnow') {
 		chrome.storage.local.get('lastStreamerNotification').then(value => {
 			chrome.notifications.clear('ttvrightnow');
-			chrome.tabs.create({
-				url: `https://www.twitch.tv/${value.lastStreamerNotification.user_login}`
-			});
+			const last = value.lastStreamerNotification;
+			if (Array.isArray(last) && last.length > 0) {
+				if (buttonIndex === 1 && last.length < 2) {
+					return;
+				}
+
+				chrome.tabs.create({
+					url: `https://www.twitch.tv/${last[buttonIndex].user_login}`
+				});
+			}
 		});
 	}
 })
@@ -343,6 +350,7 @@ function newNotification(streamers) {
 			streamersFormatted = streamers[0].title || streamers[0].game_name || "";
 			break;
 		case 2:
+			streamersFormatted = chrome.i18n.getMessage('notification_stream_two_message');
 			title = chrome.i18n.getMessage('notification_stream_two_title')
 				.replaceAll('%streamer_1%', streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)
 				.replaceAll('%streamer_2%', streamers[1].user_name === '' ? streamers[1].user_login : streamers[1].user_name);
@@ -350,14 +358,20 @@ function newNotification(streamers) {
 	}
 
 	let goToButtons = [];
-	if (streamers.length === 1) {
+	if (streamers.length === 1 || streamers.length === 2) {
 		goToButtons.push({
 			title: chrome.i18n.getMessage('notification_stream_cta_channel')
 				.replaceAll('%streamer%', streamers[0].user_name === '' ? streamers[0].user_login : streamers[0].user_name)
 		});
 	}
+	if (streamers.length === 2) {
+		goToButtons.push({
+			title: chrome.i18n.getMessage('notification_stream_cta_channel')
+				.replaceAll('%streamer%', streamers[1].user_name === '' ? streamers[1].user_login : streamers[1].user_name)
+		});
+	}
 
-	chrome.storage.local.set({lastStreamerNotification: streamers[0]}).then(() => {
+	chrome.storage.local.set({lastStreamerNotification: streamers}).then(() => {
 		chrome.notifications.create(
 			"ttvrightnow",
 			{
@@ -440,7 +454,6 @@ function getTTVUserInfos(ttvToken, clientId) {
  * @param ttvToken
  * @param ttvUserId
  * @param clientId
- * @param callback
  * @returns {Promise<any>}
  */
 function getLiveFollowedStreams(ttvToken, ttvUserId, clientId) {

@@ -96,10 +96,13 @@
   "notification_stream_two_title": {
     "message": "%streamer_1% and %streamer_2% started streaming !"
   },
+  "notification_stream_two_message": {
+    "message": "Go watch them now !"
+  },
   "notification_stream_multiple_title": {
     "message": "These streamers started streaming"
   },
   "notification_stream_cta_channel": {
-    "message": "Go to %streamer%'s channel"
+    "message": "Watch %streamer%"
   }
 }
