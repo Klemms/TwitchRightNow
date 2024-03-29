@@ -43,21 +43,24 @@ export default class App extends Component {
     updateLivestreams() {
         return ChromeData.getFavorites().then(favorites => {
             return ChromeData.getLivestreams().then(value => {
-                return new Promise((resolve) => {
-                    this.setState(() => {
-                        return {
-                            livestreams: value.livestreams.map(el => {
-                                return {
-                                    ...el,
-                                    isFavorite: favorites.includes(el.user_login)
-                                }
-                            }),
-                            lastUpdate: value.lastUpdate
-                        };
-                    }, () => {
-                        resolve();
+                if (Array.isArray(value.livestreams)) {
+                    return new Promise((resolve) => {
+                        this.setState(() => {
+                            return {
+                                livestreams: value.livestreams.map(el => {
+                                    return {
+                                        ...el,
+                                        isFavorite: favorites.includes(el.user_login)
+                                    }
+                                }),
+                                lastUpdate: value.lastUpdate
+                            };
+                        }, () => {
+                            resolve();
+                        });
                     });
-                });
+                }
+                return Promise.resolve();
             });
         });
     }
@@ -65,21 +68,24 @@ export default class App extends Component {
     updateFollowedChannels() {
         return ChromeData.getFavorites().then(favorites => {
             return ChromeData.getFollowedChannels().then(value => {
-                return new Promise((resolve) => {
-                    this.setState(() => {
-                        return {
-                            followedChannels: value.followedChannels.map(el => {
-                                return {
-                                    ...el,
-                                    isFavorite: favorites.includes(el.login)
-                                }
-                            }),
-                            fetchedChannels: true
-                        };
-                    }, () => {
-                        resolve();
+                if (Array.isArray(value.followedChannels)) {
+                    return new Promise((resolve) => {
+                        this.setState(() => {
+                            return {
+                                followedChannels: value.followedChannels.map(el => {
+                                    return {
+                                        ...el,
+                                        isFavorite: favorites.includes(el.login)
+                                    }
+                                }),
+                                fetchedChannels: true
+                            };
+                        }, () => {
+                            resolve();
+                        });
                     });
-                });
+                }
+                return Promise.resolve();
             });
         });
     }
