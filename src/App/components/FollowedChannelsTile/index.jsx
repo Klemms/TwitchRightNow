@@ -3,6 +3,7 @@ import styles from './style.module.sass';
 import Button from "../Button";
 import {AppContext} from "../../../Contexts";
 import Checkbox from "../Checkbox";
+import ChromeData from '../../../ChromeData';
 
 export default class FollowedChannelsTile extends React.Component {
     static contextType = AppContext;
@@ -14,6 +15,18 @@ export default class FollowedChannelsTile extends React.Component {
             day: "numeric",
             year: "numeric"
         }) + " · " + date.toLocaleTimeString(navigator.language).substring(0, 5);
+    }
+
+    onFavoriteClick = () => {
+        if (this.props.channel.isFavorite) {
+            ChromeData.removeFavorite(this.props.channel.login).then(() => {
+                this.context.update();
+            });
+        } else {
+            ChromeData.addFavorite(this.props.channel.login).then(() => {
+                this.context.update();
+            });
+        }
     }
 
     render() {
@@ -35,12 +48,26 @@ export default class FollowedChannelsTile extends React.Component {
                 <div
                     className={styles.followedDate}>{chrome.i18n.getMessage('tab_notifications_followed_on')}<br/>{this.getFollowedTime(ch.date)}
                 </div>
-                <div className={styles.notifText}>{chrome.i18n.getMessage('tab_notifications_enable')}<Checkbox
-                    checked={this.props.isNotified} style={{float: 'right'}} onInteract={() => {
-                    if (this.props.onCheckboxInteract) {
-                        this.props.onCheckboxInteract();
-                    }
-                }}/></div>
+                <div className={styles.notifText}>
+                    {chrome.i18n.getMessage('tab_notifications_enable')}
+                    <Checkbox
+                        checked={this.props.isNotified}
+                        style={{float: 'right'}}
+                        onInteract={() => {
+                            if (this.props.onCheckboxInteract) {
+                                this.props.onCheckboxInteract();
+                            }
+                        }}
+                    />
+                </div>
+                <div className={styles.notifText}>
+                    {chrome.i18n.getMessage('tab_notifications_favorite_toggle')}
+                    <Checkbox
+                        checked={ch.isFavorite}
+                        style={{float: 'right'}}
+                        onInteract={this.onFavoriteClick}
+                    />
+                </div>
             </div>
         );
     }
