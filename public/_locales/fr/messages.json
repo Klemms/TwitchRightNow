@@ -104,5 +104,9 @@
   },
   "notification_stream_cta_channel": {
     "message": "Regarder %streamer%"
+  },
+
+  "videos_pastbroadcasts": {
+    "message": "Diffusions Passées"
   }
 }

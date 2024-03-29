@@ -104,5 +104,9 @@
   },
   "notification_stream_cta_channel": {
     "message": "Watch %streamer%"
+  },
+
+  "videos_pastbroadcasts": {
+    "message": "Past Broadcasts"
   }
 }
