@@ -1,6 +1,6 @@
 {
   "app_name": {
-    "message": "TTV Right Now : Notifications de Stream"
+    "message": "Twitch Right Now : Notifications de Stream"
   },
   "app_description": {
     "message": "Sachez rapidement quand vos streamers préférés sont en live et choisissez ceux pour lesquels vous voulez recevoir des notifications !"
@@ -82,13 +82,13 @@
   },
 
   "notification_disconnected_generic_title": {
-    "message": "TTV Right Now a été déconnecté de Twitch"
+    "message": "Twitch Right Now a été déconnecté de Twitch"
   },
   "notification_disconnected_generic_message": {
     "message": "Vous pouvez vous reconnecter en utilisant le bouton \"Se connecter avec Twitch\""
   },
   "notification_disconnected_expired_message": {
-    "message": "Votre authentification Twitch a expirée, reconnectez-vous pour continuer d'utiliser TTV Right Now"
+    "message": "Votre authentification Twitch a expirée, reconnectez-vous pour continuer d'utiliser Twitch Right Now"
   },
   "notification_stream_one_title": {
     "message": "%streamer% a commencé un stream sur %game_game%"

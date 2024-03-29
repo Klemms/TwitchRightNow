@@ -146,7 +146,7 @@ function disconnect(hard, notificationMessage) {
 						title: chrome.i18n.getMessage('notification_disconnected_generic_title'),
 						message: notificationMessage,
 						type: "basic",
-						contextMessage: "TTV Right Now",
+						contextMessage: "Twitch Right Now",
 						iconUrl: "images/icon.png"
 					}
 				);
@@ -379,7 +379,7 @@ function newNotification(streamers) {
 				title: title,
 				message: streamersFormatted,
 				type: "basic",
-				contextMessage: "TTV Right Now",
+				contextMessage: "Twitch Right Now",
 				iconUrl: streamers.length === 1 ? streamers[0].thumbnail_url.replace('{width}', '160').replace('{height}', '90') : "images/icon.png"
 			}
 		);

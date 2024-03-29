@@ -1,6 +1,6 @@
 {
   "app_name": {
-    "message": "TTV Right Now : Stream Notifier"
+    "message": "Twitch Right Now : Stream Notifier"
   },
   "app_description": {
     "message": "Quickly see & get notified when your favorite Twitch streamers go live"
@@ -82,7 +82,7 @@
   },
 
   "notification_disconnected_generic_title": {
-    "message": "TTV Right Now has been disconnected from Twitch"
+    "message": "Twitch Right Now has been disconnected from Twitch"
   },
   "notification_disconnected_generic_message": {
     "message": "You can reconnect anytime using the \"Log in with Twitch\" button"

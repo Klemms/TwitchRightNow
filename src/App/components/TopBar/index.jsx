@@ -29,7 +29,7 @@ export default class TopBar extends Component {
 							</React.Fragment>
 						) :
 						<React.Fragment>
-							<div className={styles.disconnectedTip}>TTV Right Now</div>
+							<div className={styles.disconnectedTip}>Twitch Right Now</div>
 
 							<Button
 								className={styles.loginTwitch}

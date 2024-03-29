@@ -1,6 +1,6 @@
-# TTV Right Now
+# Twitch Right Now
 
-Welcome to the TTV Right Now browser extension repository
+Welcome to the Twitch Right Now browser extension repository
 
 Everyone is free to contribute to the project via pull requests
 
