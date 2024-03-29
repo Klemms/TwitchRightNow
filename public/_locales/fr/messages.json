@@ -52,7 +52,16 @@
   "bottombar_sort_asc": {
     "message": "Trier par ordre croissant de spectateurs"
   },
+  "bottombar_favorites_enable": {
+    "message": "Activer les favoris"
+  },
+  "bottombar_favorites_disable": {
+    "message": "Désactiver les favoris"
+  },
 
+  "tab_streams_category_favorites": {
+    "message": "Favoris"
+  },
   "tab_streams_last_update": {
     "message": "Mis à jour à %time% - Mis à jour toutes les 2 minutes"
   },
@@ -62,6 +71,9 @@
   },
   "tab_notifications_enable": {
     "message": "Activer les notifications"
+  },
+  "tab_notifications_favorite_toggle": {
+    "message": "Définir en favoris"
   },
   "tab_notifications_followed_on": {
     "message": "Suivi le :"

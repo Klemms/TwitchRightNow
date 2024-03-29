@@ -52,7 +52,16 @@
   "bottombar_sort_asc": {
     "message": "Sort by viewer count (ascending)"
   },
+  "bottombar_favorites_enable": {
+    "message": "Enable favorites"
+  },
+  "bottombar_favorites_disable": {
+    "message": "Disable favorites"
+  },
 
+  "tab_streams_category_favorites": {
+    "message": "Favorites"
+  },
   "tab_streams_last_update": {
     "message": "Last Update %time% - Updates every 2 minutes"
   },
@@ -62,6 +71,9 @@
   },
   "tab_notifications_enable": {
     "message": "Enable Notifications"
+  },
+  "tab_notifications_favorite_toggle": {
+    "message": "Mark as favorite"
   },
   "tab_notifications_followed_on": {
     "message": "Followed on :"
