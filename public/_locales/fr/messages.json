@@ -1,7 +1,9 @@
 {
   "app_name": {
-    "message": "TTV Right Now : Notifications de Stream",
-    "description": "Sachez rapidement & obtenez des notifications quand vos streamers préférés sont en live !"
+    "message": "TTV Right Now : Notifications de Stream"
+  },
+  "app_description": {
+    "message": "Sachez rapidement quand vos streamers préférés sont en live et choisissez ceux pour lesquels vous voulez recevoir des notifications !"
   },
 
   "login_line1": {
