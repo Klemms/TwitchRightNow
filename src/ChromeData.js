@@ -1,4 +1,17 @@
 export default {
+	getAuthData: () => {
+		return Promise.all([
+			chrome.storage.local.get('ttvUser').then(({ttvUser}) => {
+				if (ttvUser && ttvUser.client_id) {
+					return ttvUser.client_id;
+				}
+				return Promise.reject('no-client-id');
+			}),
+			chrome.storage.sync.get('ttvToken').then(({ttvToken}) => {
+				return ttvToken || Promise.reject('no-ttv-token');
+			})
+		]);
+	},
 	getRawData: (dataName = '', isSync = true) => {
 		if (dataName.length === 0) {
 			return Promise.reject('Empty data name string !');

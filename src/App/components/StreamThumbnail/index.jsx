@@ -33,5 +33,5 @@ export const StreamThumbnail = React.memo(function ({className, image}) {
 
 StreamThumbnail.propTypes = {
     className: PropTypes.string,
-    image: PropTypes.any
+    image: PropTypes.any.isRequired
 }
