@@ -7,6 +7,7 @@ import classNames from "classnames";
 import {faStar as emptyStar} from "@fortawesome/free-regular-svg-icons";
 import {faStar as solidStar} from "@fortawesome/free-solid-svg-icons";
 import Icon from '../Icon';
+import {StreamThumbnail} from '../StreamThumbnail';
 
 export default React.memo(function LivestreamTile({livestream}) {
 	const ref = useRef();
@@ -19,7 +20,7 @@ export default React.memo(function LivestreamTile({livestream}) {
 			})
 		}}>
 			<div className={styles.streamPicContainer} style={{ display: 'inline-block' }}>
-				<img className={classNames(styles.streamPic, isHovered ? styles.hovered : false)} src={livestream.thumbnail_url.replace('{width}', '128').replace('{height}', '72')}/>
+				<StreamThumbnail className={classNames(styles.streamPic, isHovered ? styles.hovered : false)} image={livestream.thumbnail_url.replace('{width}', '128').replace('{height}', '72')} />
 				{
 					isHovered ? (
 						<Icon
