@@ -114,14 +114,16 @@ function initValues() {
 		'streams-layout',
 		'notified-streams',
 		'notify-all-streams',
-		'favoriteStreams'
+		'favoriteStreams',
+		'showFavorites'
 	]).then((value) => {
 		return chrome.storage.sync.set({
 			viewerCountOrder: value.viewerCountOrder || value['viewercount-order'] || 'descendant',
 			streamsLayout: value.streamsLayout || value['streams-layout'] || 'regular',
 			notifiedStreams: value.notifiedStreams || value['notified-streams'] || [],
 			notifyAllStreams: value.notifyAllStreams || value['notify-all-streams'] || false,
-			favoriteStreams: value.favoriteStreams || []
+			favoriteStreams: value.favoriteStreams || [],
+			showFavorites: typeof value.showFavorites === 'boolean' ? value.showFavorites : true
 		});
 	})
 }

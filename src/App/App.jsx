@@ -41,30 +41,44 @@ export default class App extends Component {
     }
 
     updateLivestreams() {
-        return ChromeData.getLivestreams().then(value => {
-            return new Promise((resolve) => {
-                this.setState(() => {
-                    return {
-                        livestreams: value.livestreams,
-                        lastUpdate: value.lastUpdate
-                    };
-                }, () => {
-                    resolve();
+        return ChromeData.getFavorites().then(favorites => {
+            return ChromeData.getLivestreams().then(value => {
+                return new Promise((resolve) => {
+                    this.setState(() => {
+                        return {
+                            livestreams: value.livestreams.map(el => {
+                                return {
+                                    ...el,
+                                    isFavorite: favorites.includes(el.user_login)
+                                }
+                            }),
+                            lastUpdate: value.lastUpdate
+                        };
+                    }, () => {
+                        resolve();
+                    });
                 });
             });
         });
     }
 
     updateFollowedChannels() {
-        return ChromeData.getFollowedChannels().then(value => {
-            return new Promise((resolve) => {
-                this.setState(() => {
-                    return {
-                        followedChannels: value.followedChannels,
-                        fetchedChannels: true
-                    };
-                }, () => {
-                    resolve();
+        return ChromeData.getFavorites().then(favorites => {
+            return ChromeData.getFollowedChannels().then(value => {
+                return new Promise((resolve) => {
+                    this.setState(() => {
+                        return {
+                            followedChannels: value.followedChannels.map(el => {
+                                return {
+                                    ...el,
+                                    isFavorite: favorites.includes(el.login)
+                                }
+                            }),
+                            fetchedChannels: true
+                        };
+                    }, () => {
+                        resolve();
+                    });
                 });
             });
         });
@@ -88,6 +102,12 @@ export default class App extends Component {
                         break;
                 }
             }
+        });
+
+        ChromeData.showFavorites().then(value => {
+            this.setState({
+                showFavorites: value
+            });
         });
 
         ChromeData.getSorting().then(value => {
@@ -130,7 +150,18 @@ export default class App extends Component {
                             this.setState({
                                 sorting: sorting
                             });
-                        })
+                        });
+                    },
+                    setShowFavorites: showFavorites => {
+                        return ChromeData.showFavorites(showFavorites).then(() => {
+                            this.setState({
+                                showFavorites: showFavorites
+                            });
+                        });
+                    },
+                    update: () => {
+                        this.updateLivestreams();
+                        this.updateFollowedChannels();
                     }
                 }}>
                     <Content/>
