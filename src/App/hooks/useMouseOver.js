@@ -5,10 +5,10 @@ export function useMouseOver(ref) {
 
     const onMouseEnter = useCallback(() => {
         setHovered(true);
-    }, [ref]);
+    }, []);
     const onMouseLeave = useCallback(() => {
         setHovered(false);
-    }, [ref]);
+    }, []);
 
     useEffect(() => {
         if (ref.current) {
@@ -22,7 +22,7 @@ export function useMouseOver(ref) {
                 ref.current.removeEventListener("mouseleave", onMouseLeave);
             }
         };
-    }, [ref]);
+    }, [ref.current]);
 
     return isHovered;
 }

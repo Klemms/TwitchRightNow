@@ -1,18 +1,18 @@
 import {useCallback, useEffect} from "react";
 
-export function useOnHover(ref, callback) {
-    const onMouseEnter = useCallback(() => {
+export function useOnClick(ref, callback) {
+    const onClick = useCallback(() => {
         callback();
     }, [callback]);
 
     useEffect(() => {
         if (ref.current) {
-            ref.current.addEventListener("mouseenter", onMouseEnter);
+            ref.current.addEventListener("click", onClick);
         }
 
         return () => {
             if (ref.current) {
-                ref.current.removeEventListener("mouseenter", onMouseEnter);
+                ref.current.removeEventListener("click", onClick);
             }
         };
     }, [ref.current]);
