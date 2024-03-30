@@ -27,7 +27,7 @@ export default React.memo(function LivestreamTile({livestream}) {
 				context.update();
 			});
 		}
-	}, []);
+	}, [livestream]);
 
 	return (
 		<div className={styles.container}>
