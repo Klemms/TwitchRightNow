@@ -1,5 +1,13 @@
 @import "../../../variables"
 
+.container
+  display: inline-block
+
+.hoverContainer
+  position: absolute
+  top: 0
+  left: 0
+
 .vod
   display: inline-block
   background-color: green
@@ -7,9 +15,14 @@
   height: 90px
   overflow: hidden
   margin: 5px
-  position: relative
+  position: absolute
   font-size: 0
   border-radius: 5px
+  user-select: none
+  cursor: pointer
+
+  &.hovered.hovered
+    z-index: 100
 
   .content
     position: relative
