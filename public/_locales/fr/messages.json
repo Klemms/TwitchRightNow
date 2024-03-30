@@ -114,5 +114,14 @@
 
   "videos_pastbroadcasts": {
     "message": "Diffusions Passées"
+  },
+  "videos_streamed_on": {
+    "message": "Diffusé le %date% à %time%"
+  },
+  "videos_duration": {
+    "message": "Durée : %duration%"
+  },
+  "videos_see_all": {
+    "message": "Plus"
   }
 }

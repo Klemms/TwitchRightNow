@@ -5,8 +5,9 @@ import {getStreamerVideos} from '../../rest/apis/GetVideos';
 import {SmallVODTile} from '../SmallVODTile';
 import {useGSAP} from '@gsap/react';
 import gsap from 'gsap';
+import Button from '../Button';
 
-export const VodLine = function VodLine({streamerName, streamerID, includeFirst = true}) {
+export const VodLine = function VodLine({streamerName, streamerLogin, streamerID, includeFirst = true}) {
     const [vods, setVods] = useState([]);
     const ref = useRef();
 
@@ -49,6 +50,11 @@ export const VodLine = function VodLine({streamerName, streamerID, includeFirst 
                     <div ref={ref} className={styles.vodLine}>
                         <div className={styles.title}>
                             {chrome.i18n.getMessage("videos_pastbroadcasts")}
+                            <Button className={styles.rightTitle} onClick={() => {
+                                chrome.tabs.create({
+                                    url: `https://www.twitch.tv/${streamerLogin}/videos?filter=archives&sort=time`
+                                })
+                            }}>{chrome.i18n.getMessage("videos_see_all")}&#8599;</Button>
                         </div>
                         <div className={styles.line}>
                             {
@@ -66,6 +72,7 @@ export const VodLine = function VodLine({streamerName, streamerID, includeFirst 
 
 VodLine.propTypes = {
     streamerName: PropTypes.string.isRequired,
+    streamerLogin: PropTypes.string.isRequired,
     streamerID: PropTypes.string.isRequired,
     includeFirst: PropTypes.bool
 }

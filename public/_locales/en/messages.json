@@ -114,5 +114,14 @@
 
   "videos_pastbroadcasts": {
     "message": "Past Broadcasts"
+  },
+  "videos_streamed_on": {
+    "message": "Streamed on %date% at %time%"
+  },
+  "videos_duration": {
+    "message": "Duration : %duration%"
+  },
+  "videos_see_all": {
+    "message": "More"
   }
 }

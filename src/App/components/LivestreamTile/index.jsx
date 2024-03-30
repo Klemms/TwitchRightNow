@@ -71,7 +71,7 @@ export default React.memo(function LivestreamTile({livestream}) {
 			</Button>
 			{
 				context.pastBroadcastsFeature && livestream.isFavorite ? (
-					<VodLine streamerName={livestream.user_name} streamerID={livestream.user_id} includeFirst={false} />
+					<VodLine streamerName={livestream.user_name} streamerLogin={livestream.user_login} streamerID={livestream.user_id} includeFirst={false} />
 				) : null
 			}
 		</div>
