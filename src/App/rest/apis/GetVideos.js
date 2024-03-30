@@ -44,7 +44,7 @@ export function initGetVideos() {
         method: 'GET',
         contentType: 'application/json',
         dataProcessor: new GetStreamerVideosProcessor(),
-        cacheDuration: 0,
+        cacheDuration: 60,
         headers: [
             {
                 name: 'Authorization',
@@ -84,7 +84,7 @@ export function initGetVideos() {
         method: 'GET',
         contentType: 'application/json',
         dataProcessor: new GetVideoProcessor(),
-        cacheDuration: 0,
+        cacheDuration: 60,
         headers: [
             {
                 name: 'Authorization',

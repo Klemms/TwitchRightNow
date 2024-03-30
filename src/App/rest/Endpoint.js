@@ -1,6 +1,7 @@
 export default class Endpoint {
     lastRequest = 0;
     lastRequestResult = null;
+    cache = {};
     hasPendingRequest = false;
 
     constructor(config) {
@@ -42,6 +43,23 @@ export default class Endpoint {
                 default: value.default || null
             };
         });
+    }
+
+    addCache(url, value) {
+        if (this.cacheDuration > 0) {
+            this.cache[url] = value;
+            setTimeout(() => {
+                delete this.cache[url];
+            }, this.cacheDuration * 1000);
+        }
+    }
+
+    hasCache(url) {
+        return typeof this.cache[url] !== 'undefined';
+    }
+
+    getCache(url) {
+        return this.cache[url];
     }
 
     containsParameter(parameterName) {

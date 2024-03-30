@@ -34,12 +34,13 @@ export default class Backend {
         if (this.endpoints[endpointName]) {
             let endpoint = this.endpoints[endpointName];
 
-            if (endpoint.lastRequestResult !== null && endpoint.lastRequest >= Date.now() - endpoint.cacheDuration) {
-                return Promise.resolve(endpoint.lastRequestResult);
-            }
-
             let request = endpoint.createRequest(params, body, headers);
             const finalURL = encodeURI(`${endpoint.baseURL || this.baseURL}${request.path}${request.parameters}`);
+
+            if (endpoint.hasCache(finalURL)) {
+                console.log(`Serving cache for endpoint '${endpointName}' , URL : ${finalURL}`);
+                return Promise.resolve(endpoint.getCache(finalURL));
+            }
 
             console.log(`Calling endpoint '${endpointName}', URL : ${finalURL}`);
 
@@ -61,6 +62,8 @@ export default class Backend {
                                         (value) => {
                                             endpoint.lastRequestResult = value;
                                             endpoint.lastRequest = Date.now();
+
+                                            endpoint.addCache(finalURL, value);
 
                                             return value;
                                         },
