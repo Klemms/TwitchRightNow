@@ -12,7 +12,8 @@ export const defaultAppContextValue = () => {
         fetchedChannels: false,
         currentSearch: '',
         sorting: 'descendant',
-        showFavorites: true
+        showFavorites: true,
+        pastBroadcastsFeature: true
     }
 };
 export const AppContext = React.createContext(defaultAppContextValue());

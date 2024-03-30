@@ -55,10 +55,16 @@
     "message": "Sort by viewer count (ascending)"
   },
   "bottombar_favorites_enable": {
-    "message": "Enable favorites"
+    "message": "Enable favorites category"
   },
   "bottombar_favorites_disable": {
-    "message": "Disable favorites"
+    "message": "Disable favorites category"
+  },
+  "bottombar_pastbroadcasts_enable": {
+    "message": "Enable past broadcasts"
+  },
+  "bottombar_pastbroadcasts_disable": {
+    "message": "Disable past broadcasts"
   },
 
   "tab_streams_category_favorites": {

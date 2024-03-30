@@ -110,6 +110,12 @@ export default class App extends Component {
             }
         });
 
+        ChromeData.pastBroadcastsFeature().then(value => {
+            this.setState({
+                pastBroadcastsFeature: value
+            });
+        });
+
         ChromeData.showFavorites().then(value => {
             this.setState({
                 showFavorites: value
@@ -162,6 +168,13 @@ export default class App extends Component {
                         return ChromeData.showFavorites(showFavorites).then(() => {
                             this.setState({
                                 showFavorites: showFavorites
+                            });
+                        });
+                    },
+                    setPastBroadcastsFeature: pastBroadcastState => {
+                        return ChromeData.pastBroadcastsFeature(pastBroadcastState).then(() => {
+                            this.setState({
+                                pastBroadcastsFeature: pastBroadcastState
                             });
                         });
                     },

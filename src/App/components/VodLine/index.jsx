@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.module.sass';
 import {getStreamerVideos} from '../../rest/apis/GetVideos';
@@ -9,6 +9,7 @@ import gsap from 'gsap';
 export const VodLine = function VodLine({streamerName, streamerID, includeFirst = true}) {
     const [vods, setVods] = useState([]);
     const ref = useRef();
+
     useGSAP(() => {
         if (vods.length > 0) {
             gsap.from(ref.current, {
@@ -17,7 +18,12 @@ export const VodLine = function VodLine({streamerName, streamerID, includeFirst 
                 duration: 0.5,
                 paddingTop: 0,
                 paddingBottom: 0,
-                ease: 'power2.inOut'
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    gsap.set(ref.current, {
+                        clearProps: 'all'
+                    });
+                }
             });
         }
     }, {
@@ -41,7 +47,9 @@ export const VodLine = function VodLine({streamerName, streamerID, includeFirst 
             {
                 (vods.length) > 0 ? (
                     <div ref={ref} className={styles.vodLine}>
-                        <div className={styles.title}>{chrome.i18n.getMessage("videos_pastbroadcasts")}</div>
+                        <div className={styles.title}>
+                            {chrome.i18n.getMessage("videos_pastbroadcasts")}
+                        </div>
                         <div className={styles.line}>
                             {
                                 vods.map(vod => {

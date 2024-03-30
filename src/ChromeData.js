@@ -52,6 +52,17 @@ export default {
 			viewerCountOrder: sorting
 		});
 	},
+	pastBroadcastsFeature: (pastBroadcastState) => {
+		if (pastBroadcastState === true || pastBroadcastState === false) {
+			return chrome.storage.sync.set({
+				pastBroadcastsFeature: pastBroadcastState
+			});
+		}
+
+		return chrome.storage.sync.get('pastBroadcastsFeature').then(value => {
+			return typeof value.pastBroadcastsFeature === 'boolean' ? value.pastBroadcastsFeature : true;
+		});
+	},
 	getFavorites: () => {
 		return chrome.storage.sync.get('favoriteStreams').then(value => {
 			return value.favoriteStreams || [];

@@ -55,10 +55,16 @@
     "message": "Trier par ordre croissant de spectateurs"
   },
   "bottombar_favorites_enable": {
-    "message": "Activer les favoris"
+    "message": "Activer la catégorie des favoris"
   },
   "bottombar_favorites_disable": {
-    "message": "Désactiver les favoris"
+    "message": "Désactiver la catégorie des favoris"
+  },
+  "bottombar_pastbroadcasts_enable": {
+    "message": "Activer les diffusions passées"
+  },
+  "bottombar_pastbroadcasts_disable": {
+    "message": "Désactiver les diffusions passées"
   },
 
   "tab_streams_category_favorites": {

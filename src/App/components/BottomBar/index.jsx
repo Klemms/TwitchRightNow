@@ -6,7 +6,7 @@ import sorting_Descending from "../../../assets/images/order-descendant.svg";
 import sorting_Ascending from "../../../assets/images/order-ascendant.svg";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faStar as emptyStar} from '@fortawesome/free-regular-svg-icons';
-import {faStar as solidStar} from '@fortawesome/free-solid-svg-icons';
+import {faPhotoFilm, faStar as solidStar} from '@fortawesome/free-solid-svg-icons';
 
 export default class BottomBar extends PureComponent {
     static contextType = AppContext;
@@ -58,6 +58,20 @@ export default class BottomBar extends PureComponent {
                             </Button>
 
                             <div className={styles.rightButtons}>
+                                <Button
+                                    className={`${styles.tabButton} ${styles.favoriteToggle} ${this.context.pastBroadcastsFeature ? styles.selected : ''}`}
+                                    onClick={() => this.context.setPastBroadcastsFeature(!this.context.pastBroadcastsFeature)}>
+                                    <div className={styles.infobox}>
+                                        <div className={styles.triangle}></div>
+                                        {
+                                            this.context.pastBroadcastsFeature ?
+                                                chrome.i18n.getMessage('bottombar_pastbroadcasts_disable') :
+                                                chrome.i18n.getMessage('bottombar_pastbroadcasts_enable')
+                                        }
+                                    </div>
+                                    <FontAwesomeIcon className={styles.favoriteToggleIcon} icon={faPhotoFilm}/>
+                                </Button>
+
                                 <Button
                                     className={`${styles.tabButton} ${styles.favoriteToggle} ${this.context.showFavorites ? styles.selected : ''}`}
                                     onClick={() => this.context.setShowFavorites(!this.context.showFavorites)}>
