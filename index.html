@@ -1,50 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Twitch Right Now : Login</title>
-        <style>
-            html, body {
-                margin: 0;
-                padding-top: 25px;
-                background-color: #3b323f;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                text-align: center;
-                color: white;
-                font-size: 30px;
-            }
-        </style>
-        <script>
-            var ttvRightNowID = "jaebeaoffbboingfjbdkgbnnfdkjilld";
-            var twitchToken = "none";
-
-            function messageExtention() {
-                chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
-                function(response) {
-                    if (response.status == "success") {
-                        document.getElementById("mainMessage").innerHTML = "Successfully logged in !<br />You can close this tab.";
-                    } else {
-                        document.getElementById("mainMessage").innerText = "An issue occured while communicating with the extension.<br />(" + response.status + ")";
-                    }
-                })
-            }
-
-            function getHashParameters(hashname) {
-                var hashParams = new Map();
-
-                window.location.hash.substr(1).split('&').forEach(function(element) {
-                    let newElem = element.split('=');
-                    hashParams.set(newElem[0], newElem[1]);
-                })
-
-                return (hashParams.get(hashname));
-            }
-
-            window.addEventListener("load", function() {
-                messageExtention();
-            });
-        </script>
-    </head>
-    <body>
-        <div id="mainMessage">Please wait a few seconds...</div>
-    </body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/images/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
