@@ -1,13 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
-import PropTypes from 'prop-types';
-import styles from './style.module.sass';
-import defaultStreamPic from '../../../assets/images/default-stream-pic.png';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, {memo, useEffect, useRef, useState} from 'react';
+import defaultStreamPic from '../../../assets/images/default-stream-pic.png';
+import styles from './style.module.sass';
 
-export const StreamThumbnail = React.memo(function ({className, image}) {
+const StreamThumbnail = memo(function StreamThumbnail({className, image}) {
     const [isLoaded, setLoaded] = useState(false);
-    const hasTransition  = useRef(false);
-
+    const hasTransition = useRef(false);
 
     useEffect(() => {
         // If the image takes more than 100ms to load, it's probably not in the cache, then we enable the transition for
@@ -34,4 +33,6 @@ export const StreamThumbnail = React.memo(function ({className, image}) {
 StreamThumbnail.propTypes = {
     className: PropTypes.string,
     image: PropTypes.any.isRequired
-}
+};
+
+export default StreamThumbnail;

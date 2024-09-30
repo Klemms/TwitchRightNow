@@ -116,7 +116,7 @@
     "message": "Past Broadcasts"
   },
   "videos_streamed_on": {
-    "message": "Streamed on %date% at %time%"
+    "message": "Date : %date% at %time%"
   },
   "videos_duration": {
     "message": "Duration : %duration%"

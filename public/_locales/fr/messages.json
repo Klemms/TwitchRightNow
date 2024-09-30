@@ -116,7 +116,7 @@
     "message": "Diffusions Passées"
   },
   "videos_streamed_on": {
-    "message": "Diffusé le %date% à %time%"
+    "message": "Date : %date% à %time%"
   },
   "videos_duration": {
     "message": "Durée : %duration%"

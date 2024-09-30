@@ -1,12 +1,16 @@
-import {Component} from "react";
+import {memo} from "react";
 import styles from "./Tab.module.sass";
 
-export default class Tab extends Component {
-	render() {
-		return (
-			<div className={this.props.overrideClassName || styles.tab} style={this.props.style || {}}>
-				{this.props.children}
-			</div>
-		);
-	}
-}
+const Tab = memo(function Tab({
+                                  children,
+                                  className,
+                                  style
+                              }) {
+    return (
+        <div className={className || styles.tab} style={style || {}}>
+            {children}
+        </div>
+    );
+});
+
+export default Tab;

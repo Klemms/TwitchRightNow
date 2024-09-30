@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
-import PropTypes from 'prop-types';
-import styles from './style.module.sass';
-import {getStreamerVideos} from '../../rest/apis/GetVideos';
-import {SmallVODTile} from '../SmallVODTile';
 import {useGSAP} from '@gsap/react';
 import gsap from 'gsap';
+import PropTypes from 'prop-types';
+import React, {useEffect, useRef, useState} from 'react';
+import {getStreamerVideos} from '../../rest/apis/GetVideos';
 import Button from '../Button';
+import SmallVODTile from '../SmallVODTile/index.jsx';
+import styles from './style.module.sass';
 
 export const VodLine = function VodLine({streamerName, streamerLogin, streamerID, includeFirst = true}) {
     const [vods, setVods] = useState([]);
@@ -75,5 +75,5 @@ VodLine.propTypes = {
     streamerLogin: PropTypes.string.isRequired,
     streamerID: PropTypes.string.isRequired,
     includeFirst: PropTypes.bool
-}
+};
 

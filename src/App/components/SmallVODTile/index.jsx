@@ -1,20 +1,19 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import PropTypes from 'prop-types';
-import styles from './style.module.sass';
-import {getVideo} from '../../rest/apis/GetVideos';
-import {useTwitchVideo} from '../../hooks/useTwitchVideo';
-import classNames from 'classnames';
-import {StreamThumbnail} from '../StreamThumbnail';
-import ReactTimeAgo from 'react-time-ago';
-import gsap from 'gsap';
-import {useMouseOver} from '../../hooks/useMouseOver';
 import {useGSAP} from '@gsap/react';
+import classNames from 'classnames';
+import gsap from 'gsap';
+import PropTypes from 'prop-types';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import ReactTimeAgo from 'react-time-ago';
+import {useMouseOver} from '../../hooks/useMouseOver';
+import {getVideo} from '../../rest/apis/GetVideos';
 import Button from '../Button';
+import StreamThumbnail from '../StreamThumbnail/index.jsx';
+import styles from './style.module.sass';
 
 /**
  * Provide either vodData or vodID ! In case both are present, only vodData will be used.
  */
-export const SmallVODTile = function SmallVODTile({className, vodData, vodID}) {
+const SmallVODTile = function SmallVODTile({className, vodData, vodID}) {
     const [vod, setVOD] = useState(vodData);
     const ref = useRef();
     const openAnimationRef = useRef(null);
@@ -25,7 +24,7 @@ export const SmallVODTile = function SmallVODTile({className, vodData, vodID}) {
     }, [vod]);
     const date = useMemo(() => {
         return new Date(vod.date);
-    }, [vod])
+    }, [vod]);
 
     useGSAP(() => {
         if (isHovered) {
@@ -54,10 +53,7 @@ export const SmallVODTile = function SmallVODTile({className, vodData, vodID}) {
     }, [isHovered]);
 
     useEffect(() => {
-        if (typeof vodData === 'object') {
-
-        } else if (typeof vodID === 'string') {
-            useTwitchVideo()
+        if (typeof vodID === 'string') {
             getVideo(vodID).then(result => {
                 setVOD(result);
             });
@@ -119,5 +115,6 @@ export const SmallVODTile = function SmallVODTile({className, vodData, vodID}) {
 SmallVODTile.propTypes = {
     vodData: PropTypes.object,
     vodID: PropTypes.string
-}
+};
 
+export default SmallVODTile;

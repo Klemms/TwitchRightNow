@@ -21,7 +21,7 @@ export default class LivestreamTab extends React.Component {
         hasFavorites = hasFavorites && this.context.showFavorites;
 
         return (
-            <Tab style={{paddingTop: '10px'}}>
+            <Tab style={{paddingTop: '10px'}} className={styles.tab}>
                 {
                     // Favorite streams rendering
                     hasFavorites && !isSearching ? (
