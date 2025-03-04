@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import gsap from 'gsap';
 import {useGSAP} from '@gsap/react';
 import './index.sass';
+import './variables.scss';
 import App from './App/App';
 import {initREST} from './App/rest/API';
 import TimeAgo from 'javascript-time-ago';

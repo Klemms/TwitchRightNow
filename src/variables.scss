@@ -1,15 +1,18 @@
-$main_dark_color: hsl(0deg 0% 6%)
-$main-light-color: hsl(0deg 0% 15%)
-$main-border-color: #00000000
+body {
+    --main-dark-color: hsl(0deg 0% 6%);
+    --main-light-color: hsl(0deg 0% 15%);
+    --main-border-color: #00000000;
 
-$scrollbar-thumb-color: #585858
+    --scrollbar-thumb-color: #585858;
 
-$stream-element-text: #dbdbdb
-$stream-tags-background: #363636
-$stream-tags-border: #ffffff00
+    --stream-element-text: #dbdbdb;
+    --stream-tags-background: #363636;
+    --stream-tags-border: #ffffff00;
 
-$color-white: #dfdfdf
-$faded-white: rgb(255 255 255 / 40%)
-$white-60: hsl(0deg 0% 60%)
+    --color-white: #dfdfdf;
+    --faded-white: rgb(255 255 255 / 40%);
+    --white-60: hsl(0deg 0% 60%);
 
-$twitch: #6441a5
+    --twitch: #6441a5;
+}
+

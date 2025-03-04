@@ -1,12 +1,10 @@
-@import "../../../variables"
-
 .bottomBar
   height: 35px
   width: inherit
   position: fixed
-  background-color: $main-dark-color
+  background-color: var(--main-dark-color)
   bottom: 0
-  border-top: 1px solid $main-border-color
+  border-top: 1px solid var(--main-border-color)
   box-sizing: border-box
 
   .rightButtons
@@ -68,7 +66,7 @@
     .infobox
       position: absolute
       background-color: rgba(0, 0, 0, 0.95)
-      color: $color-white
+      color: var(--color-white)
       padding: 6px 12px 6px 12px
       font-size: 14px
       top: 0
@@ -94,5 +92,5 @@
     &.favoriteToggle
       padding-top: 7px
       .favoriteToggleIcon
-        color: $color-white
+        color: var(--color-white)
         font-size: 18px
