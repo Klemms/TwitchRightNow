@@ -18,7 +18,7 @@
     var twitchToken = "none";
 
     function messageExtention() {
-      chrome.runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
+      runtime.sendMessage(ttvRightNowID, {requestType: "setTtvToken", ttvToken: getHashParameters("access_token")},
               function(response) {
                 if (response.status == "success") {
                   document.getElementById("mainMessage").innerHTML = "Successfully logged in !<br />You can close this tab.";

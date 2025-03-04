@@ -33,7 +33,7 @@ export default class TopBar extends Component {
 
 							<Button
 								className={styles.loginTwitch}
-								onClick={(event) => {
+								onClick={() => {
 									chrome.tabs.create({url: "https://id.twitch.tv/oauth2/authorize?client_id=9ds9194jefzxja6up90v9jrdgxnlac&redirect_uri=https://klemms.github.io/TwitchRightNow/&response_type=token&scope=user:read:follows"});
 								}}
 							>{chrome.i18n.getMessage('login_button')}</Button>

@@ -1,0 +1,26 @@
+{
+    "name": "__MSG_app_name__",
+    "description": "__MSG_app_description__",
+    "version": "1.6.0",
+    "manifest_version": 3,
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "permissions": ["storage", "alarms", "notifications"],
+    "action": {
+        "default_popup": "index.html"
+    },
+    "icons": {
+        "256": "images/icon.png"
+    },
+    "externally_connectable": {
+        "matches": ["https://klemms.github.io/TwitchRightNow/*"]
+    },
+    "default_locale": "en",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{501f1d40-094f-4018-87dd-e18db4ae910b}",
+            "strict_min_version": "122.0"
+        }
+    }
+}
