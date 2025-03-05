@@ -1,0 +1,9 @@
+.topBar {
+  height: 40px;
+  background-color: var(--main-dark-color);
+  color: var(--color-white);
+  padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import {useGSAP} from '@gsap/react';
 import './index.sass';
 import './variables.scss';
-import App from './App/App';
 import {initREST} from './App/rest/API';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
@@ -18,6 +17,9 @@ import uk from 'javascript-time-ago/locale/uk';
 import pt from 'javascript-time-ago/locale/pt';
 import ru from 'javascript-time-ago/locale/ru';
 import ko from 'javascript-time-ago/locale/ko';
+import {HashRouter, Route, Routes} from "react-router";
+import {App} from './routes/App';
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 gsap.registerPlugin(useGSAP);
 initREST();
@@ -35,9 +37,18 @@ TimeAgo.addLocale(pt);
 TimeAgo.addLocale(ru);
 TimeAgo.addLocale(ko);
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+            <HashRouter>
+                <Routes>
+                    <Route path={'/'} element={<App/>}>
+                    </Route>
+                </Routes>
+            </HashRouter>
+        </QueryClientProvider>
+    </React.StrictMode>
 );

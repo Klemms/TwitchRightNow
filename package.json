@@ -11,7 +11,10 @@
   },
   "watch": {
     "build": {
-      "patterns": ["src", "public"],
+      "patterns": [
+        "src",
+        "public"
+      ],
       "extensions": "js,jsx,ts,tsx,sass,scss,json,svg,png,jpeg,jpg"
     }
   },
@@ -22,21 +25,26 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@gsap/react": "^2.1.2",
+    "@tanstack/react-query": "^5.67.1",
     "classnames": "^2.5.1",
     "gsap": "^3.12.7",
     "javascript-time-ago": "^2.5.11",
     "npm-watch": "^0.13.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router": "^7.2.0",
     "react-time-ago": "^7.3.3",
     "sass": "^1.85.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/chrome": "^0.0.308",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "babel-plugin-react-compiler": "^19.0.0-beta-40c6c23-20250301",
     "eslint": "^9.21.0",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-40c6c23-20250301",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
