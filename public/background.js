@@ -1,5 +1,6 @@
-import {TwitchAPI} from "./service_data/twitch_api.js";
-import {ChromeData} from "./service_data/chrome_data.js";
+import {ChromeData} from './service_data/chrome_data.mjs';
+import {Events} from './service_data/events.mjs';
+import {TwitchAPI} from './service_data/twitch_api.mjs';
 
 const CONFIG_LOCAL_VERSION = 2;
 const CONFIG_SYNC_VERSION = 2;
@@ -12,13 +13,13 @@ chrome.runtime.onStartup.addListener(() => {
 });
 
 chrome.alarms.create('streams-refresh', {
-    'delayInMinutes': 1,
-    'periodInMinutes': 1
+    delayInMinutes: 1,
+    periodInMinutes: 1,
 });
 
-chrome.alarms.onAlarm.addListener(alarm => {
+chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === 'streams-refresh') {
-
+        refresh();
     }
 });
 
@@ -32,10 +33,12 @@ chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => 
                             token: request.ttvToken,
                         }).then(() => TwitchAPI.updateUserData());
                     })
-                    .then(resp => {
+                    .then(() => {
+                        Events.sendEvent(Events.EventNames.CONNECTED);
                         sendResponse({status: 'success'});
+                        return refresh();
                     })
-                    .catch(err => {
+                    .catch(() => {
                         console.log('Invalid TTV Token');
                         sendResponse({status: 'Invalid Twitch Token'});
                     });
@@ -64,7 +67,16 @@ async function initExtension() {
     return Promise.all([
         chrome.storage.local.set({ttvLastVersion: CONFIG_LOCAL_VERSION}),
         chrome.storage.sync.set({ttvLastVersion: CONFIG_SYNC_VERSION}),
-    ]);
+    ]).finally(() => {
+        refresh();
+    });
+}
+function refresh() {
+    chrome.storage.sync.get('twitch').then((res) => {
+        if (res.twitch) {
+            refreshToken().then(() => TwitchAPI.updateFollowedLiveStreams());
+        }
+    });
 }
 
 async function resetLocalData() {
@@ -73,4 +85,12 @@ async function resetLocalData() {
 
 async function resetSyncData() {
     await chrome.storage.sync.clear();
+}
+
+async function refreshToken() {
+    const lastRefresh = (await chrome.storage.local.get('twitchTokenLastRefresh'))['twitchTokenLastRefresh'];
+
+    if (Date.now() - lastRefresh >= 3_600_000) {
+        await TwitchAPI.validateTwitchToken();
+    }
 }

@@ -18,6 +18,16 @@ async function getTwitchClientId() {
     }
 }
 
+async function getTwitchUserId() {
+    const twitchData = await chrome.storage.sync.get(['twitch']);
+
+    if (twitchData['twitch']?.userId) {
+        return twitchData['twitch'].userId;
+    } else {
+        return null;
+    }
+}
+
 const defaultTwitchData = {
     token: null,
     clientId: null,
@@ -30,11 +40,11 @@ const defaultTwitchData = {
         username: null,
         avatarURL: null,
         creationDate: null,
-    }
+    },
 };
 
 async function setTwitchData(dataToMerge) {
-    let twitchData = (await chrome.storage.sync.get(['twitch']))['twitch'];
+    const twitchData = (await chrome.storage.sync.get(['twitch']))['twitch'];
 
     return chrome.storage.sync.set({
         twitch: {
@@ -49,4 +59,5 @@ export const ChromeData = {
     setTwitchData,
     getTwitchToken,
     getTwitchClientId,
+    getTwitchUserId,
 };
