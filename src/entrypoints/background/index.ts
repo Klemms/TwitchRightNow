@@ -87,7 +87,9 @@ export default defineBackground({
         function refresh() {
             browser.storage.sync.get('twitch').then((res) => {
                 if (res.twitch) {
-                    refreshToken().then(() => TwitchAPI.updateFollowedLiveStreams());
+                    refreshToken()
+                        .then(() => TwitchAPI.updateFollowedLiveStreams())
+                        .catch((e) => console.info('Twitch API responded with error :', e));
                 }
             });
         }
@@ -104,7 +106,7 @@ export default defineBackground({
             const lastRefresh = (await browser.storage.local.get('twitchTokenLastRefresh'))['twitchTokenLastRefresh'];
 
             if (Date.now() - lastRefresh >= 3_600_000) {
-                await TwitchAPI.validateTwitchToken();
+                return TwitchAPI.validateTwitchToken();
             }
         }
     },

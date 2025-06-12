@@ -31,6 +31,21 @@
   "login_disconnect_hint": {
     "message": "Click to disconnect"
   },
+  "reconnect_title": {
+    "message": "You have been disconnected"
+  },
+  "reconnect_line1": {
+    "message": "You have been disconnected because"
+  },
+  "reconnect_line2": {
+    "message": "your Twitch authentication token has expired."
+  },
+  "reconnect_line3": {
+    "message": "Your settings and favorites have been saved"
+  },
+  "reconnect_line4": {
+    "message": "and will be restored when you log back in."
+  },
 
   "favorite_add": {
     "message": "Click to add to your favorite streamers !"

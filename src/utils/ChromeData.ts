@@ -1,3 +1,5 @@
+import {DisconnectionReason} from '@/utils/Errors.ts';
+
 async function getTwitchToken(): Promise<string | null> {
     const twitchData = await browser.storage.sync.get(['twitch']);
 
@@ -28,6 +30,16 @@ async function getTwitchUserId(): Promise<string | null> {
     }
 }
 
+async function getDisconnectionReason(): Promise<DisconnectionReason> {
+    const reason = await browser.storage.sync.get(['disconnectionReason']);
+
+    if (Object.values(DisconnectionReason).includes(reason['disconnectionReason'])) {
+        return reason['disconnectionReason'];
+    } else {
+        return DisconnectionReason.NOT_CONNECTED;
+    }
+}
+
 const defaultTwitchData = {
     token: null,
     clientId: null,
@@ -45,6 +57,8 @@ const defaultTwitchData = {
 
 async function setTwitchData(dataToMerge: Partial<TwitchData>): Promise<void> {
     const twitchData = (await browser.storage.sync.get(['twitch']))['twitch'];
+
+    await browser.storage.sync.remove('disconnectionReason');
 
     return browser.storage.sync.set({
         twitch: {
@@ -98,4 +112,5 @@ export const ChromeData = {
     isFavorite,
     setFavorite,
     getFavorites,
+    getDisconnectionReason,
 };

@@ -6,3 +6,8 @@ export enum Errors {
     CONNECT = 'connect',
     RESET = 'reset',
 }
+
+export enum DisconnectionReason {
+    NOT_CONNECTED = 'not-connected',
+    EXPIRED_TOKEN = 'expired-token',
+}

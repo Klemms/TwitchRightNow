@@ -31,6 +31,21 @@
   "login_disconnect_hint": {
     "message": "Cliquez pour vous déconnecter"
   },
+  "reconnect_title": {
+    "message": "Vous avez été déconnecté"
+  },
+  "reconnect_line1": {
+    "message": "Vous avez été déconnecté car votre"
+  },
+  "reconnect_line2": {
+    "message": "token d'authentification Twitch a expiré."
+  },
+  "reconnect_line3": {
+    "message": "Vos paramètres et vos favoris ont été enregistrés"
+  },
+  "reconnect_line4": {
+    "message": "et seront restaurés lorsque vous vous reconnecterez."
+  },
 
   "favorite_add": {
     "message": "Cliquez pour ajouter aux streamers favoris !"

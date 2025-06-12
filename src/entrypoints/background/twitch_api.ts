@@ -1,6 +1,6 @@
 import {Events} from '@/entrypoints/background/events.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
-import {Errors} from '@/utils/Errors.ts';
+import {DisconnectionReason, Errors} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
 import {GetFollowedStreams, GetFollowedStreamsData} from '@/utils/TwitchResponses.ts';
 
@@ -99,15 +99,17 @@ async function updateUserData() {
 }
 
 function handleInvalidTwitchToken() {
-    console.log('Twitch token is no longer valid');
+    console.info('Twitch token is no longer valid, removing twitch infos, keeping user infos (favorites...)');
     // TODO: Disconnect User
 
     browser.storage.sync
         .set({
-            twitch: undefined,
+            disconnectionReason: DisconnectionReason.EXPIRED_TOKEN,
         })
-        .then(() => {
-            Events.sendEvent(EventNames.DISCONNECTED);
+        .finally(() => {
+            browser.storage.sync.remove('twitch').then(() => {
+                Events.sendEvent(EventNames.DISCONNECTED);
+            });
         });
 }
 
@@ -168,6 +170,7 @@ async function getFollowedLiveStreams(
 }
 
 async function updateFollowedLiveStreams() {
+    // TODO: Rewrite to handle server error cases
     try {
         const token = await ChromeData.getTwitchToken();
         const clientId = await ChromeData.getTwitchClientId();
@@ -207,7 +210,7 @@ async function updateFollowedLiveStreams() {
         }
     } catch (e) {
         handleInvalidTwitchToken();
-        console.error(e);
+        void e;
         return Promise.reject(Errors.INVALID_TOKEN);
     }
 }
