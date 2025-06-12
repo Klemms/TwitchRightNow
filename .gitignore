@@ -11,11 +11,21 @@ node_modules
 dist
 dist-ssr
 *.local
+.output
+stats.html
+stats-*.json
+.wxt
+web-ext.config.ts
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+!.vscode/settings.json
+.idea/**/*.iws
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/shelf
 .DS_Store
 *.suo
 *.ntvs*

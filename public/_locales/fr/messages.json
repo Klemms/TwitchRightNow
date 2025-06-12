@@ -6,6 +6,10 @@
     "message": "Sachez rapidement quand vos streamers préférés sont en live et choisissez ceux pour lesquels vous voulez recevoir des notifications !"
   },
 
+  "back": {
+    "message": "Retour"
+  },
+
   "login_line1": {
     "message": "Connectez vous avec votre compte Twitch"
   },
@@ -112,6 +116,33 @@
     "message": "Regarder %streamer%"
   },
 
+  "tags_drops_on": {
+    "message": "Drops"
+  },
+
+  "channel_created_since": {
+    "message": "Depuis le %date% à %time%"
+  },
+  "channel_goto": {
+    "message": "Aller sur la chaine de %user%"
+  },
+
+  "videos_muted": {
+    "message": "Passages muets"
+  },
+  "video_live_now": {
+    "message": "En Live"
+  },
+
+  "videos_watch": {
+    "message": "Regarder"
+  },
+  "videos_watch_vod": {
+    "message": "Regarder la VOD"
+  },
+  "videos_videos": {
+    "message": "Vidéos+"
+  },
   "videos_pastbroadcasts": {
     "message": "Diffusions Passées"
   },

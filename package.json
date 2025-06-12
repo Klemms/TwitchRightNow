@@ -1,31 +1,23 @@
 {
   "name": "twitch-right-now",
+  "description": "__MSG_app_description__",
   "private": true,
   "version": "1.6.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:tools": "cross-env VITE_REACT_DEVTOOLS=true vite",
-    "build": "tsc -b && vite build",
-    "devbuild": "tsc -b && cross-env NODE_ENV=development vite build --mode development --config vite.dev.config.ts",
-    "lint": "eslint .",
-    "watch": "npm-watch devbuild",
-    "watch:tools": "cross-env VITE_REACT_DEVTOOLS=true npm-watch devbuild",
+    "dev": "cross-env NODE_ENV=development wxt --mode development",
+    "dev:tools": "cross-env NODE_ENV=development VITE_REACT_DEVTOOLS=true wxt -c wxt.dev.config.ts",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare",
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix "
-    ]
-  },
-  "watch": {
-    "devbuild": {
-      "patterns": [
-        "src",
-        "public"
-      ],
-      "extensions": "js,jsx,ts,tsx,sass,scss,json,svg,png,jpeg,jpg"
-    }
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -34,39 +26,38 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@gsap/react": "^2.1.2",
-    "@tanstack/react-query": "5.69.0",
+    "@tanstack/react-query": "5.80.7",
     "classnames": "^2.5.1",
-    "gsap": "^3.12.7",
+    "gsap": "^3.13.0",
     "javascript-time-ago": "^2.5.11",
-    "npm-watch": "^0.13.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router": "^7.4.0",
+    "motion": "^12.17.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.2",
     "react-time-ago": "^7.3.3",
-    "sass": "^1.86.0"
+    "sass": "^1.89.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.23.0",
-    "@tanstack/react-query-devtools": "5.69.0",
-    "@types/chrome": "^0.0.310",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
-    "babel-plugin-react-compiler": "^19.0.0-beta-3229e95-20250315",
+    "@eslint/js": "^9.28.0",
+    "@tanstack/react-query-devtools": "5.80.7",
+    "@types/chrome": "^0.0.326",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@wxt-dev/module-react": "^1.1.2",
+    "babel-plugin-react-compiler": "19.1.0-rc.2",
     "cross-env": "^7.0.3",
-    "eslint": "^9.23.0",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-react-compiler": "^19.0.0-beta-3229e95-20250315",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-react-hooks": "^6.0.0-rc.1",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
-    "prettier": "3.5.3",
-    "react-devtools-core": "^6.1.1",
-    "typescript": "~5.8.2",
-    "typescript-eslint": "^8.27.0",
-    "vite": "^6.2.2"
+    "lint-staged": "^16.1.0",
+    "prettier": "^3.5.3",
+    "react-devtools-core": "^6.1.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.0",
+    "wxt": "^0.20.7"
   }
 }

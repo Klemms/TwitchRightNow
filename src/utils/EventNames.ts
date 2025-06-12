@@ -1,3 +1,5 @@
-export const EventNames = {
-    DISCONNECTED: 'disconnected',
-};
+export enum EventNames {
+    DISCONNECTED = 'disconnected',
+    CONNECTED = 'connected',
+    LIVESTREAMS_UPDATE = 'livestreams-update',
+}

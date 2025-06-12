@@ -1,0 +1,63 @@
+.featuredVideo {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-light-color);
+    min-height: 120rem;
+
+    .top, .bottom {
+        display: flex;
+        flex-direction: row;
+        gap: 10rem;
+    }
+
+    .thumbnail {
+        width: 220rem;
+        aspect-ratio: 16/9;
+    }
+
+    .bottom {
+        padding: 8rem;
+        background-color: var(--main-lightish-color);
+    }
+
+    .title {
+        font-size: 16rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .rightPart {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 5rem;
+        padding: 5rem 5rem 5rem 0;
+        justify-content: flex-start;
+
+        div {
+            white-space: nowrap;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 5rem;
+            justify-content: flex-end;
+            margin-top: auto;
+
+            .button {
+                display: flex;
+                align-items: center;
+                background-color: rgba(255, 255, 255, 0.15);
+                padding: 5rem 12rem;
+                font-size: 18rem;
+                cursor: pointer;
+                gap: 10rem;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.3);
+                }
+            }
+        }
+    }
+}

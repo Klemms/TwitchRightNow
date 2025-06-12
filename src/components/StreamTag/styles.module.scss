@@ -1,0 +1,17 @@
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-size: 14rem;
+
+    img {
+        width: 18rem;
+    }
+
+    &.isolated {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2rem 8rem;
+        border-radius: 15rem;
+        transform: translateY(2rem);
+    }
+}

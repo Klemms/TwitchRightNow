@@ -1,0 +1,46 @@
+.bottomBar {
+    height: 40rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: var(--main-lighter-color);
+    backdrop-filter: blur(20rem);
+    color: var(--color-white);
+    padding: 0 10rem 0 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 10rem 0 rgb(0 0 0 / 77%);
+    position: fixed;
+    box-sizing: border-box;
+    width: 100%;
+    bottom: 0;
+    gap: 10rem;
+    z-index: 10;
+
+    .searchBox {
+        font-family: 'Inter', sans-serif;
+        display: inline-block;
+        border-radius: 4rem;
+        background-color: var(--main-light-color);
+        border: none;
+        box-sizing: border-box;
+        height: 29rem;
+        padding: 0 10rem;
+        caret-color: var(--color-white);
+        color: var(--color-white);
+        font-weight: bold;
+        font-size: 16rem;
+        flex-grow: 1;
+
+        &:focus {
+            outline: none
+        }
+    }
+
+    .rightPart {
+        display: flex;
+        flex-direction: row;
+        gap: 10rem;
+    }
+}

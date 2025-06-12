@@ -6,6 +6,10 @@
     "message": "Quickly see & get notified when your favorite Twitch streamers go live"
   },
 
+  "back": {
+    "message": "Back"
+  },
+
   "login_line1": {
     "message": "Log in with your Twitch account"
   },
@@ -112,6 +116,33 @@
     "message": "Watch %streamer%"
   },
 
+  "tags_drops_on": {
+    "message": "Drops On"
+  },
+
+  "channel_created_since": {
+    "message": "Since %date% - %time%"
+  },
+  "channel_goto": {
+    "message": "Go to %user%'s channel"
+  },
+
+  "video_live_now": {
+    "message": "Live Now"
+  },
+
+  "videos_muted": {
+    "message": "Parts muted"
+  },
+  "videos_watch": {
+    "message": "Watch"
+  },
+  "videos_watch_vod": {
+    "message": "Watch VOD"
+  },
+  "videos_videos": {
+    "message": "Videos+"
+  },
   "videos_pastbroadcasts": {
     "message": "Past Broadcasts"
   },
