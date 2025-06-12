@@ -1,6 +1,7 @@
 import {Events} from '@/entrypoints/background/events.ts';
 import {TwitchAPI} from '@/entrypoints/background/twitch_api.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
+import {DisconnectionReason} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
 
 export default defineBackground({
@@ -73,7 +74,11 @@ export default defineBackground({
 
             if (typeof lastSyncVersion !== 'number' || lastSyncVersion < CONFIG_LOCAL_VERSION) {
                 console.log('Resetting sync data...');
-                await resetSyncData();
+                await resetSyncData().finally(() => {
+                    browser.storage.sync.set({
+                        disconnectionReason: DisconnectionReason.VERSION_UPGRADE,
+                    });
+                });
             }
 
             return Promise.all([

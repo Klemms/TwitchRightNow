@@ -10,4 +10,5 @@ export enum Errors {
 export enum DisconnectionReason {
     NOT_CONNECTED = 'not-connected',
     EXPIRED_TOKEN = 'expired-token',
+    VERSION_UPGRADE = 'version-upgrade',
 }

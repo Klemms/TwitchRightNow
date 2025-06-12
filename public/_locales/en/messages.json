@@ -9,6 +9,12 @@
   "back": {
     "message": "Back"
   },
+  "reason": {
+    "message": "Reason"
+  },
+  "code": {
+    "message": "Code"
+  },
 
   "login_line1": {
     "message": "Log in with your Twitch account"

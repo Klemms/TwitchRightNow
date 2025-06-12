@@ -54,6 +54,12 @@ export const App = function App() {
                         {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line3' : 'login_line4')}
                         <br />
                         {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line4' : 'login_line5')}
+                        <br />
+                        {disconnectionReason && (
+                            <h5 style={{fontStyle: 'italic', opacity: '0.8'}}>
+                                {browser.i18n.getMessage('code')} : {disconnectionReason}
+                            </h5>
+                        )}
                     </div>
                 )}
             </ViewContextProvider>
