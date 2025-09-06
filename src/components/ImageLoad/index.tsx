@@ -1,4 +1,6 @@
+import classNames from 'classnames';
 import React, {ReactNode, useEffect, useMemo, useState} from 'react';
+import styles from './style.module.scss';
 
 interface Props extends CustomizableComponent {
     children?: ReactNode;
@@ -34,7 +36,15 @@ export function ImageLoad({children, image, fallback, className, style, hasTrans
     );
 
     return (
-        <div className={className} style={finalStyle} ref={ref}>
+        <div className={classNames(styles.imageLoad, className)} style={finalStyle} ref={ref}>
+            {!isLoaded && (
+                <div
+                    className={styles.fallback}
+                    style={{
+                        backgroundImage: `url("${fallback}")`,
+                    }}
+                ></div>
+            )}
             {children}
         </div>
     );
