@@ -12,6 +12,7 @@ export const UserContextProvider = function UserContextProvider({children}: User
     const {data: userData, isSuccess} = useQuery({
         queryKey: [QueryKeys.USER_DATA],
         queryFn: () => queryGetUserData(),
+        staleTime: 600_000,
     });
 
     const queryClient = useQueryClient();

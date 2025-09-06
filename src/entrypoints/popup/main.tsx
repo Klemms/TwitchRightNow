@@ -1,8 +1,12 @@
 import {SearchContextProvider} from '@/entrypoints/popup/contexts/providers/SearchContextProvider.tsx';
 import {UserContextProvider} from '@/entrypoints/popup/contexts/providers/UserContextProvider.tsx';
+import {queryGetFollowedLivestreams} from '@/entrypoints/popup/queries/queryGetFollowedLivestreams.ts';
+import {queryGetUserData} from '@/entrypoints/popup/queries/queryGetUserData.ts';
 import {App} from '@/entrypoints/popup/routes/App';
 import {Livestreams} from '@/entrypoints/popup/routes/Livestreams';
 import {VideosPlus} from '@/entrypoints/popup/routes/VideosPlus';
+import {ChromeData} from '@/utils/ChromeData.ts';
+import {QueryKeys} from '@/utils/QueryKeys.ts';
 import {useGSAP} from '@gsap/react';
 import '@/entrypoints/popup/main.sass';
 import '@/entrypoints/popup/variables.scss';
@@ -43,8 +47,25 @@ const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
+            staleTime: 10_000,
+            gcTime: 60_000,
         },
     },
+});
+
+await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.USER_DATA],
+    queryFn: () => queryGetUserData(),
+});
+
+await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.FOLLOWED_LIVESTREAMS],
+    queryFn: () => queryGetFollowedLivestreams(),
+});
+
+await queryClient.prefetchQuery({
+    queryKey: [QueryKeys.FAVORITE_STREAMER],
+    queryFn: () => ChromeData.getFavorites(),
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
