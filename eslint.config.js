@@ -13,7 +13,7 @@ export default tseslint.config(
         extends: [js.configs.recommended, ...tseslint.configs.recommended, eslintPluginPrettierRecommended],
         files: ['**/*.{ts,tsx,js,jsx}'],
         languageOptions: {
-            ecmaVersion: 2020,
+            ecmaVersion: 2023,
             globals: {
                 ...globals.browser,
             },
@@ -24,7 +24,6 @@ export default tseslint.config(
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
-            'react-hooks/react-compiler': 'error',
             'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
             'no-unused-vars': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
