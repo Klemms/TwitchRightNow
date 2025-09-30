@@ -5,4 +5,7 @@ export const QueryKeys = {
     TWITCH_VIDEOS: 'twitch-videos',
     FAVORITE_STREAMER: 'favorite-streamer',
     DISCONNECTION_REASON: 'disconnection-reason',
+    SEARCH_CHANNELS: 'search-channels',
+    SEARCH_CATEGORIES: 'search-categories',
+    SEARCH_ALL: 'search-all',
 };

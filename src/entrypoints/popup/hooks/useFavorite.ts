@@ -6,11 +6,7 @@ import {useCallback} from 'react';
 export function useFavorite(login: string) {
     const {data: favorites, isPending} = useSuspenseQuery({
         queryKey: [QueryKeys.FAVORITE_STREAMER],
-        queryFn: async () => {
-            const res = await ChromeData.getFavorites();
-            console.log('res', res);
-            return res;
-        },
+        queryFn: () => ChromeData.getFavorites(),
         staleTime: 10_000,
     });
 

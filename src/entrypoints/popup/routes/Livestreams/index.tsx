@@ -1,8 +1,10 @@
 import {SearchContext} from '@/entrypoints/popup/contexts/SearchContext.ts';
 import {ViewContext} from '@/entrypoints/popup/contexts/ViewContext.ts';
+import {useDelayedQuery} from '@/entrypoints/popup/hooks/useDelayedQuery.ts';
 import {useEvent} from '@/entrypoints/popup/hooks/useEvent.ts';
 import {useResetScroll} from '@/entrypoints/popup/hooks/useResetScroll.ts';
 import {queryGetFollowedLivestreams} from '@/entrypoints/popup/queries/queryGetFollowedLivestreams.ts';
+import {querySearchChannels} from '@/entrypoints/popup/queries/querySearchChannels.ts';
 import {LivestreamTile} from '@/entrypoints/popup/routes/Livestreams/components/LivestreamTile';
 import {ChromeData} from '@/utils/ChromeData.ts';
 import {EventNames} from '@/utils/EventNames.ts';
@@ -28,6 +30,8 @@ export function Livestreams() {
     const {ordering, setNamePosition, setBackButton} = useContext(ViewContext);
     const {value, setPlaceholder} = useContext(SearchContext);
     const queryClient = useQueryClient();
+
+    useDelayedQuery([QueryKeys.SEARCH_CHANNELS], () => querySearchChannels(value), value.length > 0);
 
     const onLivestreams = useCallback(() => {
         queryClient.invalidateQueries({queryKey: [QueryKeys.FOLLOWED_LIVESTREAMS]});

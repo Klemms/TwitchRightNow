@@ -82,6 +82,19 @@ declare type ChannelInformations = {
     chatColor: string;
 };
 
+declare type LiveChannelInformations = {
+    language: string;
+    login: string;
+    name: string;
+    game: string;
+    gameId: string;
+    isLive: boolean;
+    tags: string[];
+    thumbnail: string;
+    title: string;
+    startDate: number;
+};
+
 declare type TwitchVideo = {
     id: string;
     streamId: string | null;

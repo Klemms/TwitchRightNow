@@ -18,38 +18,44 @@ async function validateTwitchToken(twitchToken: string | null = null) {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-        }).then((res) => {
-            if (res.status === 401) {
-                handleInvalidTwitchToken();
-                return Promise.reject(Errors.INVALID_TOKEN);
-            } else if (res.status === 200) {
-                return browser.storage.local
-                    .set({
-                        twitchTokenLastRefresh: Date.now(),
-                    })
-                    .then(() => res.json())
-                    .then((json) => {
-                        return ChromeData.setTwitchData({
-                            clientId: json['client_id'],
-                            userId: json['user_id'],
-                            login: json['login'],
-                            scopes: json['scopes'],
-                            expirationDate: Date.now() + json['expires_in'] * 1000,
-                        }).then(() => {
-                            return {
+        }).then(
+            (res) => {
+                if (res.status === 401) {
+                    handleInvalidTwitchToken();
+                    return Promise.reject(Errors.INVALID_TOKEN);
+                } else if (res.status === 200) {
+                    return browser.storage.local
+                        .set({
+                            twitchTokenLastRefresh: Date.now(),
+                        })
+                        .then(() => res.json())
+                        .then((json) => {
+                            return ChromeData.setTwitchData({
                                 clientId: json['client_id'],
                                 userId: json['user_id'],
                                 login: json['login'],
                                 scopes: json['scopes'],
                                 expirationDate: Date.now() + json['expires_in'] * 1000,
-                            };
+                            }).then(() => {
+                                return {
+                                    clientId: json['client_id'],
+                                    userId: json['user_id'],
+                                    login: json['login'],
+                                    scopes: json['scopes'],
+                                    expirationDate: Date.now() + json['expires_in'] * 1000,
+                                };
+                            });
                         });
-                    });
-            } else {
-                console.log('An error occurred while validating Twitch Token, Status :', res.status);
+                } else {
+                    console.log('An error occurred while validating Twitch Token, Status :', res.status);
+                    return Promise.reject(Errors.SERVER_ERROR);
+                }
+            },
+            (err) => {
+                console.log('An network error occurred while validating Twitch Token, Status :', err);
                 return Promise.reject(Errors.SERVER_ERROR);
             }
-        });
+        );
     } else {
         return Promise.reject(Errors.INVALID_TOKEN);
     }
@@ -157,15 +163,15 @@ async function getFollowedLiveStreams(
                 };
             } else {
                 console.log('An error occurred while getting followed streams, Status :', response.status);
-                return Promise.reject(Errors.GENERIC_ERROR);
+                return Promise.reject(Errors.SERVER_ERROR);
             }
         } else {
             console.log('An error occurred while getting followed streams, Status :', response.status);
             return Promise.reject(Errors.SERVER_ERROR);
         }
     } catch (e) {
-        console.error('An error occurred while getting followedd streams, Status :', e);
-        return Promise.reject(Errors.GENERIC_ERROR);
+        console.error('An error occurred while getting followed streams, Status :', e);
+        return Promise.reject(Errors.SERVER_ERROR);
     }
 }
 
