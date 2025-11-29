@@ -3,17 +3,15 @@ import {ChannelTile} from '@/components/Tiles/ChannelTile';
 import {LivestreamTile} from '@/components/Tiles/LivestreamTile';
 import {SearchContext} from '@/entrypoints/popup/contexts/SearchContext.ts';
 import {ViewContext} from '@/entrypoints/popup/contexts/ViewContext.ts';
-import {useEvent} from '@/entrypoints/popup/hooks/useEvent.ts';
 import {useResetScroll} from '@/entrypoints/popup/hooks/useResetScroll.ts';
 import {queryGetFollowedLivestreams} from '@/entrypoints/popup/queries/queryGetFollowedLivestreams.ts';
 import {querySearchChannels} from '@/entrypoints/popup/queries/querySearchChannels.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
-import {EventNames} from '@/utils/EventNames.ts';
 import {QueryKeys} from '@/utils/QueryKeys.ts';
 import {useDebouncedValue} from '@tanstack/react-pacer';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import {AnimatePresence, motion} from 'motion/react';
-import {useCallback, useContext, useEffect, useMemo} from 'react';
+import {useContext, useEffect, useMemo} from 'react';
 import styles from './style.module.scss';
 
 export function Livestreams() {
@@ -31,7 +29,6 @@ export function Livestreams() {
 
     const {ordering, setNamePosition, setBackButton} = useContext(ViewContext);
     const {value, setPlaceholder} = useContext(SearchContext);
-    const queryClient = useQueryClient();
 
     const [debouncedSearch] = useDebouncedValue(value, {
         wait: 650,
@@ -47,11 +44,6 @@ export function Livestreams() {
         enabled: debouncedSearch.length >= 3,
         staleTime: Time.MINUTE_10,
     });
-
-    const onLivestreams = useCallback(() => {
-        queryClient.invalidateQueries({queryKey: [QueryKeys.FOLLOWED_LIVESTREAMS]});
-    }, [queryClient]);
-    useEvent(EventNames.LIVESTREAMS_UPDATE, onLivestreams);
 
     useEffect(() => {
         setPlaceholder(browser.i18n.getMessage('search_livestreams'));

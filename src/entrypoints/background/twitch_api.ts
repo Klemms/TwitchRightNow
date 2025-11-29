@@ -215,9 +215,7 @@ async function updateFollowedLiveStreams() {
             return Promise.reject(Errors.INVALID_TOKEN);
         }
     } catch (e) {
-        handleInvalidTwitchToken();
-        void e;
-        return Promise.reject(Errors.INVALID_TOKEN);
+        return Promise.reject(e);
     }
 }
 

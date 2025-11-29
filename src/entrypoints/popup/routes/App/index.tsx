@@ -2,11 +2,13 @@ import {BottomBar} from '@/components/BottomBar';
 import {TopBar} from '@/components/TopBar';
 import {ViewContextProvider} from '@/entrypoints/popup/contexts/providers/ViewContextProvider.tsx';
 import {UserContext} from '@/entrypoints/popup/contexts/UserContext.ts';
+import {useEvent} from '@/entrypoints/popup/hooks/useEvent.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
 import {DisconnectionReason} from '@/utils/Errors.ts';
+import {EventNames} from '@/utils/EventNames.ts';
 import {QueryKeys} from '@/utils/QueryKeys.ts';
-import {useQuery} from '@tanstack/react-query';
-import {useContext, useEffect, useRef} from 'react';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {useCallback, useContext, useEffect, useRef} from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router';
 import styles from './style.module.scss';
 
@@ -18,6 +20,13 @@ export const App = function App() {
             return reason !== DisconnectionReason.NOT_CONNECTED ? reason : false;
         },
     });
+
+    const queryClient = useQueryClient();
+    const onLivestreams = useCallback(() => {
+        console.log('LIVESTREAM UPDATE');
+        queryClient.invalidateQueries({queryKey: [QueryKeys.FOLLOWED_LIVESTREAMS]});
+    }, [queryClient]);
+    useEvent(EventNames.LIVESTREAMS_UPDATE, onLivestreams);
 
     const {isLoggedIn} = useContext(UserContext);
     const navigate = useNavigate();
