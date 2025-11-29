@@ -10,7 +10,13 @@ export default tseslint.config(
     autoImports,
     {ignores: ['dist']},
     {
-        extends: [js.configs.recommended, ...tseslint.configs.recommended, eslintPluginPrettierRecommended],
+        extends: [
+            js.configs.recommended,
+            tseslint.configs.recommended,
+            reactHooks.configs.flat.recommended,
+            reactRefresh.configs.vite,
+            eslintPluginPrettierRecommended,
+        ],
         files: ['**/*.{ts,tsx,js,jsx}'],
         languageOptions: {
             ecmaVersion: 2023,
@@ -18,13 +24,8 @@ export default tseslint.config(
                 ...globals.browser,
             },
         },
-        plugins: {
-            'react-hooks': reactHooks,
-            'react-refresh': reactRefresh,
-        },
         rules: {
-            ...reactHooks.configs.recommended.rules,
-            'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
+            //'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
             'no-unused-vars': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
         },
