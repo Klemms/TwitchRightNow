@@ -1,11 +1,15 @@
 import {useGSAP} from '@gsap/react';
 import classNames from 'classnames';
 import gsap from 'gsap';
-import {useMemo, useRef} from 'react';
+import {useRef, useState} from 'react';
 import styles from './style.module.scss';
 
+function getAnimDelay() {
+    return 2.5 + Math.random() * 15;
+}
+
 export function LiveDot({className, style}: CustomizableComponent) {
-    const animDelay = useMemo(() => 2.5 + Math.random() * 15, []);
+    const [animDelay] = useState(getAnimDelay());
 
     const ref = useRef(null);
 
