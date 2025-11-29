@@ -18,7 +18,6 @@ export const UserContextProvider = function UserContextProvider({children}: User
     const queryClient = useQueryClient();
 
     const onEvent = useCallback(() => {
-        console.log('[UI] UserContextProvider::OnEvent');
         queryClient.resetQueries({queryKey: [QueryKeys.USER_DATA]});
     }, [queryClient]);
     useEvent(EventNames.DISCONNECTED, onEvent);

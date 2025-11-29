@@ -14,8 +14,6 @@ export async function querySearchChannels(query: string, first = 3, liveOnly = f
     url.searchParams.set('first', String(first));
     url.searchParams.set('live_only', String(liveOnly));
 
-    console.log('tatata', url);
-
     const res = SchemaSearchChannels.parse(
         await fetch(url, {
             method: 'GET',
@@ -30,8 +28,6 @@ export async function querySearchChannels(query: string, first = 3, liveOnly = f
             return res.json();
         })
     );
-
-    console.log('tatata, res', url);
 
     return res.data;
 }

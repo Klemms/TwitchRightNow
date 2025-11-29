@@ -23,7 +23,6 @@ export const App = function App() {
 
     const queryClient = useQueryClient();
     const onLivestreams = useCallback(() => {
-        console.log('LIVESTREAM UPDATE');
         queryClient.invalidateQueries({queryKey: [QueryKeys.FOLLOWED_LIVESTREAMS]});
     }, [queryClient]);
     useEvent(EventNames.LIVESTREAMS_UPDATE, onLivestreams);
