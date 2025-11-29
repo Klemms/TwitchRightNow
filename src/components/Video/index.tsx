@@ -1,6 +1,6 @@
 import {Button} from '@/components/Button';
+import {LivestreamThumbnail} from '@/components/LivestreamThumbnail';
 import {StreamTag} from '@/components/StreamTag';
-import {LivestreamThumbnail} from '@/entrypoints/popup/routes/Livestreams/components/LivestreamThumbnail';
 import {faArrowUpRightFromSquare} from '@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare';
 import {faVolumeXmark} from '@fortawesome/free-solid-svg-icons/faVolumeXmark';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

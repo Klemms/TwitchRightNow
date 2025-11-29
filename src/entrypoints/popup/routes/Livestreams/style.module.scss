@@ -6,3 +6,35 @@
     padding: 10rem 0;
     color: var(--color-white);
 }
+
+.searching {
+    display: flex;
+    flex-direction: row;
+    gap: 15rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 50rem;
+
+    .text {
+        font-weight: lighter;
+        font-size: 18rem;
+        color: var(--faded-white);
+    }
+
+    .searchText {
+        font-style: italic;
+        word-break: break-word;
+    }
+}
+
+.separator {
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 5rem;
+    border-radius: 30rem;
+    box-sizing: border-box;
+    width: 55%;
+    align-self: center;
+    margin: 5rem 0;
+}

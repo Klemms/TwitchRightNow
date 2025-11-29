@@ -1,179 +1,185 @@
 {
-  "app_name": {
-    "message": "Twitch Right Now : Notifications de Stream"
-  },
-  "app_description": {
-    "message": "Sachez rapidement quand vos streamers préférés sont en live et choisissez ceux pour lesquels vous voulez recevoir des notifications !"
-  },
+    "app_name": {
+        "message": "Twitch Right Now : Notifications de Stream"
+    },
+    "app_description": {
+        "message": "Sachez rapidement quand vos streamers préférés sont en live et choisissez ceux pour lesquels vous voulez recevoir des notifications !"
+    },
 
-  "back": {
-    "message": "Retour"
-  },
-  "reason": {
-    "message": "Raison"
-  },
-  "code": {
-    "message": "Code"
-  },
+    "back": {
+        "message": "Retour"
+    },
+    "reason": {
+        "message": "Raison"
+    },
+    "code": {
+        "message": "Code"
+    },
 
-  "login_line1": {
-    "message": "Connectez vous avec votre compte Twitch"
-  },
-  "login_line2": {
-    "message": "Les lives des gens que vous suivez"
-  },
-  "login_line3": {
-    "message": "seront affichés ici lorsque vous serez connecté."
-  },
-  "login_line4": {
-    "message": "Utilisez le bouton situé dans le"
-  },
-  "login_line5": {
-    "message": "coin en haut à droite."
-  },
-  "login_button": {
-    "message": "Se connecter avec Twitch"
-  },
-  "login_disconnect_hint": {
-    "message": "Cliquez pour vous déconnecter"
-  },
-  "reconnect_title": {
-    "message": "Vous avez été déconnecté"
-  },
-  "reconnect_line1": {
-    "message": "Vous avez été déconnecté car votre"
-  },
-  "reconnect_line2": {
-    "message": "token d'authentification Twitch a expiré."
-  },
-  "reconnect_line3": {
-    "message": "Vos paramètres et vos favoris ont été enregistrés"
-  },
-  "reconnect_line4": {
-    "message": "et seront restaurés lorsque vous vous reconnecterez."
-  },
+    "login_line1": {
+        "message": "Connectez vous avec votre compte Twitch"
+    },
+    "login_line2": {
+        "message": "Les lives des gens que vous suivez"
+    },
+    "login_line3": {
+        "message": "seront affichés ici lorsque vous serez connecté."
+    },
+    "login_line4": {
+        "message": "Utilisez le bouton situé dans le"
+    },
+    "login_line5": {
+        "message": "coin en haut à droite."
+    },
+    "login_button": {
+        "message": "Se connecter avec Twitch"
+    },
+    "login_disconnect_hint": {
+        "message": "Cliquez pour vous déconnecter"
+    },
+    "reconnect_title": {
+        "message": "Vous avez été déconnecté"
+    },
+    "reconnect_line1": {
+        "message": "Vous avez été déconnecté car votre"
+    },
+    "reconnect_line2": {
+        "message": "token d'authentification Twitch a expiré."
+    },
+    "reconnect_line3": {
+        "message": "Vos paramètres et vos favoris ont été enregistrés"
+    },
+    "reconnect_line4": {
+        "message": "et seront restaurés lorsque vous vous reconnecterez."
+    },
 
-  "favorite_add": {
-    "message": "Cliquez pour ajouter aux streamers favoris !"
-  },
-  "favorite_remove": {
-    "message": "Cliquez pour supprimer des favoris"
-  },
+    "favorite_add": {
+        "message": "Cliquez pour ajouter aux streamers favoris !"
+    },
+    "favorite_remove": {
+        "message": "Cliquez pour supprimer des favoris"
+    },
 
-  "search_livestreams": {
-    "message": "Rechercher un live ou un jeu"
-  },
-  "search_followed": {
-    "message": "Rechercher un streamer"
-  },
+    "bottombar_streams": {
+        "message": "Streams Suivis"
+    },
+    "bottombar_notifications": {
+        "message": "Notifications de streams"
+    },
+    "bottombar_sort_desc": {
+        "message": "Trier par ordre décroissant de spectateurs"
+    },
+    "bottombar_sort_asc": {
+        "message": "Trier par ordre croissant de spectateurs"
+    },
+    "bottombar_favorites_enable": {
+        "message": "Activer la catégorie des favoris"
+    },
+    "bottombar_favorites_disable": {
+        "message": "Désactiver la catégorie des favoris"
+    },
+    "bottombar_pastbroadcasts_enable": {
+        "message": "Activer les diffusions passées"
+    },
+    "bottombar_pastbroadcasts_disable": {
+        "message": "Désactiver les diffusions passées"
+    },
 
-  "bottombar_streams": {
-    "message": "Streams Suivis"
-  },
-  "bottombar_notifications": {
-    "message": "Notifications de streams"
-  },
-  "bottombar_sort_desc": {
-    "message": "Trier par ordre décroissant de spectateurs"
-  },
-  "bottombar_sort_asc": {
-    "message": "Trier par ordre croissant de spectateurs"
-  },
-  "bottombar_favorites_enable": {
-    "message": "Activer la catégorie des favoris"
-  },
-  "bottombar_favorites_disable": {
-    "message": "Désactiver la catégorie des favoris"
-  },
-  "bottombar_pastbroadcasts_enable": {
-    "message": "Activer les diffusions passées"
-  },
-  "bottombar_pastbroadcasts_disable": {
-    "message": "Désactiver les diffusions passées"
-  },
+    "tab_streams_category_favorites": {
+        "message": "Favoris"
+    },
+    "tab_streams_last_update": {
+        "message": "Mis à jour à %time% - Mis à jour toutes les 2 minutes"
+    },
 
-  "tab_streams_category_favorites": {
-    "message": "Favoris"
-  },
-  "tab_streams_last_update": {
-    "message": "Mis à jour à %time% - Mis à jour toutes les 2 minutes"
-  },
+    "tab_notifications_enable_all": {
+        "message": "Activer les notifications pour tous les streams"
+    },
+    "tab_notifications_enable": {
+        "message": "Activer les notifications"
+    },
+    "tab_notifications_favorite_toggle": {
+        "message": "Définir en favoris"
+    },
+    "tab_notifications_followed_on": {
+        "message": "Suivi le :"
+    },
 
-  "tab_notifications_enable_all": {
-    "message": "Activer les notifications pour tous les streams"
-  },
-  "tab_notifications_enable": {
-    "message": "Activer les notifications"
-  },
-  "tab_notifications_favorite_toggle": {
-    "message": "Définir en favoris"
-  },
-  "tab_notifications_followed_on": {
-    "message": "Suivi le :"
-  },
+    "notification_disconnected_generic_title": {
+        "message": "Twitch Right Now a été déconnecté de Twitch"
+    },
+    "notification_disconnected_generic_message": {
+        "message": "Vous pouvez vous reconnecter en utilisant le bouton \"Se connecter avec Twitch\""
+    },
+    "notification_disconnected_expired_message": {
+        "message": "Votre authentification Twitch a expirée, reconnectez-vous pour continuer d'utiliser Twitch Right Now"
+    },
+    "notification_stream_one_title": {
+        "message": "%streamer% a commencé un stream sur %game_game%"
+    },
+    "notification_stream_two_title": {
+        "message": "%streamer_1% et %streamer_2% ont commencé un stream !"
+    },
+    "notification_stream_two_message": {
+        "message": "Allez les regarder dès maintenant !"
+    },
+    "notification_stream_multiple_title": {
+        "message": "Ces streamers ont commencés à streamer !"
+    },
+    "notification_stream_cta_channel": {
+        "message": "Regarder %streamer%"
+    },
 
-  "notification_disconnected_generic_title": {
-    "message": "Twitch Right Now a été déconnecté de Twitch"
-  },
-  "notification_disconnected_generic_message": {
-    "message": "Vous pouvez vous reconnecter en utilisant le bouton \"Se connecter avec Twitch\""
-  },
-  "notification_disconnected_expired_message": {
-    "message": "Votre authentification Twitch a expirée, reconnectez-vous pour continuer d'utiliser Twitch Right Now"
-  },
-  "notification_stream_one_title": {
-    "message": "%streamer% a commencé un stream sur %game_game%"
-  },
-  "notification_stream_two_title": {
-    "message": "%streamer_1% et %streamer_2% ont commencé un stream !"
-  },
-  "notification_stream_two_message": {
-    "message": "Allez les regarder dès maintenant !"
-  },
-  "notification_stream_multiple_title": {
-    "message": "Ces streamers ont commencés à streamer !"
-  },
-  "notification_stream_cta_channel": {
-    "message": "Regarder %streamer%"
-  },
+    "tags_drops_on": {
+        "message": "Drops"
+    },
 
-  "tags_drops_on": {
-    "message": "Drops"
-  },
+    "channel_created_since": {
+        "message": "Depuis le %date% à %time%"
+    },
+    "channel_goto": {
+        "message": "Aller sur la chaine de %user%"
+    },
 
-  "channel_created_since": {
-    "message": "Depuis le %date% à %time%"
-  },
-  "channel_goto": {
-    "message": "Aller sur la chaine de %user%"
-  },
+    "videos_muted": {
+        "message": "Passages muets"
+    },
+    "video_live_now": {
+        "message": "En Live"
+    },
 
-  "videos_muted": {
-    "message": "Passages muets"
-  },
-  "video_live_now": {
-    "message": "En Live"
-  },
+    "videos_watch": {
+        "message": "Regarder"
+    },
+    "videos_watch_vod": {
+        "message": "Regarder la VOD"
+    },
+    "videos_videos": {
+        "message": "Vidéos+"
+    },
+    "videos_pastbroadcasts": {
+        "message": "Diffusions Passées"
+    },
+    "videos_streamed_on": {
+        "message": "Date : %date% à %time%"
+    },
+    "videos_duration": {
+        "message": "Durée : %duration%"
+    },
+    "videos_see_all": {
+        "message": "Plus"
+    },
 
-  "videos_watch": {
-    "message": "Regarder"
-  },
-  "videos_watch_vod": {
-    "message": "Regarder la VOD"
-  },
-  "videos_videos": {
-    "message": "Vidéos+"
-  },
-  "videos_pastbroadcasts": {
-    "message": "Diffusions Passées"
-  },
-  "videos_streamed_on": {
-    "message": "Date : %date% à %time%"
-  },
-  "videos_duration": {
-    "message": "Durée : %duration%"
-  },
-  "videos_see_all": {
-    "message": "Plus"
-  }
+    "search_livestreams": {
+        "message": "Rechercher : abonnements, jeux ou Twitch"
+    },
+    "search_followed": {
+        "message": "Rechercher un streamer"
+    },
+    "search_searching_for": {
+        "message": "Recherche sur Twitch : "
+    },
+    "search_no_result": {
+        "message": "Aucun résultat trouvé"
+    }
 }
