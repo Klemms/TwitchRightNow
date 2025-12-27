@@ -15,6 +15,7 @@ dist-ssr
 stats.html
 stats-*.json
 .wxt
+.dev/chrome-data
 web-ext.config.ts
 
 # Editor directories and files

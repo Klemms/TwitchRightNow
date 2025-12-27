@@ -1,5 +1,13 @@
 import path from 'node:path';
+import fs from 'node:fs';
 import {defineConfig} from 'wxt';
+
+const chromiumProfilePath = path.resolve('.dev/chrome-data');
+if (!fs.existsSync(chromiumProfilePath)) {
+    fs.mkdirSync(chromiumProfilePath, {
+        recursive: true,
+    });
+}
 
 const ReactCompilerConfig = {};
 
@@ -9,7 +17,7 @@ export default defineConfig({
     srcDir: 'src',
     outDir: 'dist',
     webExt: {
-        chromiumProfile: `${path.resolve('.wxt/chrome-data')}`,
+        chromiumProfile: `${chromiumProfilePath}`,
         keepProfileChanges: true,
     },
     imports: {
