@@ -2,6 +2,7 @@ import {Events} from '@/entrypoints/background/events.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
 import {DisconnectionReason, Errors} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
+import {TwitchServerErrorException} from '@/utils/exceptions/TwitchServerErrorException.ts';
 import {GetFollowedStreams, GetFollowedStreamsData} from '@/utils/TwitchResponses.ts';
 
 /**
@@ -176,7 +177,6 @@ async function getFollowedLiveStreams(
 }
 
 async function updateFollowedLiveStreams() {
-    // TODO: Rewrite to handle server error cases
     try {
         const token = await ChromeData.getTwitchToken();
         const clientId = await ChromeData.getTwitchClientId();
@@ -188,15 +188,27 @@ async function updateFollowedLiveStreams() {
             let results: Livestream[] = [];
 
             while (hasNext) {
-                await getFollowedLiveStreams(userId, token, clientId, cursor).then((res) => {
-                    results = [...results, ...res.streams];
+                try {
+                    await getFollowedLiveStreams(userId, token, clientId, cursor).then(
+                        (res) => {
+                            results = [...results, ...res.streams];
 
-                    if (res.cursor) {
-                        cursor = res.cursor;
-                    } else {
-                        hasNext = false;
+                            if (res.cursor) {
+                                cursor = res.cursor;
+                            } else {
+                                hasNext = false;
+                            }
+                        },
+                        () => {
+                            throw new TwitchServerErrorException();
+                        }
+                    );
+                } catch (e) {
+                    if (e instanceof TwitchServerErrorException) {
+                        console.log('Aborting updateFollowedLiveStreams() due to server error');
+                        return Promise.reject(Errors.SERVER_ERROR);
                     }
-                });
+                }
             }
 
             return browser.storage.local

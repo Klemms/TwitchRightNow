@@ -110,7 +110,7 @@ export default defineBackground({
         async function refreshToken() {
             const lastRefresh = (await browser.storage.local.get('twitchTokenLastRefresh'))['twitchTokenLastRefresh'];
 
-            if (Date.now() - lastRefresh >= 3_600_000) {
+            if (typeof lastRefresh !== 'number' || Date.now() - lastRefresh >= 3_600_000) {
                 return TwitchAPI.validateTwitchToken();
             }
         }
