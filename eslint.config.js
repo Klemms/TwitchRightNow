@@ -8,7 +8,7 @@ import autoImports from './.wxt/eslint-auto-imports.mjs';
 
 export default tseslint.config(
     autoImports,
-    {ignores: ['dist']},
+    {ignores: ['dist', 'node_modules']},
     {
         extends: [
             js.configs.recommended,
