@@ -211,7 +211,7 @@ async function emitStreamNotification(streamNotifs: Livestream[]) {
     }
 
     const goToButtons: Browser.notifications.NotificationButton[] = [];
-    if (streamNotifs.length <= 2) {
+    if (streamNotifs.length >= 1 && streamNotifs.length <= 2) {
         goToButtons.push({
             title: browser.i18n
                 .getMessage('notification_stream_cta_channel')

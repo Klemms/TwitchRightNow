@@ -130,7 +130,6 @@ export default defineBackground({
                 .filter((value) => value !== null);
 
             const toNotifyFinal: Livestream[] = [];
-            console.log('To notify :', toNotifyFinal);
 
             if (notifyAllStreams) {
                 streams.forEach((stream) => {
@@ -150,7 +149,9 @@ export default defineBackground({
                 });
             }
 
-            await ChromeData.emitStreamNotification(toNotifyFinal);
+            if (toNotifyFinal.length > 0) {
+                await ChromeData.emitStreamNotification(toNotifyFinal);
+            }
 
             streams.forEach((stream) => {
                 if (!newAlreadyNotified.includes(stream.login)) {
