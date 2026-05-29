@@ -3,6 +3,7 @@ import {UserContextProvider} from '@/entrypoints/popup/contexts/providers/UserCo
 import {queryGetFollowedLivestreams} from '@/entrypoints/popup/queries/queryGetFollowedLivestreams.ts';
 import {queryGetUserData} from '@/entrypoints/popup/queries/queryGetUserData.ts';
 import {App} from '@/entrypoints/popup/routes/App';
+import {Followed} from '@/entrypoints/popup/routes/Followed';
 import {Livestreams} from '@/entrypoints/popup/routes/Livestreams';
 import {VideosPlus} from '@/entrypoints/popup/routes/VideosPlus';
 import {ChromeData} from '@/utils/ChromeData.ts';
@@ -77,6 +78,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         <Routes>
                             <Route path={'/'} element={<App />}>
                                 <Route path={'/livestreams'} element={<Livestreams />} />
+                                <Route path={'/followed'} element={<Followed />} />
                                 <Route path={'/videos/:userId'} element={<VideosPlus />} />
                             </Route>
                         </Routes>

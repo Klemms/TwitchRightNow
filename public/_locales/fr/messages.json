@@ -53,6 +53,9 @@
         "message": "et seront restaurés lorsque vous vous reconnecterez."
     },
 
+    "favorite_is": {
+        "message": "Favori"
+    },
     "favorite_add": {
         "message": "Cliquez pour ajouter aux streamers favoris !"
     },

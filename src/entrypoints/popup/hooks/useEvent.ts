@@ -1,9 +1,9 @@
+import {Browser} from '@wxt-dev/browser';
 import {useEffect} from 'react';
-import MessageSender = chrome.runtime.MessageSender;
 
-export function useEvent(eventName: string, callback: (message: any, sender: MessageSender) => void) {
+export function useEvent(eventName: string, callback: (message: any, sender: Browser.runtime.MessageSender) => void) {
     useEffect(() => {
-        const cb = (message: EventMessage, sender: MessageSender) => {
+        const cb = (message: EventMessage, sender: Browser.runtime.MessageSender) => {
             if (message.type === eventName) {
                 callback(message.data, sender);
             }

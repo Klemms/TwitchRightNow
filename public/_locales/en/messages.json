@@ -53,6 +53,9 @@
         "message": "and will be restored when you log back in."
     },
 
+    "favorite_is": {
+        "message": "Favorite"
+    },
     "favorite_add": {
         "message": "Click to add to your favorite streamers !"
     },

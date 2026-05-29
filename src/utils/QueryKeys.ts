@@ -10,4 +10,6 @@ export const QueryKeys = {
     SEARCH_CATEGORIES: 'search-categories',
     SEARCH_ALL: 'search-all',
     ORDERING: 'ordering',
+    ALL_STREAMS_NOTIFY: 'all-streams-notify',
+    STREAMS_TO_NOTIFY: 'streams-to-notify',
 };

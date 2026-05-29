@@ -1,6 +1,7 @@
 import {SchemaOrdering, TypeOrdering} from '@/types/SchemaOrdering.ts';
 import {SchemaTwitch, TypeTwitch} from '@/types/SchemaTwitch.ts';
 import {DisconnectionReason} from '@/utils/Errors.ts';
+import type {Browser} from '@wxt-dev/browser';
 import * as z from 'zod';
 
 async function getTwitchData() {
@@ -87,11 +88,24 @@ async function updateBadge(): Promise<void> {
     });
 }
 
+async function getFollowedLivestreams(): Promise<Livestream[]> {
+    return browser.storage.local
+        .get('followedLivestreams')
+        .then((values) => {
+            if (Array.isArray(values['followedLivestreams'])) {
+                return values['followedLivestreams'];
+            } else {
+                return [];
+            }
+        })
+        .catch(() => []);
+}
+
 const SchemaFavorites = z.array(z.string()).default([]);
 async function getFavorites(): Promise<string[]> {
     return browser.storage.sync
-        .get('favoriteStreamers')
-        .then((val) => SchemaFavorites.parseAsync(val['favoriteStreamers']))
+        .get('favoriteStreams')
+        .then((val) => SchemaFavorites.parseAsync(val['favoriteStreams']))
         .catch(() => []);
 }
 
@@ -105,7 +119,7 @@ async function setFavorite(login: string, isFavorite: boolean): Promise<void> {
     const favorites = await getFavorites();
 
     await browser.storage.sync.set({
-        favoriteStreamers: [
+        favoriteStreams: [
             ...favorites.filter((value) => value !== login || (value === login && isFavorite)),
             ...(isFavorite ? [login] : []),
         ],
@@ -125,6 +139,112 @@ async function getOrdering(): Promise<TypeOrdering> {
         .catch(() => 'DESCENDANT');
 }
 
+async function setNotifyAllStreams(notify: boolean): Promise<void> {
+    await browser.storage.sync.set({
+        notifyAllStreams: notify,
+    });
+}
+
+async function getNotifyAllStreams(): Promise<boolean> {
+    return browser.storage.sync
+        .get('notifyAllStreams')
+        .then((val) => (typeof val['notifyAllStreams'] === 'boolean' ? val['notifyAllStreams'] : false))
+        .catch(() => false);
+}
+
+async function setStreamNotification(streamerLogin: string, notify: boolean): Promise<void> {
+    const notifs = await getStreamNotifications();
+
+    if (notify) {
+        if (!notifs.includes(streamerLogin)) {
+            await browser.storage.sync.set({
+                notifiedStreams: [...notifs, streamerLogin],
+            });
+        }
+    } else {
+        await browser.storage.sync.set({
+            notifiedStreams: notifs.toSpliced(notifs.indexOf(streamerLogin), 1),
+        });
+    }
+}
+
+const SchemaNotifiedStreams = z.array(z.string()).default([]);
+async function getStreamNotifications(): Promise<string[]> {
+    return browser.storage.sync
+        .get('notifiedStreams')
+        .then((val) => SchemaNotifiedStreams.parseAsync(val['notifiedStreams']))
+        .catch(() => []);
+}
+
+async function setAlreadyNotified(streamerLogins: string[]): Promise<void> {
+    await browser.storage.local.set({
+        alreadyNotified: streamerLogins,
+    });
+}
+
+async function getAlreadyNotified(): Promise<string[]> {
+    return browser.storage.local
+        .get('alreadyNotified')
+        .then((val) => SchemaNotifiedStreams.parseAsync(val['alreadyNotified']))
+        .catch(() => []);
+}
+
+async function emitStreamNotification(streamNotifs: Livestream[]) {
+    let streamersFormatted = streamNotifs.map((stream) => stream.name || stream.login).join(', ');
+
+    let title = browser.i18n.getMessage('notification_stream_multiple_title');
+    switch (streamNotifs.length) {
+        case 1:
+            title = browser.i18n
+                .getMessage('notification_stream_one_title')
+                .replaceAll('%streamer%', streamNotifs[0].name || streamNotifs[0].login)
+                .replaceAll('%game_game%', streamNotifs[0].game);
+            streamersFormatted = streamNotifs[0].title || streamNotifs[0].game || '';
+            break;
+        case 2:
+            streamersFormatted = browser.i18n.getMessage('notification_stream_two_message');
+            title = browser.i18n
+                .getMessage('notification_stream_two_title')
+                .replaceAll('%streamer_1%', streamNotifs[0].name || streamNotifs[0].login)
+                .replaceAll('%streamer_2%', streamNotifs[1].name || streamNotifs[1].login);
+            break;
+    }
+
+    const goToButtons: Browser.notifications.NotificationButton[] = [];
+    if (streamNotifs.length <= 2) {
+        goToButtons.push({
+            title: browser.i18n
+                .getMessage('notification_stream_cta_channel')
+                .replaceAll('%streamer%', streamNotifs[0].name || streamNotifs[0].login),
+        });
+    }
+    if (streamNotifs.length === 2) {
+        goToButtons.push({
+            title: browser.i18n
+                .getMessage('notification_stream_cta_channel')
+                .replaceAll('%streamer%', streamNotifs[1].name || streamNotifs[1].login),
+        });
+    }
+
+    return browser.notifications.create('ttv_streams_notif', {
+        buttons: goToButtons,
+        title: title,
+        message: streamersFormatted,
+        type: 'basic',
+        contextMessage: 'Twitch Right Now',
+        iconUrl:
+            streamNotifs.length === 1
+                ? streamNotifs[0].thumbnail.replace('{width}', '160').replace('{height}', '90')
+                : 'images/icon.png',
+    });
+}
+
+async function markAllStreamsAsNotified() {
+    const streams = await ChromeData.getFollowedLivestreams();
+
+    await ChromeData.setAlreadyNotified(streams.map((stream) => stream.login));
+}
+
 export const ChromeData = {
     setTwitchData,
     getTwitchToken,
@@ -137,4 +257,13 @@ export const ChromeData = {
     getDisconnectionReason,
     setOrdering,
     getOrdering,
+    setNotifyAllStreams,
+    getNotifyAllStreams,
+    setStreamNotification,
+    getStreamNotifications,
+    setAlreadyNotified,
+    getAlreadyNotified,
+    emitStreamNotification,
+    getFollowedLivestreams,
+    markAllStreamsAsNotified,
 };

@@ -1,16 +1,16 @@
 import {Button} from '@/components/Button';
 import {UserContext} from '@/entrypoints/popup/contexts/UserContext.ts';
 import {ViewContext} from '@/entrypoints/popup/contexts/ViewContext.ts';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import {faArrowLeft, faBell} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import {AnimatePresence, motion} from 'motion/react';
 import {useCallback, useContext} from 'react';
-import {useNavigate} from 'react-router';
+import {Link, useNavigate} from 'react-router';
 import styles from './style.module.scss';
 
 const APP_ID = 'pxgmg1l46or65551u30wjk1w70vz7q';
-const REDIRECT_URL = 'https://klemms.github.io/TwitchRightNow/';
+const REDIRECT_URL = 'https://klemms.github.io/TwitchRightNow/wxt.html';
 const SCOPE = 'user:read:follows user:read:subscriptions';
 const AUTH_URL = `https://id.twitch.tv/oauth2/authorize?client_id=${APP_ID}&redirect_uri=${REDIRECT_URL}&response_type=token&scope=${SCOPE}`;
 
@@ -76,6 +76,15 @@ export const TopBar = function TopBar() {
                     </motion.div>
                 ) : null}
             </AnimatePresence>
+            {!backButton ? (
+                <motion.div layout initial={{opacity: 0}} animate={{opacity: 1}} style={{height: '100%'}}>
+                    <Link to={'/followed'}>
+                        <Button overrideClass={true} className={styles.nav}>
+                            <FontAwesomeIcon icon={faBell} />
+                        </Button>
+                    </Link>
+                </motion.div>
+            ) : null}
         </div>
     );
 };

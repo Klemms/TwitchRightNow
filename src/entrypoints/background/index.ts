@@ -85,16 +85,19 @@ export default defineBackground({
                 browser.storage.local.set({ttvLastVersion: CONFIG_LOCAL_VERSION}),
                 browser.storage.sync.set({ttvLastVersion: CONFIG_SYNC_VERSION}),
             ]).finally(() => {
-                refresh();
+                refresh(true);
             });
         }
 
-        function refresh() {
+        function refresh(skipNotify = false) {
             browser.storage.sync.get('twitch').then((res) => {
                 if (res.twitch) {
                     refreshToken()
                         .then(() => TwitchAPI.updateFollowedLiveStreams())
-                        .catch((e) => console.info('Twitch API responded with error :', e));
+                        .catch((e) => console.info('Twitch API responded with error :', e))
+                        .then((val) => (val && !skipNotify ? notifyStreams(val) : null))
+                        .then(() => (skipNotify ? ChromeData.markAllStreamsAsNotified() : null))
+                        .catch((e) => console.info('An error occurred while making notifications', e));
                 }
             });
         }
@@ -113,6 +116,49 @@ export default defineBackground({
             if (typeof lastRefresh !== 'number' || Date.now() - lastRefresh >= 3_600_000) {
                 return TwitchAPI.validateTwitchToken();
             }
+        }
+
+        async function notifyStreams(streams: Livestream[]) {
+            console.log('Building stream notifications for :', streams);
+
+            const notifyAllStreams = await ChromeData.getNotifyAllStreams();
+            const alreadyNotified = await ChromeData.getAlreadyNotified();
+
+            // Remove streams that are no longer live from the already notified list
+            const newAlreadyNotified = alreadyNotified
+                .map((notified) => (streams.some((stream) => stream.login === notified) ? notified : null))
+                .filter((value) => value !== null);
+
+            const toNotifyFinal: Livestream[] = [];
+            console.log('To notify :', toNotifyFinal);
+
+            if (notifyAllStreams) {
+                streams.forEach((stream) => {
+                    if (!newAlreadyNotified.some((notified) => notified === stream.login)) {
+                        toNotifyFinal.push(stream);
+                    }
+                });
+            } else {
+                const toNotify = await ChromeData.getStreamNotifications();
+                streams.forEach((stream) => {
+                    if (
+                        toNotify.includes(stream.login) &&
+                        !newAlreadyNotified.some((notified) => notified === stream.login)
+                    ) {
+                        toNotifyFinal.push(stream);
+                    }
+                });
+            }
+
+            await ChromeData.emitStreamNotification(toNotifyFinal);
+
+            streams.forEach((stream) => {
+                if (!newAlreadyNotified.includes(stream.login)) {
+                    newAlreadyNotified.push(stream.login);
+                }
+            });
+
+            await ChromeData.setAlreadyNotified(newAlreadyNotified);
         }
     },
 });

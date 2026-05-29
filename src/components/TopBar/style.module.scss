@@ -5,7 +5,7 @@
     background-color: var(--main-lighter-color);
     backdrop-filter: blur(20px);
     color: var(--color-white);
-    padding: 0 5px;
+    padding: 0 8px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,8 +22,23 @@
         align-items: center;
         gap: 10rem;
         padding: 0 15rem;
-        margin-left: -5rem;
+        margin-left: -8rem;
         background-color: rgba(255, 255, 255, 0.05);
+        height: 100%;
+        font-size: 18rem;
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        gap: 10rem;
+        padding: 0 15rem;
         height: 100%;
         font-size: 18rem;
         cursor: pointer;

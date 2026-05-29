@@ -1,9 +1,12 @@
 import {Events} from '@/entrypoints/background/events.ts';
+import {TypeBroadcaster} from '@/types/SchemaBroadcaster.ts';
+import {SchemaFollowedChannels} from '@/types/SchemaFollowedChannels.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
 import {DisconnectionReason, Errors} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
 import {TwitchServerErrorException} from '@/utils/exceptions/TwitchServerErrorException.ts';
 import {GetFollowedStreams, GetFollowedStreamsData} from '@/utils/TwitchResponses.ts';
+import {formatError, ZodError} from 'zod';
 
 /**
  * Validates the current Twitch Token
@@ -231,8 +234,107 @@ async function updateFollowedLiveStreams() {
     }
 }
 
+async function getFollowedChannels(userId: string, token: string, clientId: string, after: false | string = false) {
+    try {
+        const response = await fetch(
+            `https://api.twitch.tv/helix/channels/followed?user_id=${userId}&first=100${after !== false ? `&after=${after}` : ''}`,
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Client-Id': clientId,
+                },
+            }
+        );
+
+        if (response.status === 401) {
+            handleInvalidTwitchToken();
+            return Promise.reject(Errors.INVALID_TOKEN);
+        } else if (response.status === 200) {
+            return SchemaFollowedChannels.parseAsync(
+                await response.json().catch(() => Promise.reject(Errors.SERVER_ERROR))
+            ).then(
+                (data) => {
+                    return {
+                        cursor: data.pagination.cursor,
+                        channels: data.data,
+                    };
+                },
+                (e) => {
+                    if (e instanceof ZodError) {
+                        console.log('Twitch Response error :', formatError(e));
+                    }
+
+                    Promise.reject(Errors.SERVER_ERROR);
+                    return null;
+                }
+            );
+        } else {
+            console.log('An error occurred while getting followed streams, Status :', response.status);
+            return Promise.reject(Errors.SERVER_ERROR);
+        }
+    } catch (e) {
+        return Promise.reject(e);
+    }
+}
+
+async function updateFollowedChannels() {
+    try {
+        const token = await ChromeData.getTwitchToken();
+        const clientId = await ChromeData.getTwitchClientId();
+        const userId = await ChromeData.getTwitchUserId();
+
+        if (token && clientId && userId) {
+            let hasNext = true;
+            let cursor: string | false = false;
+            let results: TypeBroadcaster[] = [];
+
+            while (hasNext) {
+                try {
+                    await getFollowedChannels(userId, token, clientId, cursor).then(
+                        (res) => {
+                            if (res) {
+                                results = [...results, ...res.channels];
+
+                                if (res.cursor) {
+                                    cursor = res.cursor;
+                                } else {
+                                    hasNext = false;
+                                }
+                            }
+                        },
+                        () => {
+                            throw new TwitchServerErrorException();
+                        }
+                    );
+                } catch (e) {
+                    if (e instanceof TwitchServerErrorException) {
+                        console.log('Aborting updateFollowedLiveStreams() due to server error');
+                        return Promise.reject(Errors.SERVER_ERROR);
+                    }
+                }
+            }
+
+            return browser.storage.local
+                .set({
+                    followedBroadcasters: results,
+                })
+                .then(() => {
+                    Events.sendEvent(EventNames.FOLLOWED_BROADCASTERS_UPDATE, results);
+                    return results;
+                });
+        } else {
+            handleInvalidTwitchToken();
+            return Promise.reject(Errors.INVALID_TOKEN);
+        }
+    } catch (e) {
+        return Promise.reject(e);
+    }
+}
+
 export const TwitchAPI = {
     validateTwitchToken,
     updateUserData,
     updateFollowedLiveStreams,
+    updateFollowedChannels,
 };
