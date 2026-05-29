@@ -17,25 +17,6 @@ declare interface Window {
     APP_READY: boolean;
 }
 
-declare type Ordering = 'ASCENDANT' | 'DESCENDANT';
-
-declare type TwitchData = {
-    token: string;
-    clientId: string;
-    userId: string;
-    expirationDate: number;
-    login: string;
-    scopes: string[];
-    userData: UserData;
-};
-
-declare type UserData = {
-    login: string;
-    username: string;
-    avatarURL: string;
-    creationDate: number;
-};
-
 declare type EventMessage = {
     type: string;
     data: any;

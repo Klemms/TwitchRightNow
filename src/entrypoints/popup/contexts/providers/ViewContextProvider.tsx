@@ -1,5 +1,9 @@
 import {ViewContext, ViewContextType} from '@/entrypoints/popup/contexts/ViewContext.ts';
-import React, {ReactNode, useMemo, useState} from 'react';
+import {TypeOrdering} from '@/types/SchemaOrdering.ts';
+import {ChromeData} from '@/utils/ChromeData.ts';
+import {QueryKeys} from '@/utils/QueryKeys.ts';
+import {useSuspenseQuery} from '@tanstack/react-query';
+import React, {ReactNode, useCallback, useMemo, useState} from 'react';
 
 export function ViewContextProvider({
     children,
@@ -8,21 +12,32 @@ export function ViewContextProvider({
     children: ReactNode;
     outlet: React.RefObject<HTMLDivElement | null>;
 }) {
-    const [ordering, setOrdering] = useState<Ordering>('DESCENDANT');
+    const {data: ordering, refetch: refetchOrdering} = useSuspenseQuery({
+        queryKey: [QueryKeys.ORDERING],
+        queryFn: () => ChromeData.getOrdering(),
+    });
+
     const [namePosition, setNamePosition] = useState<'left' | 'right'>('left');
     const [backButton, setBackButton] = useState(false);
+
+    const changeOrdering = useCallback(
+        (order: TypeOrdering) => {
+            ChromeData.setOrdering(order).then(() => refetchOrdering());
+        },
+        [refetchOrdering]
+    );
 
     const value = useMemo<ViewContextType>(
         () => ({
             ordering: ordering,
-            setOrdering: setOrdering,
+            setOrdering: changeOrdering,
             namePosition: namePosition,
             setNamePosition: setNamePosition,
             backButton: backButton,
             setBackButton: setBackButton,
             mainOutlet: outlet,
         }),
-        [backButton, namePosition, ordering, outlet]
+        [backButton, namePosition, ordering, outlet, changeOrdering]
     );
 
     return <ViewContext value={value}>{children}</ViewContext>;

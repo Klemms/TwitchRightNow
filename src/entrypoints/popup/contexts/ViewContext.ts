@@ -1,8 +1,9 @@
+import {TypeOrdering} from '@/types/SchemaOrdering.ts';
 import React, {createContext} from 'react';
 
 export type ViewContextType = {
-    ordering: Ordering;
-    setOrdering: (ordering: Ordering) => void;
+    ordering: TypeOrdering;
+    setOrdering: (ordering: TypeOrdering) => void;
     namePosition: 'left' | 'right';
     setNamePosition: (position: 'left' | 'right') => void;
     backButton: boolean;

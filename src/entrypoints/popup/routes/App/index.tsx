@@ -8,7 +8,7 @@ import {DisconnectionReason} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
 import {QueryKeys} from '@/utils/QueryKeys.ts';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import {Suspense, useCallback, useContext, useEffect, useRef} from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router';
 import styles from './style.module.scss';
 
@@ -41,36 +41,40 @@ export const App = function App() {
 
     return (
         <div className={styles.app}>
-            <ViewContextProvider outlet={ref}>
-                <TopBar />
-                {isLoggedIn ? (
-                    <>
-                        <div className={styles.outlet} ref={ref}>
-                            <Outlet />
+            <Suspense fallback={null}>
+                <ViewContextProvider outlet={ref}>
+                    <TopBar />
+                    {isLoggedIn ? (
+                        <>
+                            <div className={styles.outlet} ref={ref}>
+                                <Suspense fallback={null}>
+                                    <Outlet />
+                                </Suspense>
+                            </div>
+                            <BottomBar />
+                        </>
+                    ) : (
+                        <div className={styles.disconnected}>
+                            <h3>{browser.i18n.getMessage(disconnectionReason ? 'reconnect_title' : 'login_line1')}</h3>
+                            <br />
+                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line1' : 'login_line2')}
+                            <br />
+                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line2' : 'login_line3')}
+                            <br />
+                            <br />
+                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line3' : 'login_line4')}
+                            <br />
+                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line4' : 'login_line5')}
+                            <br />
+                            {disconnectionReason && (
+                                <h5 style={{fontStyle: 'italic', opacity: '0.8'}}>
+                                    {browser.i18n.getMessage('code')} : {disconnectionReason}
+                                </h5>
+                            )}
                         </div>
-                        <BottomBar />
-                    </>
-                ) : (
-                    <div className={styles.disconnected}>
-                        <h3>{browser.i18n.getMessage(disconnectionReason ? 'reconnect_title' : 'login_line1')}</h3>
-                        <br />
-                        {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line1' : 'login_line2')}
-                        <br />
-                        {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line2' : 'login_line3')}
-                        <br />
-                        <br />
-                        {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line3' : 'login_line4')}
-                        <br />
-                        {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line4' : 'login_line5')}
-                        <br />
-                        {disconnectionReason && (
-                            <h5 style={{fontStyle: 'italic', opacity: '0.8'}}>
-                                {browser.i18n.getMessage('code')} : {disconnectionReason}
-                            </h5>
-                        )}
-                    </div>
-                )}
-            </ViewContextProvider>
+                    )}
+                </ViewContextProvider>
+            </Suspense>
         </div>
     );
 };

@@ -173,6 +173,9 @@
     "search_livestreams": {
         "message": "Rechercher : abonnements, jeux ou Twitch"
     },
+    "search_followed_channels": {
+        "message": "Rechercher une chaîne suivie"
+    },
     "search_followed": {
         "message": "Rechercher un streamer"
     },

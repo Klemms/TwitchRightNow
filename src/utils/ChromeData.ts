@@ -1,46 +1,39 @@
+import {SchemaOrdering, TypeOrdering} from '@/types/SchemaOrdering.ts';
+import {SchemaTwitch, TypeTwitch} from '@/types/SchemaTwitch.ts';
 import {DisconnectionReason} from '@/utils/Errors.ts';
+import * as z from 'zod';
+
+async function getTwitchData() {
+    return browser.storage.sync.get('twitch').then((res) => SchemaTwitch.parseAsync(res['twitch']));
+}
 
 async function getTwitchToken(): Promise<string | null> {
-    const twitchData = await browser.storage.sync.get(['twitch']);
-
-    if (twitchData['twitch']?.token) {
-        return twitchData['twitch'].token;
-    } else {
-        return null;
-    }
+    const twitchData = await getTwitchData();
+    return twitchData.token;
 }
 
 async function getTwitchClientId(): Promise<string | null> {
-    const twitchData = await browser.storage.sync.get(['twitch']);
-
-    if (twitchData['twitch']?.clientId) {
-        return twitchData['twitch'].clientId;
-    } else {
-        return null;
-    }
+    const twitchData = await getTwitchData();
+    return twitchData.clientId;
 }
 
 async function getTwitchUserId(): Promise<string | null> {
-    const twitchData = await browser.storage.sync.get(['twitch']);
-
-    if (twitchData['twitch']?.userId) {
-        return twitchData['twitch'].userId;
-    } else {
-        return null;
-    }
+    const twitchData = await getTwitchData();
+    return twitchData.userId;
 }
 
-async function getDisconnectionReason(): Promise<DisconnectionReason> {
-    const reason = await browser.storage.sync.get(['disconnectionReason']);
+async function getDisconnectionReason(): Promise<string> {
+    const reason = await browser.storage.sync.get('disconnectionReason');
+    const disco = reason['disconnectionReason'];
 
-    if (Object.values(DisconnectionReason).includes(reason['disconnectionReason'])) {
-        return reason['disconnectionReason'];
-    } else {
-        return DisconnectionReason.NOT_CONNECTED;
+    if (typeof disco === 'string' && disco.length > 0) {
+        return disco;
     }
+
+    return DisconnectionReason.NOT_CONNECTED;
 }
 
-const defaultTwitchData = {
+const defaultTwitchData: TypeTwitch = {
     token: null,
     clientId: null,
     userId: null,
@@ -55,8 +48,8 @@ const defaultTwitchData = {
     },
 };
 
-async function setTwitchData(dataToMerge: Partial<TwitchData>): Promise<void> {
-    const twitchData = (await browser.storage.sync.get(['twitch']))['twitch'];
+async function setTwitchData(dataToMerge: Partial<TypeTwitch>): Promise<void> {
+    const twitchData = await getTwitchData();
 
     await browser.storage.sync.remove('disconnectionReason');
 
@@ -70,6 +63,18 @@ async function setTwitchData(dataToMerge: Partial<TwitchData>): Promise<void> {
 }
 
 async function updateBadge(): Promise<void> {
+    const disconnectionReason = (await browser.storage.sync.get('disconnectionReason'))['disconnectionReason'];
+
+    if (typeof disconnectionReason === 'string' && disconnectionReason.length > 0) {
+        void browser.action.setBadgeBackgroundColor({
+            color: [196, 27, 27, 255],
+        });
+        void browser.action.setBadgeText({
+            text: '!',
+        });
+        return;
+    }
+
     browser.storage.local.get('followedLivestreams').then((values) => {
         if (Array.isArray(values['followedLivestreams'])) {
             browser.action.setBadgeBackgroundColor({
@@ -82,8 +87,12 @@ async function updateBadge(): Promise<void> {
     });
 }
 
+const SchemaFavorites = z.array(z.string()).default([]);
 async function getFavorites(): Promise<string[]> {
-    return (await browser.storage.sync.get('favoriteStreamers')).favoriteStreamers || [];
+    return browser.storage.sync
+        .get('favoriteStreamers')
+        .then((val) => SchemaFavorites.parseAsync(val['favoriteStreamers']))
+        .catch(() => []);
 }
 
 async function isFavorite(login: string): Promise<boolean> {
@@ -103,6 +112,19 @@ async function setFavorite(login: string, isFavorite: boolean): Promise<void> {
     });
 }
 
+async function setOrdering(order: TypeOrdering): Promise<void> {
+    await browser.storage.sync.set({
+        ordering: order,
+    });
+}
+
+async function getOrdering(): Promise<TypeOrdering> {
+    return browser.storage.sync
+        .get('ordering')
+        .then((val) => SchemaOrdering.parseAsync(val['ordering']))
+        .catch(() => 'DESCENDANT');
+}
+
 export const ChromeData = {
     setTwitchData,
     getTwitchToken,
@@ -113,4 +135,6 @@ export const ChromeData = {
     setFavorite,
     getFavorites,
     getDisconnectionReason,
+    setOrdering,
+    getOrdering,
 };

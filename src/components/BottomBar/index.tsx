@@ -3,6 +3,7 @@ import orderDESC from '@/assets/images/order-descendant.svg';
 import {BarButton} from '@/components/BarButton';
 import {SearchContext} from '@/entrypoints/popup/contexts/SearchContext.ts';
 import {ViewContext} from '@/entrypoints/popup/contexts/ViewContext.ts';
+import {TypeOrdering} from '@/types/SchemaOrdering.ts';
 import {ChangeEventHandler, useCallback, useContext} from 'react';
 import styles from './style.module.scss';
 
@@ -18,7 +19,7 @@ export const BottomBar = function BottomBar() {
     );
 
     const onOrdering = useCallback<OnClick>(
-        (_event, order: Ordering) => {
+        (_event, order: TypeOrdering) => {
             setOrdering(order);
         },
         [setOrdering]
