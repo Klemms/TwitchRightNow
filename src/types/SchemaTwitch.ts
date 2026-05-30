@@ -7,7 +7,12 @@ export const SchemaTwitch = z.object({
     login: z.string().nullable().default(null),
     scopes: z.array(z.string()).default([]),
     token: z.string().nullable().default(null),
-    userData: SchemaUserData,
+    userData: SchemaUserData.default({
+        avatarURL: null,
+        creationDate: null,
+        login: null,
+        username: null,
+    }),
     userId: z.string().nullable().default(null),
 });
 

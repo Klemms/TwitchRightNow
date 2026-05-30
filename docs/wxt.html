@@ -34,7 +34,7 @@
                         return;
                     }
                 }
-                document.getElementById('mainMessage').innerHTML = 'An issue occurred while communicating with the extension.<br />(' + res.status + ')';
+                document.getElementById('mainMessage').innerHTML = 'An issue occurred while communicating with the extension.<br />(' + JSON.stringify(res) + ')';
 
             });
         }

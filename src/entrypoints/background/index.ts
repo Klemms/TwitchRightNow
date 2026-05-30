@@ -33,18 +33,20 @@ export default defineBackground({
             if (sender.origin === 'https://klemms.github.io') {
                 if (request?.requestType === 'setTtvToken') {
                     if (request.ttvToken && request.ttvToken !== 'none') {
-                        TwitchAPI.validateTwitchToken(request.ttvToken)
+                        return TwitchAPI.validateTwitchToken(request.ttvToken)
                             .then(() => {
                                 return ChromeData.setTwitchData({
                                     token: request.ttvToken,
                                 }).then(() => TwitchAPI.updateUserData());
                             })
                             .then(() => {
+                                console.log('Successfully connected, sending success');
                                 Events.sendEvent(EventNames.CONNECTED);
                                 sendResponse({status: 'success'});
                                 return refresh();
                             })
                             .catch((error) => {
+                                console.log('Error :', error);
                                 if (error === Errors.INVALID_TOKEN) {
                                     console.log('Invalid TTV Token');
                                     sendResponse({status: 'Invalid Twitch Token'});

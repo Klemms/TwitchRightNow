@@ -5,7 +5,7 @@ import type {Browser} from '@wxt-dev/browser';
 import * as z from 'zod';
 
 async function getTwitchData() {
-    return browser.storage.sync.get('twitch').then((res) => SchemaTwitch.parseAsync(res['twitch']));
+    return browser.storage.sync.get('twitch').then((res) => SchemaTwitch.parseAsync(res['twitch'] || {}));
 }
 
 async function getTwitchToken(): Promise<string | null> {
