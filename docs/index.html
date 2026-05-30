@@ -23,9 +23,9 @@
                 if (response.status == "success") {
                   document.getElementById("mainMessage").innerHTML = "Successfully logged in !<br />You can close this tab.";
                 } else if (response.status == "update") {
-                  document.getElementById("mainMessage").innerText = response.message;
+                  document.getElementById("mainMessage").innerHTML = response.message;
                 } else {
-                  document.getElementById("mainMessage").innerText = "An issue occured while communicating with the extension.<br />(" + response.status + ")";
+                  document.getElementById("mainMessage").innerHTML = "An issue occurred while communicating with the extension.<br />(" + response.status + ")";
                 }
               })
     }

@@ -1,0 +1,42 @@
+.app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10rem;
+
+    .disconnected {
+        margin-top: 100rem;
+        width: 100%;
+        text-align: center;
+        color: #878787;
+        font-size: 15rem;
+
+        h3 {
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .outlet {
+        height: calc(100% - 80rem);
+        margin-top: 40rem;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 7rem;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--main-light-color);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb-color);
+            border-radius: 10rem;
+            border: 0 none #ffffff;
+        }
+    }
+}

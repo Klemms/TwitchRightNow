@@ -1,0 +1,46 @@
+.channelDescription {
+    display: flex;
+    background-color: var(--main-light-color);
+    gap: 10rem;
+    padding: 0 15rem 0 0;
+    
+    .externalLink {
+        font-size: 18rem;
+        cursor: pointer;
+    }
+
+    .rightPart {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 5rem;
+        padding: 5rem 0 10rem 0;
+    }
+
+    .avatar {
+        width: 100rem;
+        height: 100rem;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        flex-shrink: 0;
+    }
+
+    .name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10rem;
+        font-size: 24rem;
+        font-weight: bold;
+    }
+
+    .description {
+        font-size: 14rem;
+        hyphens: auto;
+    }
+
+    .creationDate {
+        font-size: 15rem;
+    }
+}

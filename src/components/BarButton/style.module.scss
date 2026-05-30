@@ -1,0 +1,16 @@
+.button {
+    background-color: var(--button-color);
+    width: 40rem;
+    cursor: pointer;
+    padding: 6rem;
+    box-sizing: border-box;
+    display: flex;
+
+    &:hover {
+        background-color: var(--button-color-active);
+    }
+
+    &.active {
+        background-color: var(--button-color-active);
+    }
+}

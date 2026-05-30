@@ -1,3 +1,15 @@
 export const QueryKeys = {
     USER_DATA: 'user-data',
+    FOLLOWED_LIVESTREAMS: 'followed-livestreams',
+    FOLLOWED_CHANNELS: 'followed-channels',
+    CHANNEL_INFORMATIONS: 'channel-informations',
+    TWITCH_VIDEOS: 'twitch-videos',
+    FAVORITE_STREAMER: 'favorite-streamer',
+    DISCONNECTION_REASON: 'disconnection-reason',
+    SEARCH_CHANNELS: 'search-channels',
+    SEARCH_CATEGORIES: 'search-categories',
+    SEARCH_ALL: 'search-all',
+    ORDERING: 'ordering',
+    ALL_STREAMS_NOTIFY: 'all-streams-notify',
+    STREAMS_TO_NOTIFY: 'streams-to-notify',
 };

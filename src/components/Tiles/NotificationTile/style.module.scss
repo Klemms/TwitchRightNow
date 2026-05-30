@@ -1,0 +1,81 @@
+.channel {
+    min-height: 80rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5rem;
+    background-color: var(--main-lighter-color);
+    overflow: hidden;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.35);
+    padding: 5rem;
+    justify-content: space-between;
+
+    .title {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 18rem;
+        font-weight: bold;
+        margin-left: 3rem;
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+
+        .icon {
+            font-size: 15rem;
+            color: gold;
+        }
+    }
+
+    .choices {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 5rem;
+    }
+
+    .followedOn {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13rem;
+        padding: 0 3rem;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        .button {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 4rem 10rem;
+            display: inline-block;
+            gap: 7rem;
+            align-items: center;
+            justify-content: center;
+            font-size: 14rem;
+            cursor: pointer;
+            transition: background-color 0.15s linear;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.15);
+            }
+
+            .icon {
+                font-size: 14rem;
+            }
+        }
+    }
+}
+
+.choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 5rem;
+    padding: 2rem 6rem;
+    background-color: rgba(255, 255, 255, 0.04);
+
+    .name {
+        font-size: 14rem;
+    }
+}
