@@ -1,11 +1,17 @@
 import {Button} from '@/components/Button';
+import {ContextMenu} from '@/components/ContextMenu';
+import {MenuChoice} from '@/components/ContextMenu/MenuChoice.tsx';
+import {ContextMenuContext} from '@/entrypoints/popup/contexts/ContextMenuContext.ts';
 import {UserContext} from '@/entrypoints/popup/contexts/UserContext.ts';
 import {ViewContext} from '@/entrypoints/popup/contexts/ViewContext.ts';
+import {ChromeData} from '@/utils/ChromeData.ts';
+import {DisconnectionReason} from '@/utils/Errors.ts';
 import {faArrowLeft, faBell} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useQueryClient} from '@tanstack/react-query';
 import classNames from 'classnames';
 import {AnimatePresence, motion} from 'motion/react';
-import {useCallback, useContext} from 'react';
+import {useCallback, useContext, useRef} from 'react';
 import {Link, useNavigate} from 'react-router';
 import styles from './style.module.scss';
 
@@ -17,6 +23,10 @@ const AUTH_URL = `https://id.twitch.tv/oauth2/authorize?client_id=${APP_ID}&redi
 export const TopBar = function TopBar() {
     const {isLoggedIn, username, avatarURL} = useContext(UserContext);
     const {namePosition, backButton} = useContext(ViewContext);
+    const {toggleContextMenu, closeContextMenu} = useContext(ContextMenuContext);
+    const usernameRef = useRef<HTMLInputElement>(null);
+
+    const queryClient = useQueryClient();
 
     const onLogin = useCallback(() => {
         browser.tabs.create({url: AUTH_URL});
@@ -37,11 +47,37 @@ export const TopBar = function TopBar() {
             {isLoggedIn ? (
                 <>
                     <motion.div
+                        ref={usernameRef}
                         layout
                         layoutId={'user-name'}
                         className={classNames(styles.user)}
                         style={{
                             flexDirection: namePosition === 'right' ? 'row-reverse' : 'row',
+                        }}
+                        onClick={() => {
+                            if (usernameRef.current) {
+                                toggleContextMenu(
+                                    <ContextMenu origin={usernameRef.current.getBoundingClientRect()}>
+                                        <MenuChoice
+                                            onClick={() => {
+                                                closeContextMenu();
+                                                ChromeData.disconnect(DisconnectionReason.USER_LOGGED_OUT).then(
+                                                    async () => {
+                                                        await queryClient.resetQueries();
+                                                        /*await queryClient.resetQueries({
+                                                            queryKey: [QueryKeys.DISCONNECTION_REASON],
+                                                        });
+                                                        queryClient.clear();*/
+                                                        navigate('/');
+                                                    }
+                                                );
+                                            }}
+                                        >
+                                            Disconnect
+                                        </MenuChoice>
+                                    </ContextMenu>
+                                );
+                            }
                         }}
                     >
                         <motion.div
@@ -76,7 +112,7 @@ export const TopBar = function TopBar() {
                     </motion.div>
                 ) : null}
             </AnimatePresence>
-            {!backButton ? (
+            {!backButton && isLoggedIn ? (
                 <motion.div layout initial={{opacity: 0}} animate={{opacity: 1}} style={{height: '100%'}}>
                     <Link to={'/followed'}>
                         <Button overrideClass={true} className={styles.nav}>

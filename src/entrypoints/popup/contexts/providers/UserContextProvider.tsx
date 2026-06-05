@@ -8,7 +8,7 @@ type UserContextProviderType = {
     children?: ReactNode;
 };
 
-export const UserContextProvider = function UserContextProvider({children}: UserContextProviderType) {
+export function UserContextProvider({children}: UserContextProviderType) {
     const {data: userData, isSuccess} = useQuery({
         queryKey: [QueryKeys.USER_DATA],
         queryFn: () => queryGetUserData(),
@@ -35,4 +35,4 @@ export const UserContextProvider = function UserContextProvider({children}: User
     );
 
     return <UserContext value={value}>{children}</UserContext>;
-};
+}

@@ -1,0 +1,17 @@
+.contextMenu {
+    color: var(--color-white);
+    background-color: var(--main-light-color);
+    border-radius: 5rem;
+    box-shadow: 0 0 10rem 0 rgba(50, 50, 50, 0.5);
+    overflow: hidden;
+    font-size: 16rem
+}
+
+.menuChoice {
+    cursor: pointer;
+    padding: 8rem 20rem;
+
+    &:hover {
+    background-color: var(--main-lightish-color);
+    }
+}

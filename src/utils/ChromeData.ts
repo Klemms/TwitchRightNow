@@ -1,6 +1,8 @@
+import {Events} from '@/entrypoints/background/events.ts';
 import {SchemaOrdering, TypeOrdering} from '@/types/SchemaOrdering.ts';
 import {SchemaTwitch, TypeTwitch} from '@/types/SchemaTwitch.ts';
 import {DisconnectionReason} from '@/utils/Errors.ts';
+import {EventNames} from '@/utils/EventNames.ts';
 import type {Browser} from '@wxt-dev/browser';
 import * as z from 'zod';
 
@@ -245,7 +247,20 @@ async function markAllStreamsAsNotified() {
     await ChromeData.setAlreadyNotified(streams.map((stream) => stream.login));
 }
 
+async function disconnect(reason: DisconnectionReason) {
+    return browser.storage.sync
+        .set({
+            disconnectionReason: reason,
+        })
+        .finally(() => {
+            browser.storage.sync.remove('twitch').then(() => {
+                Events.sendEvent(EventNames.DISCONNECTED);
+            });
+        });
+}
+
 export const ChromeData = {
+    disconnect,
     setTwitchData,
     getTwitchToken,
     getTwitchClientId,

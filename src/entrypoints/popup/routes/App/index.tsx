@@ -12,6 +12,10 @@ import {Suspense, useCallback, useContext, useEffect, useRef} from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router';
 import styles from './style.module.scss';
 
+function showReconnect(reason?: DisconnectionReason | string | false) {
+    return reason === DisconnectionReason.EXPIRED_TOKEN || reason === DisconnectionReason.VERSION_UPGRADE;
+}
+
 export const App = function App() {
     const {data: disconnectionReason} = useQuery({
         queryKey: [QueryKeys.DISCONNECTION_REASON],
@@ -55,16 +59,28 @@ export const App = function App() {
                         </>
                     ) : (
                         <div className={styles.disconnected}>
-                            <h3>{browser.i18n.getMessage(disconnectionReason ? 'reconnect_title' : 'login_line1')}</h3>
+                            <h3>
+                                {browser.i18n.getMessage(
+                                    showReconnect(disconnectionReason) ? 'reconnect_title' : 'login_line1'
+                                )}
+                            </h3>
                             <br />
-                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line1' : 'login_line2')}
+                            {browser.i18n.getMessage(
+                                showReconnect(disconnectionReason) ? 'reconnect_line1' : 'login_line2'
+                            )}
                             <br />
-                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line2' : 'login_line3')}
+                            {browser.i18n.getMessage(
+                                showReconnect(disconnectionReason) ? 'reconnect_line2' : 'login_line3'
+                            )}
                             <br />
                             <br />
-                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line3' : 'login_line4')}
+                            {browser.i18n.getMessage(
+                                showReconnect(disconnectionReason) ? 'reconnect_line3' : 'login_line4'
+                            )}
                             <br />
-                            {browser.i18n.getMessage(disconnectionReason ? 'reconnect_line4' : 'login_line5')}
+                            {browser.i18n.getMessage(
+                                showReconnect(disconnectionReason) ? 'reconnect_line4' : 'login_line5'
+                            )}
                             <br />
                             {disconnectionReason && (
                                 <h5 style={{fontStyle: 'italic', opacity: '0.8'}}>

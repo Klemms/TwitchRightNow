@@ -1,3 +1,4 @@
+import {ContextMenuContextProvider} from '@/entrypoints/popup/contexts/providers/ContextMenuContextProvider.tsx';
 import {SearchContextProvider} from '@/entrypoints/popup/contexts/providers/SearchContextProvider.tsx';
 import {UserContextProvider} from '@/entrypoints/popup/contexts/providers/UserContextProvider.tsx';
 import {queryGetFollowedLivestreams} from '@/entrypoints/popup/queries/queryGetFollowedLivestreams.ts';
@@ -72,19 +73,21 @@ await queryClient.prefetchQuery({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <UserContextProvider>
-                <SearchContextProvider>
-                    <HashRouter>
-                        <Routes>
-                            <Route path={'/'} element={<App />}>
-                                <Route path={'/livestreams'} element={<Livestreams />} />
-                                <Route path={'/followed'} element={<Followed />} />
-                                <Route path={'/videos/:userId'} element={<VideosPlus />} />
-                            </Route>
-                        </Routes>
-                    </HashRouter>
-                </SearchContextProvider>
-            </UserContextProvider>
+            <ContextMenuContextProvider>
+                <UserContextProvider>
+                    <SearchContextProvider>
+                        <HashRouter>
+                            <Routes>
+                                <Route path={'/'} element={<App />}>
+                                    <Route path={'/livestreams'} element={<Livestreams />} />
+                                    <Route path={'/followed'} element={<Followed />} />
+                                    <Route path={'/videos/:userId'} element={<VideosPlus />} />
+                                </Route>
+                            </Routes>
+                        </HashRouter>
+                    </SearchContextProvider>
+                </UserContextProvider>
+            </ContextMenuContextProvider>
             {/*<ReactQueryDevtools initialIsOpen={false} />*/}
         </QueryClientProvider>
     </React.StrictMode>

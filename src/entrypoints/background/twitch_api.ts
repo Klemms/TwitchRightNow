@@ -112,15 +112,7 @@ function handleInvalidTwitchToken() {
     console.info('Twitch token is no longer valid, removing twitch infos, keeping user infos (favorites...)');
     // TODO: Disconnect User
 
-    browser.storage.sync
-        .set({
-            disconnectionReason: DisconnectionReason.EXPIRED_TOKEN,
-        })
-        .finally(() => {
-            browser.storage.sync.remove('twitch').then(() => {
-                Events.sendEvent(EventNames.DISCONNECTED);
-            });
-        });
+    return ChromeData.disconnect(DisconnectionReason.EXPIRED_TOKEN);
 }
 
 async function getFollowedLiveStreams(
