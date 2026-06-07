@@ -38,12 +38,29 @@
             font-size: 14rem;
         }
 
-        .game {
-            font-size: 14rem;
+        .secondLine {
+            display: flex;
+            gap: 10rem;
+            align-items: center;
+            justify-content: space-between;
             color: var(--white-60);
-            margin-top: -5rem;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+
+            .gameName {
+                margin-top: -5rem;
+                font-size: 14rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .timeLive {
+                background-color: rgba(255, 255, 255, 0.05);
+                padding: 2rem 8rem 2rem 6rem;
+                border-radius: 50rem;
+
+                font-size: 13rem;
+                font-style: italic;
+            }
         }
 
         .bottom {

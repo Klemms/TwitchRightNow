@@ -5,6 +5,7 @@ import {useChannelInformations} from '@/entrypoints/popup/hooks/useChannelInform
 import {queryGetFollowedLivestreams} from '@/entrypoints/popup/queries/queryGetFollowedLivestreams.ts';
 import {queryGetTwitchVideos} from '@/entrypoints/popup/queries/queryGetTwitchVideos.ts';
 import {QueryKeys} from '@/utils/QueryKeys.ts';
+import {TimeUtils} from '@/utils/TimeUtils.ts';
 import {faArrowUpRightFromSquare} from '@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useQuery, useSuspenseQuery} from '@tanstack/react-query';
@@ -40,6 +41,22 @@ export function FeaturedVideo({userId}: Props) {
     const linkedStream = useMemo(
         () => livestreams?.find((stream) => stream.id === video?.streamId),
         [livestreams, video?.streamId]
+    );
+
+    const timeLive = useMemo(
+        () =>
+            linkedStream
+                ? TimeUtils.formatToHHmm(
+                      new Date(
+                          new Date().getTime() -
+                              (linkedStream.startDate && linkedStream.startDate > 0
+                                  ? new Date(linkedStream.startDate)
+                                  : new Date()
+                              ).getTime()
+                      )
+                  )
+                : undefined,
+        [linkedStream]
     );
 
     const openVideo = useCallback<OnClick>(
@@ -93,6 +110,9 @@ export function FeaturedVideo({userId}: Props) {
                                     })
                                 )}
                         </div>
+                        {timeLive ? (
+                            <div>{browser.i18n.getMessage('videos_live_since').replaceAll('%time%', timeLive)}</div>
+                        ) : null}
                     </div>
                     <div className={styles.buttons}>
                         <Button overrideClass={true} className={styles.button} onClick={openVideo}>

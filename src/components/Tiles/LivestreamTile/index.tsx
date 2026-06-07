@@ -4,10 +4,11 @@ import {LiveDot} from '@/components/LiveDot';
 import {LivestreamThumbnail} from '@/components/LivestreamThumbnail';
 import {StreamTag} from '@/components/StreamTag';
 import {useFavorite} from '@/entrypoints/popup/hooks/useFavorite.ts';
+import {TimeUtils} from '@/utils/TimeUtils.ts';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons/faArrowRight';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {motion} from 'motion/react';
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {useNavigate} from 'react-router';
 import styles from './style.module.scss';
 
@@ -23,6 +24,17 @@ export const LivestreamTile = function LivestreamTile({
             tag.toLowerCase().includes('drops') ||
             tag.toLowerCase().includes('reward') ||
             tag.toLowerCase().includes('récompense')
+    );
+
+    const timeLive = useMemo(
+        () =>
+            TimeUtils.formatToHHmm(
+                new Date(
+                    new Date().getTime() -
+                        (stream.startDate && stream.startDate > 0 ? new Date(stream.startDate) : new Date()).getTime()
+                )
+            ),
+        [stream]
     );
 
     const {isFavorite} = useFavorite(stream.login);
@@ -63,8 +75,11 @@ export const LivestreamTile = function LivestreamTile({
                 <div className={styles.title} title={stream.title}>
                     {stream.title}
                 </div>
-                <div className={styles.game} title={stream.game}>
-                    {stream.game}
+                <div className={styles.secondLine}>
+                    <span className={styles.gameName} title={stream.game}>
+                        {stream.game}
+                    </span>
+                    <span className={styles.timeLive}>{timeLive}</span>
                 </div>
                 <div className={styles.bottom}>
                     <div className={styles.tags}>

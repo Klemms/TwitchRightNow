@@ -169,6 +169,9 @@
     "videos_duration": {
         "message": "Durée : %duration%"
     },
+    "videos_live_since": {
+        "message": "En live depuis : %time%"
+    },
     "videos_see_all": {
         "message": "Plus"
     },
