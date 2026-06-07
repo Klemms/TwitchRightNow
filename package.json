@@ -2,7 +2,7 @@
     "name": "twitch-right-now",
     "description": "__MSG_app_description__",
     "private": true,
-    "version": "2.0.0",
+    "version": "2.0.1",
     "type": "module",
     "scripts": {
         "dev": "cross-env NODE_ENV=development wxt --mode development",
