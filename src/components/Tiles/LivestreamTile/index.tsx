@@ -29,10 +29,8 @@ export const LivestreamTile = function LivestreamTile({
     const timeLive = useMemo(
         () =>
             TimeUtils.formatToHHmm(
-                new Date(
-                    new Date().getTime() -
-                        (stream.startDate && stream.startDate > 0 ? new Date(stream.startDate) : new Date()).getTime()
-                )
+                new Date().getTime() -
+                    (stream.startDate && stream.startDate > 0 ? new Date(stream.startDate) : new Date()).getTime()
             ),
         [stream]
     );

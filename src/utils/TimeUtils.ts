@@ -6,12 +6,13 @@ export enum Time {
 }
 
 export const TimeUtils = {
-    formatToHHmm: (date: Date) => {
-        const hours = date.getHours() - 1;
-        const minutes = String(date.getMinutes()).padStart(2, '0');
+    formatToHHmm: (time: number) => {
+        const timeS = parseInt(String(time / 1000), 10);
+        const hours = parseInt(String(timeS / 3600), 10);
+        const minutes = parseInt(String((timeS - hours * 3600) / 60), 10);
 
         if (hours > 0) {
-            return `${hours}h${minutes}`;
+            return `${hours}h${String(minutes).padStart(2, '0')}`;
         }
 
         return `${minutes}m`;
