@@ -190,5 +190,18 @@
     },
     "search_no_result": {
         "message": "No result found"
+    },
+
+    "error_title_refresh": {
+        "message": "Error while refreshing streams :"
+    },
+    "error_report_hint": {
+        "message": "If this error keeps happening, please report it using the button below"
+    },
+    "error_button_report": {
+        "message": "Report Issue"
+    },
+    "error_button_dismiss": {
+        "message": "Dismiss"
     }
 }

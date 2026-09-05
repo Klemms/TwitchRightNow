@@ -12,4 +12,5 @@ export const QueryKeys = {
     ORDERING: 'ordering',
     ALL_STREAMS_NOTIFY: 'all-streams-notify',
     STREAMS_TO_NOTIFY: 'streams-to-notify',
+    LAST_ERROR: 'last-error',
 };

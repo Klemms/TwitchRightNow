@@ -4,7 +4,15 @@ import {motion} from 'motion/react';
 export function Loading({style, className}: CustomizableComponent) {
     return (
         <div
-            style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '55rem', ...style}}
+            style={{
+                fontSize: 0,
+                boxSizing: 'border-box',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '55rem',
+                ...style,
+            }}
             className={className}
         >
             <motion.img

@@ -190,5 +190,18 @@
     },
     "search_no_result": {
         "message": "Aucun résultat trouvé"
+    },
+
+    "error_title_refresh": {
+        "message": "Erreur d'actualisation des lives :"
+    },
+    "error_report_hint": {
+        "message": "Si cette erreur continue, signalez là avec le bouton ci-dessous"
+    },
+    "error_button_report": {
+        "message": "Signaler un problème"
+    },
+    "error_button_dismiss": {
+        "message": "Fermer"
     }
 }

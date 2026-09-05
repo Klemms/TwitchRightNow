@@ -1,0 +1,43 @@
+.lastError {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    position: absolute;
+    z-index: 99999;
+    width: 80%;
+    box-sizing: border-box;
+    color: white;
+    padding: 15rem;
+    background-color: #8c0000;
+    border-radius: 10rem;
+    top: 150rem;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 75rem 50rem black;
+}
+
+.title {
+    font-size: 22rem;
+    font-weight: bold;
+}
+
+.error {
+    margin: 0 10rem;
+    padding: 5rem 10rem;
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4rem;
+    user-select: text;
+}
+
+.hint {
+    font-size: 14rem;
+    margin: 0 10rem;
+}
+
+.buttons {
+    display: flex;
+    gap: 10rem;
+    justify-content: center;
+    margin-top: 10rem;
+}

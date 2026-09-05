@@ -1,4 +1,5 @@
 import {BottomBar} from '@/components/BottomBar';
+import {ErrorComponent} from '@/components/Error';
 import {TopBar} from '@/components/TopBar';
 import {ViewContextProvider} from '@/entrypoints/popup/contexts/providers/ViewContextProvider.tsx';
 import {UserContext} from '@/entrypoints/popup/contexts/UserContext.ts';
@@ -25,11 +26,21 @@ export const App = function App() {
         },
     });
 
+    const {data: lastError, isSuccess: errorSuccess} = useQuery({
+        queryKey: [QueryKeys.LAST_ERROR],
+        queryFn: () => ChromeData.getError(),
+    });
+
     const queryClient = useQueryClient();
     const onLivestreams = useCallback(() => {
         queryClient.invalidateQueries({queryKey: [QueryKeys.FOLLOWED_LIVESTREAMS]});
     }, [queryClient]);
     useEvent(EventNames.LIVESTREAMS_UPDATE, onLivestreams);
+
+    const onError = useCallback(() => {
+        queryClient.resetQueries({queryKey: [QueryKeys.LAST_ERROR]});
+    }, [queryClient]);
+    useEvent(EventNames.ERROR_UPDATE, onError);
 
     const {isLoggedIn} = useContext(UserContext);
     const navigate = useNavigate();
@@ -45,6 +56,7 @@ export const App = function App() {
 
     return (
         <div className={styles.app}>
+            {errorSuccess && lastError ? <ErrorComponent lastError={lastError} /> : null}
             <Suspense fallback={null}>
                 <ViewContextProvider outlet={ref}>
                     <TopBar />

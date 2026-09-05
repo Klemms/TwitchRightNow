@@ -25,7 +25,10 @@ export default defineBackground({
 
         browser.alarms.onAlarm.addListener((alarm) => {
             if (alarm.name === 'streams-refresh') {
-                refresh();
+                refresh().catch((err) => {
+                    console.log('An error occurred while refreshing', err);
+                    ChromeData.setError(err);
+                });
             }
         });
 
@@ -92,14 +95,20 @@ export default defineBackground({
         }
 
         function refresh(skipNotify = false) {
-            browser.storage.sync.get('twitch').then((res) => {
+            return browser.storage.sync.get('twitch').then((res) => {
                 if (res.twitch) {
-                    refreshToken()
+                    return refreshToken()
                         .then(() => TwitchAPI.updateFollowedLiveStreams())
-                        .catch((e) => console.info('Twitch API responded with error :', e))
+                        .catch((e) => {
+                            console.error('Twitch API responded with error :', e);
+                            throw new Error('Twitch API responded with error :');
+                        })
                         .then((val) => (val && !skipNotify ? notifyStreams(val) : null))
                         .then(() => (skipNotify ? ChromeData.markAllStreamsAsNotified() : null))
-                        .catch((e) => console.info('An error occurred while making notifications', e));
+                        .catch((e) => {
+                            console.error('An error occurred while making notifications', e);
+                            throw new Error('An error occurred while making notifications');
+                        });
                 }
             });
         }

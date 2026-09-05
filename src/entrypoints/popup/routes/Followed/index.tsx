@@ -91,17 +91,19 @@ export function Followed() {
             >
                 {browser.i18n.getMessage('tab_notifications_enable_all')}
             </Choice>
-            <div className={styles.channels}>
-                <Suspense
-                    fallback={
-                        <Loading
-                            style={{position: 'absolute', left: '50%', top: '115px', transform: 'translateX(-50%)'}}
-                        />
-                    }
-                >
+            <Suspense
+                fallback={
+                    <Loading
+                        style={{
+                            marginTop: '115px',
+                        }}
+                    />
+                }
+            >
+                <div className={styles.channels}>
                     <Content search={searchValue} />
-                </Suspense>
-            </div>
+                </div>
+            </Suspense>
         </div>
     );
 }

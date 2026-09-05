@@ -261,6 +261,21 @@ async function disconnect(reason: DisconnectionReason) {
         });
 }
 
+async function setError(error: string | false) {
+    return browser.storage.local
+        .set({
+            lastError: error,
+        })
+        .then(() => {
+            Events.sendEvent(EventNames.ERROR_UPDATE);
+        });
+}
+
+async function getError() {
+    const err = await browser.storage.local.get('lastError');
+    return typeof err['lastError'] === 'string' ? err['lastError'] : false;
+}
+
 export const ChromeData = {
     disconnect,
     setTwitchData,
@@ -284,4 +299,6 @@ export const ChromeData = {
     emitStreamNotification,
     getFollowedLivestreams,
     markAllStreamsAsNotified,
+    setError,
+    getError,
 };
