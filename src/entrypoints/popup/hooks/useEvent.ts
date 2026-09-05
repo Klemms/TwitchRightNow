@@ -1,4 +1,4 @@
-import {Browser} from '@wxt-dev/browser';
+import type {Browser} from '@wxt-dev/browser';
 import {useEffect} from 'react';
 
 export function useEvent(eventName: string, callback: (message: any, sender: Browser.runtime.MessageSender) => void) {

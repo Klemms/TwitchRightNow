@@ -2,7 +2,7 @@ import {Button} from '@/components/Button';
 import {Choice} from '@/components/Tiles/NotificationTile/Choice.tsx';
 import {useFavorite} from '@/entrypoints/popup/hooks/useFavorite.ts';
 import {useNotification} from '@/entrypoints/popup/hooks/useNotification.ts';
-import {TypeBroadcaster} from '@/types/SchemaBroadcaster.ts';
+import type {TypeBroadcaster} from '@/types/SchemaBroadcaster.ts';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons/faArrowRight';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';

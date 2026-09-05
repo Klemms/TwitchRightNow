@@ -1,9 +1,9 @@
-import {ViewContext, ViewContextType} from '@/entrypoints/popup/contexts/ViewContext.ts';
-import {TypeOrdering} from '@/types/SchemaOrdering.ts';
+import {ViewContext, type ViewContextType} from '@/entrypoints/popup/contexts/ViewContext.ts';
+import type {TypeOrdering} from '@/types/SchemaOrdering.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
 import {QueryKeys} from '@/utils/QueryKeys.ts';
 import {useSuspenseQuery} from '@tanstack/react-query';
-import React, {ReactNode, useCallback, useMemo, useState} from 'react';
+import React, {type ReactNode, useCallback, useMemo, useState} from 'react';
 
 export function ViewContextProvider({
     children,

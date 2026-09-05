@@ -1,5 +1,5 @@
 import {Checkbox} from '@/components/Checkbox';
-import {ChangeEventHandler, CSSProperties, ReactNode, useCallback} from 'react';
+import {type ChangeEventHandler, type CSSProperties, type ReactNode, useCallback} from 'react';
 import styles from './style.module.scss';
 
 interface ChoiceProps {

@@ -1,5 +1,5 @@
 import {ChromeData} from '@/utils/ChromeData.ts';
-import {GetChannelInformation, GetUserChatColor, GetUsers} from '@/utils/TwitchResponses.ts';
+import type {GetChannelInformation, GetUserChatColor, GetUsers} from '@/utils/TwitchResponses.ts';
 
 export async function queryGetTwitchChannelInformation(userId: string): Promise<ChannelInformations> {
     const clientId = await ChromeData.getTwitchClientId();
@@ -41,6 +41,11 @@ export async function queryGetTwitchChannelInformation(userId: string): Promise<
     const json1: {data: GetUsers[]} = await resp1.json();
     const json2: {data: GetUserChatColor[]} = await resp2.json();
 
+    if (!json0.data[0] || !json1.data[0]) {
+        console.error(`Error : Json0 Data / Json1 Data`, json0.data, json1.data);
+        return Promise.reject(`Error : Json0 or Json1 data is undefined`);
+    }
+
     return {
         userId: json0.data[0].broadcaster_id,
         login: json0.data[0].broadcaster_login,
@@ -57,6 +62,6 @@ export async function queryGetTwitchChannelInformation(userId: string): Promise<
         title: json0.data[0].title,
         delay: json0.data[0].delay,
         tags: json0.data[0].tags,
-        chatColor: json2.data[0].color,
+        chatColor: json2.data[0] ? json2.data[0].color : '#ffffff',
     };
 }

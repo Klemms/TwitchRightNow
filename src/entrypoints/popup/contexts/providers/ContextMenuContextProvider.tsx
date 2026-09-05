@@ -1,6 +1,6 @@
-import {ContextMenuContext, ContextMenuContextType} from '@/entrypoints/popup/contexts/ContextMenuContext.ts';
+import {ContextMenuContext, type ContextMenuContextType} from '@/entrypoints/popup/contexts/ContextMenuContext.ts';
 import {AnimatePresence} from 'motion/react';
-import {ReactNode, useCallback, useMemo, useState} from 'react';
+import {type ReactNode, useCallback, useMemo, useState} from 'react';
 
 export function ContextMenuContextProvider({children}: {children: ReactNode}) {
     const [contextMenu, setContextMenu] = useState<ReactNode | undefined>();

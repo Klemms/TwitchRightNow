@@ -1,5 +1,5 @@
 import {ChromeData} from '@/utils/ChromeData.ts';
-import {GetVideos} from '@/utils/TwitchResponses.ts';
+import type {GetVideos} from '@/utils/TwitchResponses.ts';
 
 export async function queryGetTwitchVideos(userId: string): Promise<TwitchVideo[]> {
     const clientId = await ChromeData.getTwitchClientId();

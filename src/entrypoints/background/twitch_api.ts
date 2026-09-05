@@ -1,11 +1,11 @@
 import {Events} from '@/entrypoints/background/events.ts';
-import {TypeBroadcaster} from '@/types/SchemaBroadcaster.ts';
+import type {TypeBroadcaster} from '@/types/SchemaBroadcaster.ts';
 import {SchemaFollowedChannels} from '@/types/SchemaFollowedChannels.ts';
 import {ChromeData} from '@/utils/ChromeData.ts';
 import {DisconnectionReason, Errors} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
 import {TwitchServerErrorException} from '@/utils/exceptions/TwitchServerErrorException.ts';
-import {GetFollowedStreams, GetFollowedStreamsData} from '@/utils/TwitchResponses.ts';
+import type {GetFollowedStreams, GetFollowedStreamsData} from '@/utils/TwitchResponses.ts';
 import {formatError, ZodError} from 'zod';
 
 /**

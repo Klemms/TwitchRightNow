@@ -1,4 +1,4 @@
-import {TypeOrdering} from '@/types/SchemaOrdering.ts';
+import type {TypeOrdering} from '@/types/SchemaOrdering.ts';
 import React, {createContext} from 'react';
 
 export type ViewContextType = {

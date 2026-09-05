@@ -1,4 +1,4 @@
-import {Button, ButtonProps} from '@/components/Button';
+import {Button, type ButtonProps} from '@/components/Button';
 import classNames from 'classnames';
 import styles from './style.module.scss';
 

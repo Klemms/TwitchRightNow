@@ -4,7 +4,7 @@ import {LiveDot} from '@/components/LiveDot';
 import {LivestreamThumbnail} from '@/components/LivestreamThumbnail';
 import {StreamTag} from '@/components/StreamTag';
 import {useFavorite} from '@/entrypoints/popup/hooks/useFavorite.ts';
-import {TypeChannel} from '@/types/SchemaChannel.ts';
+import type {TypeChannel} from '@/types/SchemaChannel.ts';
 import {faArrowRight} from '@fortawesome/free-solid-svg-icons/faArrowRight';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {motion} from 'motion/react';

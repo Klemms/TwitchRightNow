@@ -2,7 +2,7 @@ import {UserContext} from '@/entrypoints/popup/contexts/UserContext.ts';
 import {useEvent} from '@/entrypoints/popup/hooks/useEvent.ts';
 import {queryGetUserData} from '@/entrypoints/popup/queries/queryGetUserData.ts';
 import {useQuery, useQueryClient} from '@tanstack/react-query';
-import {ReactNode, useCallback, useMemo} from 'react';
+import {type ReactNode, useCallback, useMemo} from 'react';
 
 type UserContextProviderType = {
     children?: ReactNode;
@@ -15,6 +15,19 @@ export function UserContextProvider({children}: UserContextProviderType) {
         staleTime: 600_000,
     });
 
+    const isLoggedIn = useMemo(
+        () =>
+            !!(
+                isSuccess &&
+                userData &&
+                userData.username &&
+                userData.login &&
+                userData.creationDate &&
+                userData.avatarURL
+            ),
+        [isSuccess, userData]
+    );
+
     const queryClient = useQueryClient();
 
     const onEvent = useCallback(() => {
@@ -25,13 +38,13 @@ export function UserContextProvider({children}: UserContextProviderType) {
 
     const value = useMemo(
         () => ({
-            isLoggedIn: isSuccess,
-            login: userData?.login,
-            username: userData?.username,
-            avatarURL: userData?.avatarURL,
-            creationDate: userData?.creationDate,
+            isLoggedIn: isLoggedIn,
+            login: userData?.login || '',
+            username: userData?.username || '',
+            avatarURL: userData?.avatarURL || '',
+            creationDate: userData?.creationDate || 0,
         }),
-        [isSuccess, userData]
+        [isLoggedIn, userData]
     );
 
     return <UserContext value={value}>{children}</UserContext>;

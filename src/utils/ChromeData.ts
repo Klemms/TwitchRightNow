@@ -1,6 +1,6 @@
 import {Events} from '@/entrypoints/background/events.ts';
-import {SchemaOrdering, TypeOrdering} from '@/types/SchemaOrdering.ts';
-import {SchemaTwitch, TypeTwitch} from '@/types/SchemaTwitch.ts';
+import {SchemaOrdering, type TypeOrdering} from '@/types/SchemaOrdering.ts';
+import {SchemaTwitch, type TypeTwitch} from '@/types/SchemaTwitch.ts';
 import {DisconnectionReason} from '@/utils/Errors.ts';
 import {EventNames} from '@/utils/EventNames.ts';
 import type {Browser} from '@wxt-dev/browser';
@@ -23,6 +23,11 @@ async function getTwitchClientId(): Promise<string | null> {
 async function getTwitchUserId(): Promise<string | null> {
     const twitchData = await getTwitchData();
     return twitchData.userId;
+}
+
+async function getUserData() {
+    const twitchData = await getTwitchData();
+    return twitchData.userData;
 }
 
 async function getDisconnectionReason(): Promise<string> {
@@ -195,32 +200,29 @@ async function emitStreamNotification(streamNotifs: Livestream[]) {
     let streamersFormatted = streamNotifs.map((stream) => stream.name || stream.login).join(', ');
 
     let title = browser.i18n.getMessage('notification_stream_multiple_title');
-    switch (streamNotifs.length) {
-        case 1:
-            title = browser.i18n
-                .getMessage('notification_stream_one_title')
-                .replaceAll('%streamer%', streamNotifs[0].name || streamNotifs[0].login)
-                .replaceAll('%game_game%', streamNotifs[0].game);
-            streamersFormatted = streamNotifs[0].title || streamNotifs[0].game || '';
-            break;
-        case 2:
-            streamersFormatted = browser.i18n.getMessage('notification_stream_two_message');
-            title = browser.i18n
-                .getMessage('notification_stream_two_title')
-                .replaceAll('%streamer_1%', streamNotifs[0].name || streamNotifs[0].login)
-                .replaceAll('%streamer_2%', streamNotifs[1].name || streamNotifs[1].login);
-            break;
+    if (streamNotifs.length === 1 && streamNotifs[0]) {
+        title = browser.i18n
+            .getMessage('notification_stream_one_title')
+            .replaceAll('%streamer%', streamNotifs[0].name || streamNotifs[0].login)
+            .replaceAll('%game_game%', streamNotifs[0].game);
+        streamersFormatted = streamNotifs[0].title || streamNotifs[0].game || '';
+    } else if (streamNotifs.length === 2 && streamNotifs[0] && streamNotifs[1]) {
+        streamersFormatted = browser.i18n.getMessage('notification_stream_two_message');
+        title = browser.i18n
+            .getMessage('notification_stream_two_title')
+            .replaceAll('%streamer_1%', streamNotifs[0].name || streamNotifs[0].login)
+            .replaceAll('%streamer_2%', streamNotifs[1].name || streamNotifs[1].login);
     }
 
     const goToButtons: Browser.notifications.NotificationButton[] = [];
-    if (streamNotifs.length >= 1 && streamNotifs.length <= 2) {
+    if (streamNotifs.length >= 1 && streamNotifs.length <= 2 && streamNotifs[0]) {
         goToButtons.push({
             title: browser.i18n
                 .getMessage('notification_stream_cta_channel')
                 .replaceAll('%streamer%', streamNotifs[0].name || streamNotifs[0].login),
         });
     }
-    if (streamNotifs.length === 2) {
+    if (streamNotifs.length === 2 && streamNotifs[1]) {
         goToButtons.push({
             title: browser.i18n
                 .getMessage('notification_stream_cta_channel')
@@ -235,7 +237,7 @@ async function emitStreamNotification(streamNotifs: Livestream[]) {
         type: 'basic',
         contextMessage: 'Twitch Right Now',
         iconUrl:
-            streamNotifs.length === 1
+            streamNotifs.length === 1 && streamNotifs[0]
                 ? streamNotifs[0].thumbnail.replace('{width}', '160').replace('{height}', '90')
                 : 'images/icon.png',
     });
@@ -263,6 +265,7 @@ export const ChromeData = {
     disconnect,
     setTwitchData,
     getTwitchToken,
+    getUserData,
     getTwitchClientId,
     getTwitchUserId,
     updateBadge,

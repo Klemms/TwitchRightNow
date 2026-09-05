@@ -1,6 +1,6 @@
 import {createContext} from 'react';
 
-type UserContextType = {
+export type UserContextType = {
     isLoggedIn: boolean;
     login: string | undefined;
     username: string | undefined;

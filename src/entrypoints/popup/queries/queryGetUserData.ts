@@ -1,12 +1,14 @@
-export async function queryGetUserData(): Promise<UserData> {
-    const {twitch} = await browser.storage.sync.get('twitch');
+import {ChromeData} from '@/utils/ChromeData.ts';
 
-    if (twitch && twitch.userData) {
+export async function queryGetUserData() {
+    const userData = await ChromeData.getUserData();
+
+    if (userData) {
         return {
-            login: twitch.userData.login,
-            username: twitch.userData.username,
-            avatarURL: twitch.userData.avatarURL,
-            creationDate: twitch.userData.creationDate,
+            login: userData.login,
+            username: userData.username,
+            avatarURL: userData.avatarURL,
+            creationDate: userData.creationDate,
         };
     }
 
