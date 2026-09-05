@@ -203,5 +203,12 @@
     },
     "error_button_dismiss": {
         "message": "Fermer"
+    },
+
+    "button_refresh_time_ago": {
+        "message": "Dernière actualisation : "
+    },
+    "button_refresh_failed": {
+        "message": "Erreur lors de l'actualisation"
     }
 }

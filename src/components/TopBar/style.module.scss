@@ -83,3 +83,24 @@
         }
     }
 }
+
+.buttons {
+    display: flex;
+    height: 100%;
+}
+
+.refreshHoverTip {
+    white-space: nowrap;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+    background-color: var(--main-lightish-color);
+    border: 1rem solid var(--main-light-color);
+    border-radius: 500rem;
+    padding: 5rem 10rem;
+    font-size: 14rem;
+    color: var(--faded-white);
+}

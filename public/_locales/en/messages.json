@@ -203,5 +203,12 @@
     },
     "error_button_dismiss": {
         "message": "Dismiss"
+    },
+
+    "button_refresh_time_ago": {
+        "message": "Last refresh : "
+    },
+    "button_refresh_failed": {
+        "message": "Last refresh failed"
     }
 }

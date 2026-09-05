@@ -70,6 +70,22 @@ async function setTwitchData(dataToMerge: Partial<TypeTwitch>): Promise<void> {
     });
 }
 
+async function setLastRefresh(date: Date): Promise<void> {
+    return browser.storage.local.set({
+        lastRefresh: date.getTime(),
+    });
+}
+
+async function getLastRefresh(): Promise<Date | false> {
+    const lastRefresh = (await browser.storage.local.get('lastRefresh'))['lastRefresh'];
+
+    if (typeof lastRefresh === 'number') {
+        return new Date(lastRefresh);
+    }
+
+    return false;
+}
+
 async function updateBadge(): Promise<void> {
     const disconnectionReason = (await browser.storage.sync.get('disconnectionReason'))['disconnectionReason'];
 
@@ -301,4 +317,6 @@ export const ChromeData = {
     markAllStreamsAsNotified,
     setError,
     getError,
+    setLastRefresh,
+    getLastRefresh,
 };

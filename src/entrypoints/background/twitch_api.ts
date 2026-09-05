@@ -206,15 +206,17 @@ async function updateFollowedLiveStreams() {
                 }
             }
 
+            await ChromeData.setLastRefresh(new Date());
+
             return browser.storage.local
                 .set({
                     followedLivestreams: results,
                 })
                 .then(() => {
-                    Events.sendEvent(EventNames.LIVESTREAMS_UPDATE, results);
                     return results;
                 })
                 .finally(() => {
+                    Events.sendEvent(EventNames.LIVESTREAMS_UPDATE, results);
                     ChromeData.updateBadge();
                 });
         } else {

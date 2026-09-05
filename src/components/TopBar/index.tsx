@@ -1,6 +1,7 @@
 import {Button} from '@/components/Button';
 import {ContextMenu} from '@/components/ContextMenu';
 import {MenuChoice} from '@/components/ContextMenu/MenuChoice.tsx';
+import {RefreshButton} from '@/components/TopBar/RefreshButton.tsx';
 import {ContextMenuContext} from '@/entrypoints/popup/contexts/ContextMenuContext.ts';
 import {UserContext} from '@/entrypoints/popup/contexts/UserContext.ts';
 import {ViewContext} from '@/entrypoints/popup/contexts/ViewContext.ts';
@@ -112,15 +113,20 @@ export const TopBar = function TopBar() {
                     </motion.div>
                 ) : null}
             </AnimatePresence>
-            {!backButton && isLoggedIn ? (
-                <motion.div layout initial={{opacity: 0}} animate={{opacity: 1}} style={{height: '100%'}}>
-                    <Link to={'/followed'}>
-                        <Button overrideClass={true} className={styles.nav}>
-                            <FontAwesomeIcon icon={faBell} />
-                        </Button>
-                    </Link>
-                </motion.div>
-            ) : null}
+            <AnimatePresence>
+                {!backButton && isLoggedIn ? (
+                    <div className={styles.buttons}>
+                        <RefreshButton />
+                        <motion.div layout initial={{opacity: 0}} animate={{opacity: 1}} style={{height: '100%'}}>
+                            <Link to={'/followed'}>
+                                <Button overrideClass={true} className={styles.nav}>
+                                    <FontAwesomeIcon icon={faBell} />
+                                </Button>
+                            </Link>
+                        </motion.div>
+                    </div>
+                ) : null}
+            </AnimatePresence>
         </div>
     );
 };
